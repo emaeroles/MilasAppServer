@@ -1,6 +1,6 @@
 ﻿namespace BL_Business.Entities
 {
-    public class ProductKiosco
+    public class ProductKioscoEntity
     {
         public int ProductId { get; set; }
         public int KioscoId { get; set; }

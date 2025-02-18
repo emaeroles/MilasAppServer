@@ -1,9 +1,9 @@
 ﻿namespace BL_Business.Entities
 {
-    public class VisitDetail
+    public class VisitDetailEntity
     {
         public int Id { get; set; }
-        public Product Product { get; set; } = new Product();
+        public ProductEntity Product { get; set; } = new ProductEntity();
         public int Has { get; set; }
         public int Leave { get; set; }
         public int Changes { get; set; }

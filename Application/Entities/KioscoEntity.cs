@@ -2,7 +2,7 @@
 
 namespace BL_Business.Entities
 {
-    public class Kiosco
+    public class KioscoEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

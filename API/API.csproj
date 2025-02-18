@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -14,7 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Controllers\Kiosco\" />
+    <Folder Include="Controllers\Product\" />
+    <Folder Include="Controllers\Supply\" />
+    <Folder Include="Controllers\User\" />
+    <Folder Include="Controllers\Visit\" />
     <Folder Include="Middleware\" />
     <Folder Include="Response\" />
   </ItemGroup>
