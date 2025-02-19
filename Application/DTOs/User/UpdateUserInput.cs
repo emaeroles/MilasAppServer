@@ -1,6 +1,6 @@
-﻿namespace Application.Entities
+﻿namespace Application.DTOs.User
 {
-    public class UserEntity
+    public class UpdateUserInput
     {
         public int Id { get; set; }
         public string Username { get; set; } = string.Empty;
