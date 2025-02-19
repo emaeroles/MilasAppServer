@@ -7,10 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\Kiosco\" />
     <Folder Include="DTOs\Supply\" />
     <Folder Include="DTOs\Visit\" />
-    <Folder Include="DTOs\Product\" />
     <Folder Include="Configs\" />
     <Folder Include="Interfaces\Supply\" />
     <Folder Include="UseCases\Kiosco\" />
