@@ -7,15 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\Supply\" />
-    <Folder Include="DTOs\Visit\" />
-    <Folder Include="Configs\" />
     <Folder Include="Interfaces\Supply\" />
     <Folder Include="UseCases\Kiosco\" />
     <Folder Include="UseCases\Product\" />
     <Folder Include="UseCases\Supply\" />
-    <Folder Include="UseCases\User\" />
     <Folder Include="UseCases\Visit\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
   </ItemGroup>
 
 </Project>

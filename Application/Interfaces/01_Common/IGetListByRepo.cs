@@ -2,6 +2,6 @@
 {
     public interface IGetListByRepo<T>
     {
-        public IEnumerable<T> GetListByAsync(int entityId);
+        public Task<IEnumerable<T>> GetListByAsync(int entityId);
     }
 }

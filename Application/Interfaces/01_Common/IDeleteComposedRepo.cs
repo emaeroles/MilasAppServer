@@ -4,6 +4,6 @@ namespace Application.Interfaces._01_Common
 {
     public interface IDeleteComposedRepo
     {
-        public ResultState DeleteComposedAsync(int entityId, int byEntityId);
+        public Task<ResultState> DeleteComposedAsync(int entityId, int byEntityId);
     }
 }

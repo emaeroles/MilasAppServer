@@ -2,6 +2,6 @@
 {
     public interface IGetAllByActiveRepo<T>
     {
-        public IEnumerable<T> GetAllByActiveAsync(bool isActive);
+        public Task<IEnumerable<T>> GetAllByActiveAsync(bool isActive);
     }
 }

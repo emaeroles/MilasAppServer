@@ -1,9 +1,10 @@
-﻿using Application.Enums;
+﻿using Application.Entities;
+using Application.Enums;
 
 namespace Application.Interfaces.User
 {
-    public interface ICheckUserExistRepo<T>
+    public interface ICheckUserExistRepo
     {
-        public ResultState CheckUserExistAsync(T entity);
+        public Task<bool> CheckUserExistAsync(string username);
     }
 }

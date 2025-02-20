@@ -4,6 +4,6 @@ namespace Application.Interfaces.Visit
 {
     public interface IGetLastByRepo
     {
-        public VisitEntity GetLastByAsync(int userId);
+        public Task<VisitEntity> GetLastByAsync(int userId);
     }
 }
