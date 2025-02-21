@@ -1,5 +1,6 @@
 ﻿using API.Response;
 using FluentValidation;
+using Serilog;
 using System.Net;
 using System.Text.Json;
 
@@ -8,9 +9,11 @@ namespace API.Middleware
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        public ExceptionMiddleware(RequestDelegate next)
+        private readonly IConfiguration _configuration;
+        public ExceptionMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
+            _configuration = configuration;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -46,6 +49,9 @@ namespace API.Middleware
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
+            Log.Error(ex, "Something went wrong...");
+            Log.CloseAndFlush();
+
             var response = context.Response;
             response.ContentType = "application/json";
             response.StatusCode = (int)HttpStatusCode.InternalServerError;

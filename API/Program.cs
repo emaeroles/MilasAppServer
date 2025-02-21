@@ -3,6 +3,7 @@ using API.Middleware;
 using Application;
 using Data;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +21,25 @@ builder.Services
     .AddData();
 
 // Disable automatic ASP.NET validation
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.SuppressModelStateInvalidFilter = true;
-});
+//builder.Services.Configure<ApiBehaviorOptions>(options =>
+//{
+//    options.SuppressModelStateInvalidFilter = true;
+//});
 
+// Serilog
+var configuration = builder.Configuration;
+string filePath = configuration["FilePaths:LogsFilePath"] ?? "";
+
+Log.Logger = new LoggerConfiguration()
+                .WriteTo.File(filePath + @"\logs.txt",
+                    outputTemplate: "{Timestamp:dd-MM-yyyy HH:mm:ss} [{Level:u3}]" +
+                        " {Message:lj}{NewLine}{Exception}")
+                .MinimumLevel.Error()
+                .CreateLogger();
+
+builder.Host.UseSerilog();
+
+// Build
 var app = builder.Build();
 
 // ==============================================================================

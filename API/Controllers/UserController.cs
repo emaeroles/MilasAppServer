@@ -3,6 +3,8 @@ using Application.DTOs.User;
 using Application.UseCases.User;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API.Controllers
 {

@@ -17,6 +17,5 @@ namespace API.Validators.Auth
                 .WithMessage("'{PropertyName}' debe tener al menos una letra minúscula, " +
                     "al menos una letra mayúscula y al menos un número.");
         }
-        
     }
 }
