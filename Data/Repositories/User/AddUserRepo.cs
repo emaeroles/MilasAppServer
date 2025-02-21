@@ -1,9 +1,7 @@
 ﻿using Application.Entities;
-using Application.Enums;
 using Application.Interfaces._01_Common;
 using Data.Context;
 using Data.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.User
 {

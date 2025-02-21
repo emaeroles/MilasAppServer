@@ -1,6 +1,4 @@
-﻿using Application.Entities;
-using Application.Enums;
-using Application.Interfaces.User;
+﻿using Application.Interfaces.User;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +12,7 @@ namespace Data.Repositories.User
         {
             _dbcontext = dbContext;
         }
+
         public async Task<bool> CheckUserExistAsync(string username)
         {
             var userModel = await _dbcontext.Users

@@ -1,11 +1,11 @@
 ﻿using Application.DTOs._01_Common;
 using Application.DTOs.User;
 using Application.Entities;
-using Application.Enums;
 using Application.Factories;
 using Application.Interfaces._01_Common;
 using Application.Interfaces.User;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.UseCases.User
 {
@@ -31,7 +31,12 @@ namespace Application.UseCases.User
             var isUserExist = await _checkUserExistRepo.CheckUserExistAsync(addUserInput.Username);
             if (isUserExist)
                 return ResultFactory.CreateConflict("Username already exists");
+
             var userEntity = _mapper.Map<UserEntity>(addUserInput);
+
+            var passwordHasher = new PasswordHasher<UserEntity>();
+            userEntity.Password = passwordHasher.HashPassword(userEntity, addUserInput.Password);
+
             int id = await _addRepo.AddAsync(userEntity);
             return ResultFactory.CreateCreated("User was created", id);
         }

@@ -1,6 +1,8 @@
 ﻿namespace Application.UseCases.User
 {
     public record class UserUseCases(
+        GetAllUsersUseCase GetAllUsersUseCase,
         AddUserUseCase AddUserUseCase,
-        GetAllUsersUseCase GetAllUsersUseCase);
+        UpdateUserUseCase UpdateUserUseCase,
+        ToggleActiveUserUseCase ToggleActiveUserUseCase);
 }

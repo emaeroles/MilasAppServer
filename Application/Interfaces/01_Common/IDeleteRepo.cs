@@ -4,6 +4,6 @@ namespace Application.Interfaces._01_Common
 {
     public interface IDeleteRepo
     {
-        public Task<ResultState> DeleteAsync(int entityId);
+        public Task<bool> DeleteAsync(int entityId);
     }
 }

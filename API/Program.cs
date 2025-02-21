@@ -1,6 +1,8 @@
+using API;
 using API.Middleware;
 using Application;
 using Data;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +14,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Inyections
-builder.Services.AddData()
-    .AddApplication();
+builder.Services
+    .AddApi()
+    .AddApplication()
+    .AddData();
+
+// Disable automatic ASP.NET validation
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 
 var app = builder.Build();
+
+// ==============================================================================
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -27,7 +39,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Middleeare
-//app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 

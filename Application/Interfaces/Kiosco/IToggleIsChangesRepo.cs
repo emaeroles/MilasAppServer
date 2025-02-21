@@ -4,6 +4,6 @@ namespace Application.Interfaces.Kiosco
 {
     public interface IToggleIsChangesRepo
     {
-        public Task<ResultState> ToggleIsChangesAsync(int entityId);
+        public Task<bool> ToggleIsChangesAsync(int entityId);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using API.Response;
 using Application.DTOs.User;
 using Application.UseCases.User;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -26,12 +27,41 @@ namespace API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddUser([FromBody] AddUserInput addUserInput,
+        public async Task<IActionResult> AddUser(
+            [FromBody] AddUserInput addUserInput,
+            IValidator<AddUserInput> validator,
             UserUseCases userUseCases)
         {
+            var validResult = await validator.ValidateAsync(addUserInput);
+            if (!validResult.IsValid)
+                throw new ValidationException(validResult.Errors);
+
             var appResult = await userUseCases.AddUserUseCase.Execute(addUserInput);
             string url = $"/api/get-actives";
             return ResponseConverter.Execute(appResult, url);
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateKiosco(
+            [FromBody] UpdateUserInput updateUserInput,
+            IValidator<UpdateUserInput> validator,
+            UserUseCases userUseCases)
+        {
+            var validResult = await validator.ValidateAsync(updateUserInput);
+            if (!validResult.IsValid)
+                throw new ValidationException(validResult.Errors);
+
+            var appResult = await userUseCases.UpdateUserUseCase.Execute(updateUserInput);
+            return ResponseConverter.Execute(appResult);
+        }
+
+        [HttpPost("{id}/toggle-active")]
+        public async Task<IActionResult> ToggleActiveKiosco(
+            int id,
+            UserUseCases userUseCases)
+        {
+            var appResult = await userUseCases.ToggleActiveUserUseCase.Execute(id);
+            return ResponseConverter.Execute(appResult);
         }
     }
 }

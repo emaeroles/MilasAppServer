@@ -204,7 +204,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("email");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
             entity.Property(e => e.Password)
-                .HasMaxLength(30)
+                .HasMaxLength(100)
                 .HasColumnName("password");
             entity.Property(e => e.Username)
                 .HasMaxLength(30)

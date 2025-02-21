@@ -5,7 +5,7 @@ namespace Application.Factories
 {
     public static class ResultFactory
     {
-        public static AppResult CreateSuccess(string message, object data)
+        public static AppResult CreateSuccess(string message, object? data)
         {
             return new AppResult(message, data, ResultState.Success);
         }

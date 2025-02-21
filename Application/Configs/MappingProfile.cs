@@ -13,6 +13,7 @@ namespace Application.Configs
             // Users
             CreateMap<UserEntity, GetUserOutput>();
             CreateMap<AddUserInput, UserEntity>();
+            CreateMap<UpdateUserInput, UserEntity>();
 
 
             //// Supplies Product
