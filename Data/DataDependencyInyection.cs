@@ -23,7 +23,7 @@ namespace Data
             services.AddScoped<IGetAllByActiveRepo<UserEntity>, GetAllUsersRepo>();
             services.AddScoped<IAddRepo<UserEntity>, AddUserRepo>();
             services.AddScoped<IUpdateRepo<UserEntity>, UpdateUserRepo>();
-            services.AddScoped<IToggleActiveRepo, ToggleActiveRepo>();
+            services.AddScoped<IToggleActiveRepo, ToggleActiveUserRepo>();
             services.AddScoped<ICheckUserExistRepo, CheckUserExistRepo>();
             services.AddScoped<IGetByUsernameRepo, GetByUsernameRepo>();
 

@@ -3,11 +3,11 @@ using Data.Context;
 
 namespace Data.Repositories.User
 {
-    public class ToggleActiveRepo : IToggleActiveRepo
+    public class ToggleActiveUserRepo : IToggleActiveRepo
     {
         private readonly AppDbContext _dbcontext;
 
-        public ToggleActiveRepo(AppDbContext dbContext)
+        public ToggleActiveUserRepo(AppDbContext dbContext)
         {
             _dbcontext = dbContext;
         }

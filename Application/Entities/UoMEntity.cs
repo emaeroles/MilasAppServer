@@ -1,4 +1,4 @@
-﻿namespace BL_Business.Entities
+﻿namespace Application.Entities
 {
     public class UoMEntity
     {
