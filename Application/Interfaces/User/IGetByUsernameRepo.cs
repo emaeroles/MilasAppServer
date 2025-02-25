@@ -1,6 +1,6 @@
 ﻿using Application.Entities;
 
-namespace Application.Interfaces.Auth
+namespace Application.Interfaces.User
 {
     public interface IGetByUsernameRepo
     {

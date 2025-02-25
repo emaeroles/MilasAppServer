@@ -4,5 +4,6 @@
         GetAllUsersUseCase GetAllUsersUseCase,
         AddUserUseCase AddUserUseCase,
         UpdateUserUseCase UpdateUserUseCase,
-        ToggleActiveUserUseCase ToggleActiveUserUseCase);
+        ToggleActiveUserUseCase ToggleActiveUserUseCase,
+        AuthUserUseCase AuthUserUseCase);
 }

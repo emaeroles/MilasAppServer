@@ -3,7 +3,6 @@ using Application.DTOs.User;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
-using Application.Interfaces.User;
 using AutoMapper;
 
 namespace Application.UseCases.User

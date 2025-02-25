@@ -24,5 +24,15 @@ namespace Application.Factories
         {
             return new AppResult(message, null, ResultState.Conflict);
         }
+
+        public static AppResult CreateAuthorized(string message)
+        {
+            return new AppResult(message, null, ResultState.Authorized);
+        }
+
+        public static AppResult CreateUnauthorized(string message)
+        {
+            return new AppResult(message, null, ResultState.Unauthorized);
+        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Application.Entities;
-using Application.Interfaces.Auth;
+using Application.Interfaces.User;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories.Auth
+namespace Data.Repositories.User
 {
     public class GetByUsernameRepo : IGetByUsernameRepo
     {

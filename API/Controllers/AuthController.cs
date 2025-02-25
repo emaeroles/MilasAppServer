@@ -1,8 +1,13 @@
 ﻿using API.Response;
 using Application.DTOs.Auth;
-using Application.UseCases.Auth;
+using Application.Enums;
+using Application.UseCases.User;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace API.Controllers
 {
@@ -14,14 +19,38 @@ namespace API.Controllers
         public async Task<IActionResult> AuthUser(
             [FromBody] AuthInput authInput,
             IValidator<AuthInput> validator,
-            AuthUseCase authUseCase)
+            AuthUserUseCase authUserUseCase,
+            IConfiguration _configuration)
         {
             var validResult = await validator.ValidateAsync(authInput);
             if (!validResult.IsValid)
                 throw new ValidationException(validResult.Errors);
 
-            var appResult = await authUseCase.Execute(authInput);
-            return ResponseConverter.Execute(appResult);
+            var appResult = await authUserUseCase.Execute(authInput.Username, authInput.Password);
+
+            if (appResult.ResultState == ResultState.Authorized)
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var bytekey = Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]!);
+                var tokenDescription = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Name, authInput.Username),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(), ClaimValueTypes.String)
+                    }),
+                    Expires = DateTime.UtcNow.AddMonths(int.Parse(_configuration["JwtSettings:SecretKey"]!)),
+                    SigningCredentials = new SigningCredentials(
+                        new SymmetricSecurityKey(bytekey), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescription);
+
+                AuthOutput authOutput = new AuthOutput();
+                authOutput.Token = tokenHandler.WriteToken(token);
+                
+                return Ok(new ApiResponse(true, appResult.Message, authOutput));
+            }
+            return Unauthorized(new ApiResponse(false, appResult.Message, null));
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Application.DTOs._01_Common;
-using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
 using Application.Interfaces.User;

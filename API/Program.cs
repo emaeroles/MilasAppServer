@@ -2,8 +2,9 @@ using API;
 using API.Middleware;
 using Application;
 using Data;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,28 @@ builder.Services
     .AddApplication()
     .AddData();
 
+// JWT
+builder.Services.AddAuthentication();
+builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt =>
+{
+    var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]!));
+
+    opt.RequireHttpsMetadata = false;
+    opt.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateLifetime = true,
+
+        ValidateAudience = true,
+        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+
+        ValidateIssuer = true,
+        ValidAudience = builder.Configuration["JwtSettings:Audience"],
+
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = signingKey
+    };
+});
+
 // Disable automatic ASP.NET validation
 //builder.Services.Configure<ApiBehaviorOptions>(options =>
 //{
@@ -27,8 +50,7 @@ builder.Services
 //});
 
 // Serilog
-var configuration = builder.Configuration;
-string filePath = configuration["FilePaths:LogsFilePath"] ?? "";
+string filePath = builder.Configuration["FilePaths:LogsFilePath"]!;
 
 Log.Logger = new LoggerConfiguration()
                 .WriteTo.File(filePath + @"\logs.txt",
@@ -50,6 +72,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// CORS
+app.UseCors((config) =>
+{
+    config.WithOrigins(builder.Configuration["CorsSettings:AllowedOrigin"]!);
+    config.AllowAnyHeader();
+    config.AllowAnyMethod();
+    config.AllowCredentials();
+});
 
 app.UseHttpsRedirection();
 
