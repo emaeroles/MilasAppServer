@@ -1,7 +1,9 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
+using Application.Interfaces.Kiosco;
 using Application.Interfaces.User;
 using Data.Context;
+using Data.Repositories.Kiosco;
 using Data.Repositories.User;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +16,7 @@ namespace Data
             services.AddDbContext<AppDbContext>();
 
             services.AddUserRepos();
+            services.AddKioscosRepos();
 
             return services;
         }
@@ -23,9 +26,20 @@ namespace Data
             services.AddScoped<IGetAllByActiveRepo<UserEntity>, GetAllUsersRepo>();
             services.AddScoped<IAddRepo<UserEntity>, AddUserRepo>();
             services.AddScoped<IUpdateRepo<UserEntity>, UpdateUserRepo>();
-            services.AddScoped<IToggleActiveRepo, ToggleActiveUserRepo>();
+            services.AddScoped<IToggleActiveRepo<UserEntity>, ToggleActiveUserRepo>();
             services.AddScoped<ICheckUserExistRepo, CheckUserExistRepo>();
             services.AddScoped<IGetByUsernameRepo, GetByUsernameRepo>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddKioscosRepos(this IServiceCollection services)
+        {
+            services.AddScoped<IGetAllByActiveRepo<KioscoEntity>, GetAllKioscosRepo>();
+            services.AddScoped<IAddRepo<KioscoEntity>, AddKioscoRepo>();
+            services.AddScoped<IUpdateRepo<KioscoEntity>, UpdateKioscoRepo>();
+            services.AddScoped<IUpdateKioscoRepo<KioscoEntity>, UpdateKioscoRepo>();
+            services.AddScoped<IToggleActiveRepo<KioscoEntity>, ToggleActiveKioscoRepo>();
 
             return services;
         }

@@ -5,11 +5,11 @@ using Application.Interfaces._01_Common;
 
 namespace Application.UseCases.Kiosco
 {
-    public class ToggleActiveKiocoUseCase
+    public class ToggleActiveKioscoUseCase
     {
         private readonly IToggleActiveRepo<KioscoEntity> _toggleActiveRepo;
 
-        public ToggleActiveKiocoUseCase(IToggleActiveRepo<KioscoEntity> toggleActiveRepo)
+        public ToggleActiveKioscoUseCase(IToggleActiveRepo<KioscoEntity> toggleActiveRepo)
         {
             _toggleActiveRepo = toggleActiveRepo;
         }
