@@ -3,7 +3,6 @@ using Application.Interfaces._01_Common;
 using Application.Interfaces.Kiosco;
 using Application.Interfaces.User;
 using Data.Context;
-using Data.Models;
 using Data.Repositories.Kiosco;
 using Data.Repositories.Supply;
 using Data.Repositories.User;

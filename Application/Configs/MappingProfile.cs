@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.Kiosco;
+using Application.DTOs.Supply;
 using Application.DTOs.User;
 using Application.Entities;
 using AutoMapper;
@@ -23,6 +24,11 @@ namespace Application.Configs
             CreateMap<UpdateKioscoNotesInput, KioscoEntity>();
             CreateMap<UpdateKioscoDubtInput, KioscoEntity>();
             CreateMap<UpdateKioscoOrderInput, KioscoEntity>();
+
+            // Suplies
+            CreateMap<UoMEntity, GetUomOutput>();
+            CreateMap<AddUomInput, UoMEntity>();
+            CreateMap<UpdateUomInput, UoMEntity>();
 
             //// Supplies Product
             //CreateMap<SuplyProductAddDTO, Product>()
