@@ -25,6 +25,7 @@ namespace Application.UseCases.User
             var listUserEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
             var listGetUserOutput = listUserEntity
                 .Select(userEntity => _mapper.Map<GetUserOutput>(userEntity));
+
             return ResultFactory.CreateSuccess("Users", listGetUserOutput);
         }
     }

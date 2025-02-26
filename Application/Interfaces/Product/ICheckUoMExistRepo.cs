@@ -1,7 +1,4 @@
-﻿using Application.Enums;
-using BL_Business.Entities;
-
-namespace Application.Interfaces.Product
+﻿namespace Application.Interfaces.Product
 {
     public interface ICheckUoMExistRepo
     {

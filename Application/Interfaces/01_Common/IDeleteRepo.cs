@@ -2,7 +2,7 @@
 
 namespace Application.Interfaces._01_Common
 {
-    public interface IDeleteRepo
+    public interface IDeleteRepo<T>
     {
         public Task<bool> DeleteAsync(int entityId);
     }

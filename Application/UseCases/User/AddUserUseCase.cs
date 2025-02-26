@@ -38,6 +38,10 @@ namespace Application.UseCases.User
             userEntity.Password = passwordHasher.HashPassword(userEntity, addUserInput.Password);
 
             int id = await _addRepo.AddAsync(userEntity);
+
+            if(id == 0)
+                return ResultFactory.CreateCreated("User was not created", id);
+
             return ResultFactory.CreateCreated("User was created", id);
         }
     }

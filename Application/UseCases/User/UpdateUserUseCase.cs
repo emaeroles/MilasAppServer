@@ -31,6 +31,7 @@ namespace Application.UseCases.User
             var isOk = await _updateRepo.UpdateAsync(userEntity);
             if (!isOk)
                 return ResultFactory.CreateNotFound("User was not updated");
+
             return ResultFactory.CreateSuccess("User was updated", null);
         }
     }

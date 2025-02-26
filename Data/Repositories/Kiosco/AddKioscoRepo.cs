@@ -33,7 +33,7 @@ namespace Data.Repositories.Kiosco
             _dbcontext.Kioscos.Add(kioscoModel);
             int rows = await _dbcontext.SaveChangesAsync();
 
-            return userModel.Id;
+            return kioscoModel.Id;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using BL_Business.Entities;
+﻿using Application.Entities;
 
 namespace Application.Interfaces.Visit
 {

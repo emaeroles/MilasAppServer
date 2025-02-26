@@ -1,9 +1,10 @@
-﻿using Application.Interfaces._01_Common;
+﻿using Application.Entities;
+using Application.Interfaces._01_Common;
 using Data.Context;
 
 namespace Data.Repositories.Kiosco
 {
-    public class ToggleActiveKioscoRepo : IToggleActiveRepo
+    public class ToggleActiveKioscoRepo : IToggleActiveRepo<KioscoEntity>
     {
         private readonly AppDbContext _dbcontext;
 

@@ -1,9 +1,10 @@
-﻿using Application.Interfaces._01_Common;
+﻿using Application.Entities;
+using Application.Interfaces._01_Common;
 using Data.Context;
 
 namespace Data.Repositories.User
 {
-    public class ToggleActiveUserRepo : IToggleActiveRepo
+    public class ToggleActiveUserRepo : IToggleActiveRepo<UserEntity>
     {
         private readonly AppDbContext _dbcontext;
 

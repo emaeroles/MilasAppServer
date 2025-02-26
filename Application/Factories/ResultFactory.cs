@@ -3,7 +3,7 @@ using Application.Enums;
 
 namespace Application.Factories
 {
-    public static class ResultFactory
+    internal static class ResultFactory
     {
         public static AppResult CreateSuccess(string message, object? data)
         {

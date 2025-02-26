@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Supply\" />
-    <Folder Include="UseCases\Kiosco\" />
     <Folder Include="UseCases\Product\" />
     <Folder Include="UseCases\Supply\" />
     <Folder Include="UseCases\Visit\" />
