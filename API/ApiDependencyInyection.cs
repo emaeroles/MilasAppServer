@@ -1,7 +1,7 @@
 ﻿using API.Validators.Auth;
+using API.Validators.Kiosco;
 using API.Validators.User;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 
 namespace API
 {
@@ -12,9 +12,16 @@ namespace API
             // Auth
             services.AddValidatorsFromAssemblyContaining<AuthValid>();
 
-            // User
+            // User Validations
             services.AddValidatorsFromAssemblyContaining<AddUserValid>();
             services.AddValidatorsFromAssemblyContaining<UpdateUserValid>();
+
+            // Kiosco Validations
+            services.AddValidatorsFromAssemblyContaining<AddKioscoValid>();
+            services.AddValidatorsFromAssemblyContaining<UpdateKioscoValid>();
+            services.AddValidatorsFromAssemblyContaining<UpdateNotesValid>();
+            services.AddValidatorsFromAssemblyContaining<UpdateDubtValid>();
+            services.AddValidatorsFromAssemblyContaining<UpdateOrderValid>();
 
             // Fluent Validator
             //services.AddFluentValidationAutoValidation();

@@ -31,7 +31,6 @@
     <Folder Include="Validators\Product\" />
     <Folder Include="Validators\Supply\" />
     <Folder Include="Validators\Visit\" />
-    <Folder Include="Validators\Kiosco\" />
   </ItemGroup>
 
 </Project>
