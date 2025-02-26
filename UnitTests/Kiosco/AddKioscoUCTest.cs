@@ -1,5 +1,4 @@
 ﻿using Application.DTOs.Kiosco;
-using Application.DTOs.User;
 using Application.Entities;
 using Application.Interfaces._01_Common;
 using Application.UseCases.Kiosco;

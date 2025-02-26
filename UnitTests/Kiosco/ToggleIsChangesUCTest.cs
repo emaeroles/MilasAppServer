@@ -1,6 +1,4 @@
-﻿using Application.Entities;
-using Application.Interfaces._01_Common;
-using Application.Interfaces.Kiosco;
+﻿using Application.Interfaces.Kiosco;
 using Application.UseCases.Kiosco;
 using Moq;
 
