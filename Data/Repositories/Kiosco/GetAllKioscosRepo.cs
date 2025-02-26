@@ -29,7 +29,7 @@ namespace Data.Repositories.Kiosco
                     IsEnableChanges = k.IsEnableChanges,
                     Notes = k.Notes,
                     Dubt = k.Dubt,
-                    Order = k.Order ?? 0, // TODO: sacar "?? 0" cuando se pueda
+                    Order = k.Order,
                 }).ToListAsync();
         }
     }

@@ -43,7 +43,7 @@ namespace API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateKiosco(
+        public async Task<IActionResult> UpdateUser(
             [FromBody] UpdateUserInput updateUserInput,
             IValidator<UpdateUserInput> validator,
             UserUseCases userUseCases)
@@ -57,7 +57,7 @@ namespace API.Controllers
         }
 
         [HttpPost("{id}/toggle-active")]
-        public async Task<IActionResult> ToggleActiveKiosco(
+        public async Task<IActionResult> ToggleActiveUser(
             int id,
             UserUseCases userUseCases)
         {

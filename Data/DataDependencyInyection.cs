@@ -39,6 +39,7 @@ namespace Data
             services.AddScoped<IAddRepo<KioscoEntity>, AddKioscoRepo>();
             services.AddScoped<IUpdateRepo<KioscoEntity>, UpdateKioscoRepo>();
             services.AddScoped<IUpdateKioscoRepo<KioscoEntity>, UpdateKioscoRepo>();
+            services.AddScoped<IToggleIsChangesRepo, ToggleIsChangesRepo>();
             services.AddScoped<IToggleActiveRepo<KioscoEntity>, ToggleActiveKioscoRepo>();
 
             return services;

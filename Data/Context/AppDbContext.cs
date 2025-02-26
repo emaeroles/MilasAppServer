@@ -55,6 +55,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("money")
                 .HasColumnName("dubt");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.IsEnableChanges).HasColumnName("is_enable_changes");
             entity.Property(e => e.Manager)
                 .HasMaxLength(50)
@@ -69,7 +70,6 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(30)
                 .HasColumnName("phone");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Kioscos)
                 .HasForeignKey(d => d.UserId)

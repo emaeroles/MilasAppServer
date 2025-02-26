@@ -8,5 +8,5 @@
         UpdateDubtUseCase UpdateDubtUseCase,
         UpdateOrderUseCase UpdateOrderUseCase,
         ToggleIsChangesUseCase ToggleIsChangesUseCase,
-        ToggleActiveKioscoUseCase ToggleActiveKiocoUseCase);
+        ToggleActiveKioscoUseCase ToggleActiveKioscoUseCase);
 }

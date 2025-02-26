@@ -12,6 +12,6 @@ namespace Application.DTOs.Kiosco
         public bool IsEnableChanges { get; set; }
         public string Notes { get; set; } = string.Empty;
         public decimal Dubt { get; set; }
-        public int Oreder { get; set; }
+        public int Order { get; set; }
     }
 }

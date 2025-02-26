@@ -1,4 +1,5 @@
-﻿using Application.DTOs.User;
+﻿using Application.DTOs.Kiosco;
+using Application.DTOs.User;
 using Application.Entities;
 using AutoMapper;
 
@@ -8,13 +9,20 @@ namespace Application.Configs
     {
         public MappingProfile()
         {
-            // de product => a productGetDTO
+            // de => a
 
             // Users
             CreateMap<UserEntity, GetUserOutput>();
             CreateMap<AddUserInput, UserEntity>();
             CreateMap<UpdateUserInput, UserEntity>();
 
+            // Kiosco
+            CreateMap<KioscoEntity, GetKioscoOutput>();
+            CreateMap<AddKioscoInput, KioscoEntity>();
+            CreateMap<UpdateKioscoInput, KioscoEntity>();
+            CreateMap<UpdateKioscoNotesInput, KioscoEntity>();
+            CreateMap<UpdateKioscoDubtInput, KioscoEntity>();
+            CreateMap<UpdateKioscoOrderInput, KioscoEntity>();
 
             //// Supplies Product
             //CreateMap<SuplyProductAddDTO, Product>()

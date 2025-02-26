@@ -15,15 +15,15 @@ public partial class KioscoModel
 
     public string Address { get; set; } = null!;
 
+    public int UserId { get; set; }
+
     public bool IsEnableChanges { get; set; }
 
     public string Notes { get; set; } = null!;
 
     public decimal Dubt { get; set; }
 
-    public int? Order { get; set; }
-
-    public int UserId { get; set; }
+    public int Order { get; set; }
 
     public bool IsActive { get; set; }
 

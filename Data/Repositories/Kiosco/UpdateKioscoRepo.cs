@@ -25,7 +25,6 @@ namespace Data.Repositories.Kiosco
             kioscoModel.Manager = entity.Manager;
             kioscoModel.Phone = entity.Phone;
             kioscoModel.Address = entity.Address;
-            kioscoModel.UserId = entity.UserId;
             
             await _dbcontext.SaveChangesAsync();
 

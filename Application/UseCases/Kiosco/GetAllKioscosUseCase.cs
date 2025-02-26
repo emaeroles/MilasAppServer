@@ -1,4 +1,5 @@
 ﻿using Application.DTOs._01_Common;
+using Application.DTOs.Kiosco;
 using Application.DTOs.User;
 using Application.Entities;
 using Application.Factories;
@@ -24,9 +25,9 @@ namespace Application.UseCases.Kiosco
         {
             var listKioscosEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
             var listGetKioscosOutput = listKioscosEntity
-                .Select(kioscoEntity => _mapper.Map<GetUserOutput>(kioscoEntity));
+                .Select(kioscoEntity => _mapper.Map<GetKioscoOutput>(kioscoEntity));
 
-            return ResultFactory.CreateSuccess("Users", listGetKioscosOutput);
+            return ResultFactory.CreateSuccess("Kioscos", listGetKioscosOutput);
         }
     }
 }
