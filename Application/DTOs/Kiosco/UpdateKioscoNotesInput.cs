@@ -2,7 +2,7 @@
 
 namespace Application.DTOs.Kiosco
 {
-    public class UpdateKioscoNoteInput
+    public class UpdateKioscoNotesInput
     {
         public int Id { get; set; }
         public string Notes { get; set; } = string.Empty;

@@ -20,9 +20,9 @@ namespace Application.UseCases.Kiosco
             _mapper = mapper;
         }
 
-        public async Task<AppResult> Execute(UpdateKioscoInput updateKioscoInput)
+        public async Task<AppResult> Execute(UpdateKioscoNotesInput updateKioscoNotesInput)
         {
-            var kioscoEntity = _mapper.Map<KioscoEntity>(updateKioscoInput);
+            var kioscoEntity = _mapper.Map<KioscoEntity>(updateKioscoNotesInput);
 
             var isOk = await _updateRepo.UpdateNotesAsync(kioscoEntity);
             if (!isOk)
