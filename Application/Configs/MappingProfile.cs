@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.Kiosco;
+using Application.DTOs.Product;
 using Application.DTOs.Supply;
 using Application.DTOs.User;
 using Application.Entities;
@@ -37,24 +38,8 @@ namespace Application.Configs
             CreateMap<AddUomInput, UoMEntity>();
             CreateMap<UpdateUomInput, UoMEntity>();
 
-            //// Supplies Product
-            //CreateMap<SuplyProductAddDTO, Product>()
-            //    .ForPath(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId))
-            //    .AfterMap((src, dest) =>
-            //    {
-            //        dest.Supplies = new Supply[]
-            //        {
-            //            new Supply { Id = src.SupplyId }
-            //        };
-            //    });
-
-            //// Supply
-            //CreateMap<Supply, SupplyGetDTO>()
-            //    .ForMember(dest => dest.UoM, opt => opt.MapFrom(src => src.UoM.Unit));
-            //CreateMap<SupplyAddDTO, Supply>()
-            //    .ForPath(dest => dest.UoM.Id, opt => opt.MapFrom(src => src.UoMId));
-            //CreateMap<SupplyUpdateDTO, Supply>()
-            //    .ForPath(dest => dest.UoM.Id, opt => opt.MapFrom(src => src.UoMId));
+            // Products
+            CreateMap<AddProductInput, ProductEntity>();
 
         }
     }

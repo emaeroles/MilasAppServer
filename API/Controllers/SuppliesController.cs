@@ -12,7 +12,7 @@ namespace API.Controllers
     {
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetActivesSupplies(
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var appResult = await supliesUseCases.GetAllSuppliesUseCase.Execute(true);
             return ResponseConverter.Execute(appResult);
@@ -20,7 +20,7 @@ namespace API.Controllers
 
         [HttpGet("get-inactives")]
         public async Task<IActionResult> GetInactivesSupplies(
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var appResult = await supliesUseCases.GetAllSuppliesUseCase.Execute(false);
             return ResponseConverter.Execute(appResult);
@@ -30,7 +30,7 @@ namespace API.Controllers
         public async Task<IActionResult> AddSupply(
             [FromBody] AddSupplyInput addSupplyInput,
             IValidator<AddSupplyInput> validator,
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var validResult = await validator.ValidateAsync(addSupplyInput);
             if (!validResult.IsValid)
@@ -45,7 +45,7 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateSupply(
             [FromBody] UpdateSupplyInput updateSupplyInput,
             IValidator<UpdateSupplyInput> validator,
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var validResult = await validator.ValidateAsync(updateSupplyInput);
             if (!validResult.IsValid)
@@ -58,7 +58,7 @@ namespace API.Controllers
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveSupply(
             int id,
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var appResult = await supliesUseCases.ToggleActiveSupplyUseCase.Execute(id);
             return ResponseConverter.Execute(appResult);
@@ -68,7 +68,7 @@ namespace API.Controllers
 
         [HttpGet("uom/get-actives")]
         public async Task<IActionResult> GetActivesUom(
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var appResult = await supliesUseCases.GetAllUomsUseCase.Execute(true);
             return ResponseConverter.Execute(appResult);
@@ -76,7 +76,7 @@ namespace API.Controllers
 
         [HttpGet("uom/get-inactives")]
         public async Task<IActionResult> GetInactivesUom(
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var appResult = await supliesUseCases.GetAllUomsUseCase.Execute(false);
             return ResponseConverter.Execute(appResult);
@@ -86,7 +86,7 @@ namespace API.Controllers
         public async Task<IActionResult> AddUom(
             [FromBody] AddUomInput addUomInput,
             IValidator<AddUomInput> validator,
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var validResult = await validator.ValidateAsync(addUomInput);
             if (!validResult.IsValid)
@@ -101,7 +101,7 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateUom(
             [FromBody] UpdateUomInput updateUomInput,
             IValidator<UpdateUomInput> validator,
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var validResult = await validator.ValidateAsync(updateUomInput);
             if (!validResult.IsValid)
@@ -114,7 +114,7 @@ namespace API.Controllers
         [HttpPost("uom/{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveUom(
             int id,
-            SuppliesUseCases supliesUseCases)
+            SupplyUseCases supliesUseCases)
         {
             var appResult = await supliesUseCases.ToggleActiveUomUseCase.Execute(id);
             return ResponseConverter.Execute(appResult);

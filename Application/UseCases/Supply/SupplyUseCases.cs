@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.Supply
 {
-    public record class SuppliesUseCases(
+    public record class SupplyUseCases(
     GetAllSuppliesUseCase GetAllSuppliesUseCase,
     AddSupplyUseCase AddSupplyUseCase,
     UpdateSupplyUseCase UpdateSupplyUseCase,

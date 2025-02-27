@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="Validators\Product\" />
     <Folder Include="Validators\Visit\" />
   </ItemGroup>
 

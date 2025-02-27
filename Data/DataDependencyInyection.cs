@@ -4,6 +4,7 @@ using Application.Interfaces.Kiosco;
 using Application.Interfaces.User;
 using Data.Context;
 using Data.Repositories.Kiosco;
+using Data.Repositories.Product;
 using Data.Repositories.Supply;
 using Data.Repositories.User;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +18,9 @@ namespace Data
             services.AddDbContext<AppDbContext>();
 
             services.AddUserRepos();
-            services.AddKioscosRepos();
-            services.AddSuppliesRepos();
+            services.AddKioscoRepos();
+            services.AddSupplyRepos();
+            services.AddProductRepos();
 
             return services;
         }
@@ -35,7 +37,7 @@ namespace Data
             return services;
         }
 
-        private static IServiceCollection AddKioscosRepos(this IServiceCollection services)
+        private static IServiceCollection AddKioscoRepos(this IServiceCollection services)
         {
             services.AddScoped<IGetAllByActiveRepo<KioscoEntity>, GetAllKioscosRepo>();
             services.AddScoped<IAddRepo<KioscoEntity>, AddKioscoRepo>();
@@ -47,7 +49,7 @@ namespace Data
             return services;
         }
 
-        private static IServiceCollection AddSuppliesRepos(this IServiceCollection services)
+        private static IServiceCollection AddSupplyRepos(this IServiceCollection services)
         {
             services.AddScoped<IGetAllByActiveRepo<SupplyEntity>, GetAllSuppliesRepo>();
             services.AddScoped<IAddRepo<SupplyEntity>, AddSupplyRepo>();
@@ -59,6 +61,13 @@ namespace Data
             services.AddScoped<IUpdateRepo<UoMEntity>, UpdateUomRepo>();
             services.AddScoped<IToggleActiveRepo<UoMEntity>, ToggleActiveUomRepo>();
 
+            return services;
+        }
+
+        private static IServiceCollection AddProductRepos(this IServiceCollection services)
+        {
+            services.AddScoped<IAddRepo<ProductEntity>, AddProductRepo>();
+           
             return services;
         }
     }
