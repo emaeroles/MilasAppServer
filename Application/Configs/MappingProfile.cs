@@ -39,6 +39,7 @@ namespace Application.Configs
             CreateMap<UpdateUomInput, UoMEntity>();
 
             // Products
+            CreateMap<ProductEntity, GetProductOutput>();
             CreateMap<AddProductInput, ProductEntity>();
 
         }

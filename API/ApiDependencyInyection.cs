@@ -9,7 +9,6 @@ using Application.DTOs.Product;
 using Application.DTOs.Supply;
 using Application.DTOs.User;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 
 namespace API
 {

@@ -1,5 +1,6 @@
 ﻿namespace Application.UseCases.Product
 {
     public record class ProductUseCases(
-        AddProductUseCase AddProductUseCase);
+        AddProductUseCase AddProductUseCase,
+        GetAllProductsUseCase GetAllProductsUseCase);
 }

@@ -10,6 +10,22 @@ namespace API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        [HttpGet("get-actives")]
+        public async Task<IActionResult> GetActivesKiosco(
+            ProductUseCases productUseCases)
+        {
+            var appResult = await productUseCases.GetAllProductsUseCase.Execute(true);
+            return ResponseConverter.Execute(appResult);
+        }
+
+        [HttpGet("get-inactives")]
+        public async Task<IActionResult> GetInactivesKiosco(
+            ProductUseCases productUseCases)
+        {
+            var appResult = await productUseCases.GetAllProductsUseCase.Execute(false);
+            return ResponseConverter.Execute(appResult);
+        }
+
         [HttpPost("add")]
         public async Task<IActionResult> AddProduct(
             [FromBody] AddProductInput addProductInput,

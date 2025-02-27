@@ -66,6 +66,7 @@ namespace Data
 
         private static IServiceCollection AddProductRepos(this IServiceCollection services)
         {
+            services.AddScoped<IGetAllByActiveRepo<ProductEntity>, GetAllProductsRepo>();
             services.AddScoped<IAddRepo<ProductEntity>, AddProductRepo>();
            
             return services;

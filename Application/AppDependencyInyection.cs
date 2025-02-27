@@ -1,11 +1,8 @@
 ﻿using Application.Configs;
-using Application.DTOs.User;
-using Application.Entities;
 using Application.UseCases.Kiosco;
 using Application.UseCases.Product;
 using Application.UseCases.Supply;
 using Application.UseCases.User;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -74,6 +71,7 @@ namespace Application
         {
             services.AddScoped<ProductUseCases>();
 
+            services.AddScoped<GetAllProductsUseCase>();
             services.AddScoped<AddProductUseCase>();
 
             return services;
