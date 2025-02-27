@@ -55,6 +55,15 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [HttpPost("{id}/toggle-active")]
+        public async Task<IActionResult> ToggleActiveSupply(
+            int id,
+            SuppliesUseCases supliesUseCases)
+        {
+            var appResult = await supliesUseCases.ToggleActiveSupplyUseCase.Execute(id);
+            return ResponseConverter.Execute(appResult);
+        }
+
         // ==========================================================================
 
         [HttpGet("uom/get-actives")]
