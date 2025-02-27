@@ -26,13 +26,14 @@ namespace Application.Configs
             CreateMap<UpdateKioscoOrderInput, KioscoEntity>();
 
             // Suplies
-            CreateMap<UoMEntity, GetUomOutput>();
-            CreateMap<AddUomInput, UoMEntity>();
-            CreateMap<UpdateUomInput, UoMEntity>();
-
+            CreateMap<SupplyEntity, GetSupplyOutput>()
+                .ForMember(dest => dest.UoM, opt => opt.MapFrom(src => src.UoM.Unit));
             CreateMap<AddSupplyInput, SupplyEntity>()
                 .ForPath(dest => dest.UoM.Id, opt => opt.MapFrom(src => src.UoMId));
 
+            CreateMap<UoMEntity, GetUomOutput>();
+            CreateMap<AddUomInput, UoMEntity>();
+            CreateMap<UpdateUomInput, UoMEntity>();
 
             //// Supplies Product
             //CreateMap<SuplyProductAddDTO, Product>()
