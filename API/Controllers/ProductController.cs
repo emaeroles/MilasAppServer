@@ -11,7 +11,7 @@ namespace API.Controllers
     public class ProductController : ControllerBase
     {
         [HttpGet("get-actives")]
-        public async Task<IActionResult> GetActivesKiosco(
+        public async Task<IActionResult> GetActivesProduct(
             ProductUseCases productUseCases)
         {
             var appResult = await productUseCases.GetAllProductsUseCase.Execute(true);
@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         [HttpGet("get-inactives")]
-        public async Task<IActionResult> GetInactivesKiosco(
+        public async Task<IActionResult> GetInactivesProduct(
             ProductUseCases productUseCases)
         {
             var appResult = await productUseCases.GetAllProductsUseCase.Execute(false);
@@ -42,7 +42,7 @@ namespace API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateSupply(
+        public async Task<IActionResult> UpdateProduct(
            [FromBody] UpdateProductInput updateProductInput,
            IValidator<UpdateProductInput> validator,
            ProductUseCases productUseCases)
@@ -52,6 +52,15 @@ namespace API.Controllers
                 throw new ValidationException(validResult.Errors);
 
             var appResult = await productUseCases.UpdateProductUseCase.Execute(updateProductInput);
+            return ResponseConverter.Execute(appResult);
+        }
+
+        [HttpPost("{id}/toggle-active")]
+        public async Task<IActionResult> ToggleActiveProduct(
+           int id,
+           ProductUseCases productUseCases)
+        {
+            var appResult = await productUseCases.ToggleActiveProductUseCase.Execute(id);
             return ResponseConverter.Execute(appResult);
         }
     }

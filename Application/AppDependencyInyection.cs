@@ -74,6 +74,7 @@ namespace Application
             services.AddScoped<GetAllProductsUseCase>();
             services.AddScoped<AddProductUseCase>();
             services.AddScoped<UpdateProductUseCase>();
+            services.AddScoped<ToggleActiveProductUseCase>();
 
             return services;
         }

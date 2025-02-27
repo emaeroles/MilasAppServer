@@ -3,5 +3,6 @@
     public record class ProductUseCases(
         AddProductUseCase AddProductUseCase,
         GetAllProductsUseCase GetAllProductsUseCase,
-        UpdateProductUseCase UpdateProductUseCase);
+        UpdateProductUseCase UpdateProductUseCase,
+        ToggleActiveProductUseCase ToggleActiveProductUseCase);
 }
