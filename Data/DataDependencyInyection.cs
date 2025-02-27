@@ -49,6 +49,8 @@ namespace Data
 
         private static IServiceCollection AddSuppliesRepos(this IServiceCollection services)
         {
+            services.AddScoped<IAddRepo<SupplyEntity>, AddSupplyRepo>();
+
             services.AddScoped<IGetAllByActiveRepo<UoMEntity>, GetAllUomRepo>();
             services.AddScoped<IAddRepo<UoMEntity>, AddUomRepo>();
             services.AddScoped<IUpdateRepo<UoMEntity>, UpdateUomRepo>();

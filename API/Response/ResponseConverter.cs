@@ -7,7 +7,6 @@ namespace API.Response
 {
     public static class ResponseConverter
     {
-        // TODO: el data ese polifuncional no me gusta nada
         public static IActionResult Execute(AppResult appResp, string url = "")
         {
             switch (appResp.ResultState)

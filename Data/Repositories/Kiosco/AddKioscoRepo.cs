@@ -16,6 +16,8 @@ namespace Data.Repositories.Kiosco
 
         public async Task<int> AddAsync(KioscoEntity entity)
         {
+            // TODO: Comprobacion de existencia de User
+
             var kioscoModel = new KioscoModel()
             {
                 Name = entity.Name,

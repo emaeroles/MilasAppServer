@@ -1,6 +1,7 @@
 ﻿using API.Response;
 using Application.DTOs.Supply;
 using Application.UseCases.Supply;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -9,6 +10,21 @@ namespace API.Controllers
     [ApiController]
     public class SuppliesController : ControllerBase
     {
+        [HttpPost("add")]
+        public async Task<IActionResult> AddUser(
+            [FromBody] AddSupplyInput addSupplyInput,
+            IValidator<AddSupplyInput> validator,
+            SuppliesUseCases supliesUseCases)
+        {
+            var validResult = await validator.ValidateAsync(addSupplyInput);
+            if (!validResult.IsValid)
+                throw new ValidationException(validResult.Errors);
+
+            var appResult = await supliesUseCases.AddSupplyUseCase.Execute(addSupplyInput);
+            string url = $"/api/supplies/get-actives";
+            return ResponseConverter.Execute(appResult, url);
+        }
+
         [HttpGet("uom/get-actives")]
         public async Task<IActionResult> GetActivesUsers(
             SuppliesUseCases supliesUseCases)
@@ -25,6 +41,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        // TODO: Agregar validaciones y ruta get
         [HttpPost("uom/add")]
         public async Task<IActionResult> AddUser(
             [FromBody] AddUomInput addUomInput,

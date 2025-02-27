@@ -30,6 +30,10 @@ namespace Application.Configs
             CreateMap<AddUomInput, UoMEntity>();
             CreateMap<UpdateUomInput, UoMEntity>();
 
+            CreateMap<AddSupplyInput, SupplyEntity>()
+                .ForPath(dest => dest.UoM.Id, opt => opt.MapFrom(src => src.UoMId));
+
+
             //// Supplies Product
             //CreateMap<SuplyProductAddDTO, Product>()
             //    .ForPath(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId))
