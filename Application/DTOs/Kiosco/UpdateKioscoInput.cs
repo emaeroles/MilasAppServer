@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Application.DTOs.Kiosco
+﻿namespace Application.DTOs.Kiosco
 {
     public class UpdateKioscoInput
     {

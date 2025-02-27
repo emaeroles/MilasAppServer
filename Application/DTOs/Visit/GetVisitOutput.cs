@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Application.DTOs.Visit
+﻿namespace Application.DTOs.Visit
 {
     public class GetVisitOutput
     {

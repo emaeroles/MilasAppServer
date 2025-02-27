@@ -1,6 +1,4 @@
-﻿using Application.Enums;
-
-namespace Application.Interfaces._01_Common
+﻿namespace Application.Interfaces._01_Common
 {
     public interface IDeleteComposedRepo<T>
     {

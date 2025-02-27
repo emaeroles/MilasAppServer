@@ -1,7 +1,4 @@
-﻿using Application.Entities;
-using Application.Enums;
-
-namespace Application.Interfaces.User
+﻿namespace Application.Interfaces.User
 {
     public interface ICheckUserExistRepo
     {

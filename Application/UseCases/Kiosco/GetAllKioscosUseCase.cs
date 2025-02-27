@@ -1,6 +1,5 @@
 ﻿using Application.DTOs._01_Common;
 using Application.DTOs.Kiosco;
-using Application.DTOs.User;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;

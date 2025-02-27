@@ -1,5 +1,4 @@
 ﻿using Application.DTOs._01_Common;
-using Application.DTOs.Auth;
 using Application.Enums;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +29,7 @@ namespace API.Response
 
                 default:
                     return new ObjectResult(
-                        // Los mensajes podria ser manejado con constantes 
+                        // TODO: Los mensajes podria ser manejado con constantes 
                         // que estarian, por ej, en una clase "ApiConstants"
                         new ApiResponse(false, "Internal Server Error from ResultFactory", null))
                     {

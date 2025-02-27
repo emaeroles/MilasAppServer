@@ -1,8 +1,6 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
-using Application.Interfaces.User;
 using Application.UseCases.User;
-using AutoMapper;
 using Moq;
 
 namespace UnitTests.User

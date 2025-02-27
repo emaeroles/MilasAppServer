@@ -1,6 +1,4 @@
-﻿using Application.Enums;
-
-namespace Application.Interfaces.Kiosco
+﻿namespace Application.Interfaces.Kiosco
 {
     public interface IToggleIsChangesRepo
     {

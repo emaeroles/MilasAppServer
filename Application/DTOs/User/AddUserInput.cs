@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Application.DTOs.User
+﻿namespace Application.DTOs.User
 {
     public class AddUserInput
     {
