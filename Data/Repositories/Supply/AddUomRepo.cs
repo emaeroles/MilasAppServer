@@ -19,6 +19,7 @@ namespace Data.Repositories.Supply
             var uomModel = new UomModel()
             {
                 Unit = entity.Unit,
+                IsActive = true,
             };
 
             _dbcontext.Uoms.Add(uomModel);

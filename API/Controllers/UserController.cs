@@ -38,7 +38,7 @@ namespace API.Controllers
                 throw new ValidationException(validResult.Errors);
 
             var appResult = await userUseCases.AddUserUseCase.Execute(addUserInput);
-            string url = $"/api/get-actives";
+            string url = $"/api/user/get-actives";
             return ResponseConverter.Execute(appResult, url);
         }
 

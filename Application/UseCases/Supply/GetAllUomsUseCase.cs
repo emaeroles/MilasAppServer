@@ -7,12 +7,12 @@ using AutoMapper;
 
 namespace Application.UseCases.Supply
 {
-    public class GetAllUomUseCase
+    public class GetAllUomsUseCase
     {
         private readonly IGetAllByActiveRepo<UoMEntity> _getAllByActiveRepo;
         private readonly IMapper _mapper;
 
-        public GetAllUomUseCase(
+        public GetAllUomsUseCase(
             IGetAllByActiveRepo<UoMEntity> getAllByActiveRepo,
             IMapper mapper)
         {

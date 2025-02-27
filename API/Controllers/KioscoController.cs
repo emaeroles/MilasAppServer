@@ -37,7 +37,7 @@ namespace API.Controllers
                 throw new ValidationException(validResult.Errors);
 
             var appResult = await kioscoUseCases.AddKioscoUseCase.Execute(addKioscoInput);
-            string url = $"/api/get-actives";
+            string url = $"/api/kiosco/get-actives";
             return ResponseConverter.Execute(appResult, url);
         }
 

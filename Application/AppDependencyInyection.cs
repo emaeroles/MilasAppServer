@@ -2,6 +2,7 @@
 using Application.DTOs.User;
 using Application.Entities;
 using Application.UseCases.Kiosco;
+using Application.UseCases.Supply;
 using Application.UseCases.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ namespace Application
 
             services.AddUserUseCases();
             services.AddKioscoUseCases();
+            services.AddSuppliesUseCases();
 
             return services;
         }
@@ -36,6 +38,7 @@ namespace Application
         private static IServiceCollection AddKioscoUseCases(this IServiceCollection services)
         {
             services.AddScoped<KioscoUseCases>();
+
             services.AddScoped<GetAllKioscosUseCase>();
             services.AddScoped<AddKioscoUseCase>();
             services.AddScoped<UpdateKioscoUseCase>();
@@ -44,6 +47,18 @@ namespace Application
             services.AddScoped<UpdateOrderUseCase>();
             services.AddScoped<ToggleIsChangesUseCase>();
             services.AddScoped<ToggleActiveKioscoUseCase>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddSuppliesUseCases(this IServiceCollection services)
+        {
+            services.AddScoped<SuppliesUseCases>();
+
+            services.AddScoped<GetAllUomsUseCase>();
+            services.AddScoped<AddUomUseCase>();
+            services.AddScoped<UpdateUomUseCase>();
+            services.AddScoped<ToggleActiveUomUseCase>();
 
             return services;
         }

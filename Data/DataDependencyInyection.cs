@@ -18,7 +18,7 @@ namespace Data
 
             services.AddUserRepos();
             services.AddKioscosRepos();
-            services.AddSupliesRepos();
+            services.AddSuppliesRepos();
 
             return services;
         }
@@ -47,7 +47,7 @@ namespace Data
             return services;
         }
 
-        private static IServiceCollection AddSupliesRepos(this IServiceCollection services)
+        private static IServiceCollection AddSuppliesRepos(this IServiceCollection services)
         {
             services.AddScoped<IGetAllByActiveRepo<UoMEntity>, GetAllUomRepo>();
             services.AddScoped<IAddRepo<UoMEntity>, AddUomRepo>();
