@@ -10,6 +10,22 @@ namespace API.Controllers
     [ApiController]
     public class SuppliesController : ControllerBase
     {
+        [HttpGet("get-actives")]
+        public async Task<IActionResult> GetActivesSupplies(
+            SuppliesUseCases supliesUseCases)
+        {
+            var appResult = await supliesUseCases.GetAllSuppliesUseCase.Execute(true);
+            return ResponseConverter.Execute(appResult);
+        }
+
+        [HttpGet("get-inactives")]
+        public async Task<IActionResult> GetInactivesSupplies(
+            SuppliesUseCases supliesUseCases)
+        {
+            var appResult = await supliesUseCases.GetAllSuppliesUseCase.Execute(false);
+            return ResponseConverter.Execute(appResult);
+        }
+
         [HttpPost("add")]
         public async Task<IActionResult> AddSupply(
             [FromBody] AddSupplyInput addSupplyInput,
@@ -25,19 +41,17 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
-        [HttpGet("get-actives")]
-        public async Task<IActionResult> GetActivesSupplies(
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateSupply(
+            [FromBody] UpdateSupplyInput updateSupplyInput,
+            IValidator<UpdateSupplyInput> validator,
             SuppliesUseCases supliesUseCases)
         {
-            var appResult = await supliesUseCases.GetAllSuppliesUseCase.Execute(true);
-            return ResponseConverter.Execute(appResult);
-        }
+            var validResult = await validator.ValidateAsync(updateSupplyInput);
+            if (!validResult.IsValid)
+                throw new ValidationException(validResult.Errors);
 
-        [HttpGet("get-inactives")]
-        public async Task<IActionResult> GetInactivesSupplies(
-            SuppliesUseCases supliesUseCases)
-        {
-            var appResult = await supliesUseCases.GetAllSuppliesUseCase.Execute(false);
+            var appResult = await supliesUseCases.UpdateSupplyUseCase.Execute(updateSupplyInput);
             return ResponseConverter.Execute(appResult);
         }
 

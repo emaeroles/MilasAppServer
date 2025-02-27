@@ -51,6 +51,7 @@ namespace Data
         {
             services.AddScoped<IGetAllByActiveRepo<SupplyEntity>, GetAllSuppliesRepo>();
             services.AddScoped<IAddRepo<SupplyEntity>, AddSupplyRepo>();
+            services.AddScoped<IUpdateRepo<SupplyEntity>, UpdateSupplyRepo>();
 
             services.AddScoped<IGetAllByActiveRepo<UoMEntity>, GetAllUomRepo>();
             services.AddScoped<IAddRepo<UoMEntity>, AddUomRepo>();

@@ -30,6 +30,8 @@ namespace Application.Configs
                 .ForMember(dest => dest.UoM, opt => opt.MapFrom(src => src.UoM.Unit));
             CreateMap<AddSupplyInput, SupplyEntity>()
                 .ForPath(dest => dest.UoM.Id, opt => opt.MapFrom(src => src.UoMId));
+            CreateMap<UpdateSupplyInput, SupplyEntity>()
+                .ForPath(dest => dest.UoM.Id, opt => opt.MapFrom(src => src.UoMId));
 
             CreateMap<UoMEntity, GetUomOutput>();
             CreateMap<AddUomInput, UoMEntity>();

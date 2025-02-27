@@ -3,6 +3,7 @@
     public record class SuppliesUseCases(
     GetAllSuppliesUseCase GetAllSuppliesUseCase,
     AddSupplyUseCase AddSupplyUseCase,
+    UpdateSupplyUseCase UpdateSupplyUseCase,
 
     GetAllUomsUseCase GetAllUomsUseCase,
     AddUomUseCase AddUomUseCase,
