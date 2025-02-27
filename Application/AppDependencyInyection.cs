@@ -73,6 +73,7 @@ namespace Application
 
             services.AddScoped<GetAllProductsUseCase>();
             services.AddScoped<AddProductUseCase>();
+            services.AddScoped<UpdateProductUseCase>();
 
             return services;
         }

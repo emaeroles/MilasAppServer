@@ -39,6 +39,7 @@ namespace API
 
             // Product Validation
             services.AddScoped<IValidator<AddProductInput>, AddProductValid>();
+            services.AddScoped<IValidator<UpdateProductInput>, UpdateProductValid>();
 
             // Fluent Validator
             //services.AddFluentValidationAutoValidation();

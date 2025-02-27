@@ -40,5 +40,19 @@ namespace API.Controllers
             string url = $"/api/product/get-actives";
             return ResponseConverter.Execute(appResult, url);
         }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateSupply(
+           [FromBody] UpdateProductInput updateProductInput,
+           IValidator<UpdateProductInput> validator,
+           ProductUseCases productUseCases)
+        {
+            var validResult = await validator.ValidateAsync(updateProductInput);
+            if (!validResult.IsValid)
+                throw new ValidationException(validResult.Errors);
+
+            var appResult = await productUseCases.UpdateProductUseCase.Execute(updateProductInput);
+            return ResponseConverter.Execute(appResult);
+        }
     }
 }

@@ -2,5 +2,6 @@
 {
     public record class ProductUseCases(
         AddProductUseCase AddProductUseCase,
-        GetAllProductsUseCase GetAllProductsUseCase);
+        GetAllProductsUseCase GetAllProductsUseCase,
+        UpdateProductUseCase UpdateProductUseCase);
 }

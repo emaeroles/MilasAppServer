@@ -68,6 +68,7 @@ namespace Data
         {
             services.AddScoped<IGetAllByActiveRepo<ProductEntity>, GetAllProductsRepo>();
             services.AddScoped<IAddRepo<ProductEntity>, AddProductRepo>();
+            services.AddScoped<IUpdateRepo<ProductEntity>, UpdateProductRepo>();
            
             return services;
         }

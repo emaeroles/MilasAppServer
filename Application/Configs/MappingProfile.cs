@@ -41,6 +41,7 @@ namespace Application.Configs
             // Products
             CreateMap<ProductEntity, GetProductOutput>();
             CreateMap<AddProductInput, ProductEntity>();
+            CreateMap<UpdateProductInput, ProductEntity>();
 
         }
     }
