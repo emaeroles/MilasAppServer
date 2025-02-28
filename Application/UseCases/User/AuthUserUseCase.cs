@@ -9,10 +9,14 @@ namespace Application.UseCases.User
     public class AuthUserUseCase
     {
         private readonly IGetByUsernameRepo _getByUsernameRepo;
+        private readonly IPasswordHasher<UserEntity> _passwordHasher;
 
-        public AuthUserUseCase(IGetByUsernameRepo getByUsernameRepo)
+        public AuthUserUseCase(
+            IGetByUsernameRepo getByUsernameRepo,
+            IPasswordHasher<UserEntity> passwordHasher)
         {
             _getByUsernameRepo = getByUsernameRepo;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<AppResult> Execute(string username, string password)
@@ -22,10 +26,7 @@ namespace Application.UseCases.User
             if (userEntity.Id == 0)
                 return ResultFactory.CreateNotFound("User does not exist");
 
-            // TODO: Inyectar PasswordHasher y hacer test
-            var passwordHasher = new PasswordHasher<UserEntity>();
-            var result = passwordHasher.VerifyHashedPassword(
-                userEntity, userEntity.Password, password);
+            var result = _passwordHasher.VerifyHashedPassword(userEntity, userEntity.Password, password);
 
             if (result != PasswordVerificationResult.Success)
             {

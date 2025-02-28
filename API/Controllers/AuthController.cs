@@ -39,7 +39,7 @@ namespace API.Controllers
                         new Claim(ClaimTypes.Name, authInput.Username),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(), ClaimValueTypes.String)
                     }),
-                    Expires = DateTime.UtcNow.AddMonths(int.Parse(_configuration["JwtSettings:SecretKey"]!)),
+                    Expires = DateTime.UtcNow.AddMonths(int.Parse(_configuration["JwtSettings:TokenExpiryInMonths"]!)),
                     SigningCredentials = new SigningCredentials(
                         new SymmetricSecurityKey(bytekey), SecurityAlgorithms.HmacSha256Signature)
                 };

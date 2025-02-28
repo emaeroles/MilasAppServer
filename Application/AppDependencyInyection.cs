@@ -1,8 +1,10 @@
 ﻿using Application.Configs;
+using Application.Entities;
 using Application.UseCases.Kiosco;
 using Application.UseCases.Product;
 using Application.UseCases.Supply;
 using Application.UseCases.User;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -12,6 +14,7 @@ namespace Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MappingProfile));
+            services.AddScoped<IPasswordHasher<UserEntity>, PasswordHasher<UserEntity>>();
 
             services.AddUserUseCases();
             services.AddKioscoUseCases();
