@@ -1,9 +1,7 @@
-﻿using Application.DTOs.Kiosco;
-using Application.DTOs.User;
+﻿using Application.DTOs.User;
 using Application.Entities;
 using Application.Enums;
 using Application.Interfaces._01_Common;
-using Application.UseCases.Kiosco;
 using Application.UseCases.User;
 using AutoMapper;
 using Moq;
