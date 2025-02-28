@@ -6,7 +6,7 @@ using Application.UseCases.Kiosco;
 using AutoMapper;
 using Moq;
 
-namespace UnitTests.Kiosco
+namespace UnitTests.Application.UseCases.Kiosco
 {
     [TestClass]
     public class UpdateNotesUCTest

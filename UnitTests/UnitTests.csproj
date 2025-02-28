@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Visit\" />
+    <Folder Include="Application\UseCases\Visit\" />
   </ItemGroup>
 
   <ItemGroup>

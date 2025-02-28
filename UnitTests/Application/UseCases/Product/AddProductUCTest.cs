@@ -6,7 +6,7 @@ using Application.UseCases.Product;
 using AutoMapper;
 using Moq;
 
-namespace UnitTests.Product
+namespace UnitTests.Application.UseCases.Product
 {
     [TestClass]
     public class AddProductUCTest

@@ -3,7 +3,7 @@ using Application.Interfaces.Kiosco;
 using Application.UseCases.Kiosco;
 using Moq;
 
-namespace UnitTests.Kiosco
+namespace UnitTests.Application.UseCases.Kiosco
 {
     [TestClass]
     public class ToggleIsChangesUCTest

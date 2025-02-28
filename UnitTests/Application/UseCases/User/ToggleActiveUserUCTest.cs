@@ -4,7 +4,7 @@ using Application.Interfaces._01_Common;
 using Application.UseCases.User;
 using Moq;
 
-namespace UnitTests.User
+namespace UnitTests.Application.UseCases.User
 {
     [TestClass]
     public class ToggleActiveUserUCTest

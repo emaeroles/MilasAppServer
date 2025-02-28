@@ -4,7 +4,7 @@ using Application.Interfaces._01_Common;
 using Application.UseCases.Kiosco;
 using Moq;
 
-namespace UnitTests.Kiosco
+namespace UnitTests.Application.UseCases.Kiosco
 {
     [TestClass]
     public class ToggleActiveKioscoUCTest

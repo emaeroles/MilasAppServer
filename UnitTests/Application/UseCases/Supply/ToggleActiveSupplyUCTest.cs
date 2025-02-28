@@ -4,7 +4,7 @@ using Application.Interfaces._01_Common;
 using Application.UseCases.Supply;
 using Moq;
 
-namespace UnitTests.Supply
+namespace UnitTests.Application.UseCases.Supply
 {
     [TestClass]
     public class ToggleActiveSupplyUCTest

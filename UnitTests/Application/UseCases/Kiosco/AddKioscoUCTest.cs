@@ -6,7 +6,7 @@ using Application.UseCases.Kiosco;
 using AutoMapper;
 using Moq;
 
-namespace UnitTests.Kiosco
+namespace UnitTests.Application.UseCases.Kiosco
 {
     [TestClass]
     public class AddKioscoUCTest
@@ -27,7 +27,7 @@ namespace UnitTests.Kiosco
             AddKioscoUseCase addKioscoUseCase = new AddKioscoUseCase(addKioscoRepo.Object, mapper.Object);
 
             ResultState resultState = ResultState.Created;
-            
+
             // Act
             var result = addKioscoUseCase.Execute(addKioscoInput);
 

@@ -6,7 +6,7 @@ using Application.UseCases.User;
 using AutoMapper;
 using Moq;
 
-namespace UnitTests.User
+namespace UnitTests.Application.UseCases.User
 {
     [TestClass]
     public class UpdateUserUCTestTest

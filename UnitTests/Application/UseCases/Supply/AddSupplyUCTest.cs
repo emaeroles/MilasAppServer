@@ -6,7 +6,7 @@ using Application.UseCases.Supply;
 using AutoMapper;
 using Moq;
 
-namespace UnitTests.Supply
+namespace UnitTests.Application.UseCases.Supply
 {
     [TestClass]
     public class AddSupplyUCTest
