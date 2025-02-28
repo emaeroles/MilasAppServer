@@ -26,7 +26,8 @@ namespace Application.UseCases.Product
 
             var isOk = await _updateRepo.UpdateAsync(productEntity);
             if (!isOk)
-                return ResultFactory.CreateNotFound("Product was not updated");
+                return ResultFactory.CreateNotFound($"Product was not updated, " +
+                    $"id {updateProductInput.Id} does not exist");
 
             return ResultFactory.CreateSuccess("Product was updated", null);
         }

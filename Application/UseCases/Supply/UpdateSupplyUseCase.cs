@@ -26,7 +26,8 @@ namespace Application.UseCases.Supply
 
             var isOk = await _updateRepo.UpdateAsync(supplyEntity);
             if (!isOk)
-                return ResultFactory.CreateNotFound("Supply was not updated");
+                return ResultFactory.CreateNotFound($"Supply was not updated, " +
+                    $"id {updateSupplyInput.Id} does not exist");
 
             return ResultFactory.CreateSuccess("Supply was updated", null);
         }

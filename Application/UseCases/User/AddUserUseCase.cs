@@ -40,7 +40,7 @@ namespace Application.UseCases.User
             int id = await _addRepo.AddAsync(userEntity);
 
             if(id == 0)
-                return ResultFactory.CreateCreated("User was not created", id);
+                return ResultFactory.CreateNotFound("User was not created");
 
             return ResultFactory.CreateCreated("User was created", id);
         }

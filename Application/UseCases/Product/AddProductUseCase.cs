@@ -27,7 +27,7 @@ namespace Application.UseCases.Product
             int id = await _addProductRepo.AddAsync(productEntity);
 
             if (id == 0)
-                return ResultFactory.CreateCreated("Product was not created", id);
+                return ResultFactory.CreateNotFound("Product was not created");
 
             return ResultFactory.CreateCreated("Product was created", id);
         }

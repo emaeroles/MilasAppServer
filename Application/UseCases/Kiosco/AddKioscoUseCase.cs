@@ -27,7 +27,7 @@ namespace Application.UseCases.Kiosco
             int id = await _addKioscoRepo.AddAsync(kioscoEntity);
 
             if (id == 0)
-                return ResultFactory.CreateCreated("Kiosco was not created", id);
+                return ResultFactory.CreateNotFound("Kiosco was not created");
 
             return ResultFactory.CreateCreated("Kiosco was created", id);
         }

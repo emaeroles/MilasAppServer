@@ -27,7 +27,7 @@ namespace Application.UseCases.Supply
             int id = await _addUomRepo.AddAsync(uomEntity);
 
             if (id == 0)
-                return ResultFactory.CreateCreated("Unit of Mesure was not created", id);
+                return ResultFactory.CreateNotFound("Unit of Mesure was not created");
 
             return ResultFactory.CreateCreated("Unit of Mesure was created", id);
         }

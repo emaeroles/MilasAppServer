@@ -26,7 +26,8 @@ namespace Application.UseCases.Supply
 
             var isOk = await _updateRepo.UpdateAsync(uomEntity);
             if (!isOk)
-                return ResultFactory.CreateNotFound("Unit of Mesure was not updated");
+                return ResultFactory.CreateNotFound($"Unit of Mesure was not updated, " +
+                    $"id {updateUomInput.Id} does not exist");
 
             return ResultFactory.CreateSuccess("Unit of Mesure was updated", null);
         }

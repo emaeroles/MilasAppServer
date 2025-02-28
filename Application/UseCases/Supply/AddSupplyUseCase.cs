@@ -27,7 +27,7 @@ namespace Application.UseCases.Supply
             int id = await _addSupplyRepo.AddAsync(supplyEntity);
 
             if (id == 0)
-                return ResultFactory.CreateCreated("Supply was not created", id);
+                return ResultFactory.CreateNotFound("Supply was not created");
 
             return ResultFactory.CreateCreated("Supply was created", id);
         }

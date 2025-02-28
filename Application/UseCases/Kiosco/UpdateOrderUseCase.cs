@@ -26,7 +26,8 @@ namespace Application.UseCases.Kiosco
 
             var isOk = await _updateRepo.UpdateOrderAsync(kioscoEntity);
             if (!isOk)
-                return ResultFactory.CreateNotFound("Order from kiosco was not updated");
+                return ResultFactory.CreateNotFound($"Order from kiosco was not updated, " +
+                    $"id {updateKioscoOrderInput.Id} does not exist");
 
             return ResultFactory.CreateSuccess("Order from kiosco was updated", null);
         }

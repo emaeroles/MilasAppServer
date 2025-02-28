@@ -26,7 +26,8 @@ namespace Application.UseCases.Kiosco
 
             var isOk = await _updateRepo.UpdateAsync(kioscoEntity);
             if (!isOk)
-                return ResultFactory.CreateNotFound("Kiosco was not updated");
+                return ResultFactory.CreateNotFound($"Kiosco was not updated, " +
+                    $"id {updateKioscoInput.Id} does not exist");
 
             return ResultFactory.CreateSuccess("Kiosco was updated", null);
         }

@@ -26,7 +26,8 @@ namespace Application.UseCases.Kiosco
 
             var isOk = await _updateRepo.UpdateDubtAsync(kioscoEntity);
             if (!isOk)
-                return ResultFactory.CreateNotFound("Dubt from kiosco was not updated");
+                return ResultFactory.CreateNotFound($"Dubt from kiosco was not updated, " +
+                    $"id {updateKioscoDubtInput.Id} does not exist");
 
             return ResultFactory.CreateSuccess("Dubt from kiosco was updated", null);
         }
