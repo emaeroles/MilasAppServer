@@ -22,6 +22,7 @@ namespace Application.UseCases.User
             if (userEntity.Id == 0)
                 return ResultFactory.CreateNotFound("User does not exist");
 
+            // TODO: Inyectar PasswordHasher y hacer test
             var passwordHasher = new PasswordHasher<UserEntity>();
             var result = passwordHasher.VerifyHashedPassword(
                 userEntity, userEntity.Password, password);
