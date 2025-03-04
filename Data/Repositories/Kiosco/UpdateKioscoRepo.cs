@@ -26,7 +26,10 @@ namespace Data.Repositories.Kiosco
             kioscoModel.Phone = entity.Phone;
             kioscoModel.Address = entity.Address;
             
-            await _dbcontext.SaveChangesAsync();
+            int rows = await _dbcontext.SaveChangesAsync();
+
+            if (rows == 0)
+                return false;
 
             return true;
         }
@@ -38,7 +41,11 @@ namespace Data.Repositories.Kiosco
                 return false;
 
             kioscoModel.Notes = entity.Notes;
-            await _dbcontext.SaveChangesAsync();
+
+            int rows = await _dbcontext.SaveChangesAsync();
+
+            if (rows == 0)
+                return false;
 
             return true;
         }
@@ -51,7 +58,11 @@ namespace Data.Repositories.Kiosco
                 return false;
 
             kioscoModel.Dubt = entity.Dubt;
-            await _dbcontext.SaveChangesAsync();
+
+            int rows = await _dbcontext.SaveChangesAsync();
+
+            if (rows == 0)
+                return false;
 
             return true;
         }
@@ -64,7 +75,11 @@ namespace Data.Repositories.Kiosco
                 return false;
 
             kioscoModel.Order = entity.Order;
-            await _dbcontext.SaveChangesAsync();
+
+            int rows = await _dbcontext.SaveChangesAsync();
+
+            if (rows == 0)
+                return false;
 
             return true;
         }

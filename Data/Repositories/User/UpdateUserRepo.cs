@@ -23,7 +23,11 @@ namespace Data.Repositories.User
             userModel.Username = entity.Username;
             userModel.Password = entity.Password;
             userModel.Email = entity.Email;
-            await _dbcontext.SaveChangesAsync();
+
+            int rows = await _dbcontext.SaveChangesAsync();
+
+            if (rows == 0)
+                return false;
 
             return true;
         }

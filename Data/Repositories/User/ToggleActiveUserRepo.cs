@@ -21,7 +21,11 @@ namespace Data.Repositories.User
                 return false;
 
             userModel.IsActive = !userModel.IsActive;
-            await _dbcontext.SaveChangesAsync();
+
+            int rows = await _dbcontext.SaveChangesAsync();
+
+            if (rows == 0)
+                return false;
 
             return true;
         }

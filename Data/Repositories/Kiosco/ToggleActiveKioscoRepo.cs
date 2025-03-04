@@ -21,7 +21,11 @@ namespace Data.Repositories.Kiosco
                 return false;
 
             kioscoModel.IsActive = !kioscoModel.IsActive;
-            await _dbcontext.SaveChangesAsync();
+
+            int rows = await _dbcontext.SaveChangesAsync();
+
+            if (rows == 0)
+                return false;
 
             return true;
         }

@@ -15,11 +15,6 @@ namespace Data.Repositories.Supply
 
         public async Task<bool> UpdateAsync(SupplyEntity entity)
         {
-            var uomModel = await _dbcontext.Uoms.FindAsync(entity.UoM.Id);
-            if (uomModel == null)
-                // TODO: Crear un error propio para manejar problemas de foreing keys y manejarlo con el middleware
-                throw new InvalidOperationException("Unit of Mesure Id does not exist");
-
             var supplyModel = await _dbcontext.Supplies.FindAsync(entity.Id);
 
             if (supplyModel == null)
@@ -27,10 +22,14 @@ namespace Data.Repositories.Supply
 
             supplyModel.Name = entity.Name;
             supplyModel.Quantity = entity.Quantity;
-            supplyModel.Uom = uomModel;
+            supplyModel.UomId = entity.Id;
             supplyModel.CostPrice = entity.CostPrice;
             supplyModel.Yeild = entity.Yeild;
-            await _dbcontext.SaveChangesAsync();
+
+            int rows = await _dbcontext.SaveChangesAsync();
+
+            if (rows == 0)
+                return false;
 
             return true;
         }
