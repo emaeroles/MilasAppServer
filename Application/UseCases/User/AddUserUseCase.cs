@@ -43,7 +43,7 @@ namespace Application.UseCases.User
             if(!isCreated)
                 return ResultFactory.CreateNotCreated("User was not created");
 
-            return ResultFactory.CreateCreated("User was created");
+            return ResultFactory.CreateCreated("User was created", userEntity.Id);
         }
     }
 }

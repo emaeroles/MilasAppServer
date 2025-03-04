@@ -30,7 +30,7 @@ namespace Application.UseCases.Supply
             if (!isCreated)
                 return ResultFactory.CreateNotCreated("Unit of Mesure was not created");
 
-            return ResultFactory.CreateCreated("Unit of Mesure was created");
+            return ResultFactory.CreateCreated("Unit of Mesure was created", uomEntity.Id);
         }
     }
 }

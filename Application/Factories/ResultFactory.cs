@@ -31,9 +31,9 @@ namespace Application.Factories
             return new AppResult(message, null, ResultState.BadRequest);
         }
 
-        public static AppResult CreateCreated(string message)
+        public static AppResult CreateCreated(string message, object data)
         {
-            return new AppResult(message, null, ResultState.Created);
+            return new AppResult(message, data, ResultState.Created);
         }
 
         public static AppResult CreateNotCreated(string message)

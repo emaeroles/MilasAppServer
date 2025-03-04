@@ -30,7 +30,7 @@ namespace Application.UseCases.Supply
             if (!isCreated)
                 return ResultFactory.CreateNotCreated("Supply was not created");
 
-            return ResultFactory.CreateCreated("Supply was created");
+            return ResultFactory.CreateCreated("Supply was created", supplyEntity.Id);
         }
     }
 }

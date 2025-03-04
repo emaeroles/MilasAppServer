@@ -30,7 +30,7 @@ namespace Application.UseCases.Product
             if (!isCreated)
                 return ResultFactory.CreateNotCreated("Product was not created");
 
-            return ResultFactory.CreateCreated("Product was created");
+            return ResultFactory.CreateCreated("Product was created", productEntity.Id);
         }
     }
 }

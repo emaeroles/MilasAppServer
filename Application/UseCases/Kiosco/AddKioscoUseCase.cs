@@ -42,7 +42,7 @@ namespace Application.UseCases.Kiosco
             if (!isCreated)
                 return ResultFactory.CreateNotCreated("Kiosco was not created");
 
-            return ResultFactory.CreateCreated("Kiosco was created");
+            return ResultFactory.CreateCreated("Kiosco was created", kioscoEntity.Id);
         }
     }
 }
