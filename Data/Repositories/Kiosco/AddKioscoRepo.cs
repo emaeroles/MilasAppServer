@@ -24,11 +24,11 @@ namespace Data.Repositories.Kiosco
                 Phone = entity.Phone,
                 Address = entity.Address,
                 UserId = entity.UserId,
-                IsEnableChanges = false,
-                Notes = string.Empty,
-                Dubt = 0,
+                IsEnableChanges = entity.IsEnableChanges,
+                Notes = entity.Notes,
+                Dubt = entity.Dubt,
                 Order = entity.Order,
-                IsActive = true,
+                IsActive = entity.IsActive,
             };
 
             _dbcontext.Kioscos.Add(kioscoModel);

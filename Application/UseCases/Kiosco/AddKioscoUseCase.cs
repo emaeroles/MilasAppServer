@@ -10,13 +10,16 @@ namespace Application.UseCases.Kiosco
     public class AddKioscoUseCase
     {
         private readonly IAddRepo<KioscoEntity> _addKioscoRepo;
+        private readonly IGetByIdRepo<UserEntity> _getByIdRepo;
         private readonly IMapper _mapper;
 
         public AddKioscoUseCase(
             IAddRepo<KioscoEntity> addKioscoRepo,
+            IGetByIdRepo<UserEntity> getByIdRepo,
             IMapper mapper)
         {
             _addKioscoRepo = addKioscoRepo;
+            _getByIdRepo = getByIdRepo;
             _mapper = mapper;
         }
 
@@ -24,7 +27,15 @@ namespace Application.UseCases.Kiosco
         {
             var kioscoEntity = _mapper.Map<KioscoEntity>(addKioscoInput);
             kioscoEntity.Id = Guid.NewGuid();
+            kioscoEntity.IsEnableChanges = false;
+            kioscoEntity.Notes = string.Empty;
+            kioscoEntity.Dubt = 0;
             kioscoEntity.Order = Guid.Empty;
+            kioscoEntity.IsActive = true;
+
+            var userEntity = await _getByIdRepo.GetListByAsync(addKioscoInput.UserId);
+            if(userEntity.Id == Guid.Empty)
+                return ResultFactory.CreateNotFound("User was not found");
 
             bool isCreated = await _addKioscoRepo.AddAsync(kioscoEntity);
 
