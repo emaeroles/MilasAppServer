@@ -2,7 +2,7 @@
 {
     public class UpdateKioscoNotesInput
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Notes { get; set; } = string.Empty;
     }
 }

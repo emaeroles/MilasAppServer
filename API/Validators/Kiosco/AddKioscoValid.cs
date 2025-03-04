@@ -22,7 +22,7 @@ namespace API.Validators.Kiosco
                 .NotEmpty()
                 .Length(3, 95);
             RuleFor(x => x.UserId)
-                .GreaterThan(0);
+                .NotEmpty();
         }
     }
 }

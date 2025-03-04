@@ -8,7 +8,7 @@ namespace API.Validators.User
         public UpdateUserValid() 
         {
             RuleFor(x => x.Id)
-                .GreaterThan(0);
+                .NotEmpty();
             RuleFor(x => x.Username)
                 .NotEmpty()
                 .Length(3, 10);

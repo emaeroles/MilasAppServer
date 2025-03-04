@@ -2,7 +2,7 @@
 {
     public class AddSuppyProductInput
     {
-        public int SupplyId { get; set; }
-        public int ProductId { get; set; }
+        public Guid SupplyId { get; set; }
+        public Guid ProductId { get; set; }
     }
 }

@@ -46,7 +46,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("kioscos");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.Address)
                 .HasMaxLength(100)
@@ -84,7 +83,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("products");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.CostPrice)
                 .HasColumnType("money")
@@ -106,7 +104,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("products_kiosco");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.KioscoId).HasColumnName("kiosco_id");
             entity.Property(e => e.KioscoPrice)
@@ -133,7 +130,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("supplies_product");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.SupplyId).HasColumnName("supply_id");
@@ -156,7 +152,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("supplies");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.CostPrice)
                 .HasColumnType("money")
@@ -182,7 +177,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("uoms");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
             entity.Property(e => e.Unit)
@@ -197,7 +191,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("user");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
@@ -218,7 +211,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("visits");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.Date)
                 .HasColumnType("timestamp without time zone")
@@ -238,7 +230,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("visit_details");
 
             entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.Changes).HasColumnName("changes");
             entity.Property(e => e.Has).HasColumnName("has");

@@ -18,6 +18,7 @@ namespace Data.Repositories.Kiosco
         {
             var kioscoModel = new KioscoModel()
             {
+                Id = entity.Id,
                 Name = entity.Name,
                 Manager = entity.Manager,
                 Phone = entity.Phone,
@@ -26,7 +27,7 @@ namespace Data.Repositories.Kiosco
                 IsEnableChanges = false,
                 Notes = string.Empty,
                 Dubt = 0,
-                Order = 0,
+                Order = entity.Order,
                 IsActive = true,
             };
 

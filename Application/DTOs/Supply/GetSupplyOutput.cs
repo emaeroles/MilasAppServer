@@ -2,7 +2,7 @@
 {
     public class GetSupplyOutput
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public float Quantity { get; set; }
         public string UoM { get; set; } = string.Empty;

@@ -8,7 +8,7 @@ namespace API.Validators.Supply
         public UpdateUomValid()
         {
             RuleFor(x => x.Id)
-                .GreaterThan(0);
+                .NotEmpty();
             RuleFor(x => x.Unit)
                 .NotEmpty()
                 .MaximumLength(10);

@@ -8,7 +8,7 @@ namespace API.Validators.Product
         public UpdateProductValid() 
         {
             RuleFor(x => x.Id)
-                .GreaterThan(0);
+                .NotEmpty();
             RuleFor(x => x.Name)
                .NotEmpty()
                .Length(3, 45);

@@ -2,7 +2,7 @@
 {
     public class GetVisitDetailOutput
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string ProductName { get; set; } = string.Empty;
         public int Has { get; set; }
         public int Leave { get; set; }

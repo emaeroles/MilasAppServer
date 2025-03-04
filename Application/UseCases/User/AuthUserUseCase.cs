@@ -23,7 +23,7 @@ namespace Application.UseCases.User
         {
             var userEntity = await _getByUsernameRepo.GetByUsernameAsync(username);
 
-            if (userEntity.Id == 0)
+            if (userEntity.Id == Guid.Empty)
                 return ResultFactory.CreateNotFound("User does not exist");
 
             var result = _passwordHasher.VerifyHashedPassword(userEntity, userEntity.Password, password);

@@ -23,6 +23,7 @@ namespace Application.UseCases.Supply
         public async Task<AppResult> Execute(AddSupplyInput addSupplyInput)
         {
             var supplyEntity = _mapper.Map<SupplyEntity>(addSupplyInput);
+            supplyEntity.Id = Guid.NewGuid();
 
             bool isCreated = await _addSupplyRepo.AddAsync(supplyEntity);
 

@@ -23,6 +23,7 @@ namespace Application.UseCases.Supply
         public async Task<AppResult> Execute(AddUomInput addUomInput)
         {
             var uomEntity = _mapper.Map<UoMEntity>(addUomInput);
+            uomEntity.Id = Guid.NewGuid();
 
             bool isCreated = await _addUomRepo.AddAsync(uomEntity);
 

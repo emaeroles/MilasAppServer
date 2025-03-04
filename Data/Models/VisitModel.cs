@@ -5,9 +5,9 @@ namespace Data.Models;
 
 public partial class VisitModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
-    public int KioscoId { get; set; }
+    public Guid KioscoId { get; set; }
 
     public DateTime Date { get; set; }
 

@@ -5,11 +5,11 @@ namespace Data.Models;
 
 public partial class SuppliesProductModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
-    public int SupplyId { get; set; }
+    public Guid SupplyId { get; set; }
 
-    public int ProductId { get; set; }
+    public Guid ProductId { get; set; }
 
     public virtual ProductModel Product { get; set; } = null!;
 

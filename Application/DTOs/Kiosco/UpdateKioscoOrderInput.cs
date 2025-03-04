@@ -2,7 +2,7 @@
 {
     public class UpdateKioscoOrderInput
     {
-        public int Id { get; set; }
-        public int Order { get; set; }
+        public Guid Id { get; set; }
+        public Guid Order { get; set; }
     }
 }

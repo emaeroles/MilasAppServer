@@ -8,7 +8,7 @@ namespace API.Validators.Kiosco
         public UpdateDubtValid() 
         {
             RuleFor(x => x.Id)
-                .GreaterThan(0);
+                .NotEmpty();
             RuleFor(x => x.Dubt)
                 .GreaterThanOrEqualTo(0);
         }

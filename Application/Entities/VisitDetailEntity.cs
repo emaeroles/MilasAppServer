@@ -2,7 +2,7 @@
 {
     public class VisitDetailEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public ProductEntity Product { get; set; } = new ProductEntity();
         public int Has { get; set; }
         public int Leave { get; set; }

@@ -33,6 +33,7 @@ namespace Application.UseCases.User
                 return ResultFactory.CreateConflict("Username already exists");
 
             var userEntity = _mapper.Map<UserEntity>(addUserInput);
+            userEntity.Id = Guid.NewGuid();
 
             var passwordHasher = new PasswordHasher<UserEntity>();
             userEntity.Password = passwordHasher.HashPassword(userEntity, addUserInput.Password);

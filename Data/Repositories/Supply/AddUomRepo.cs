@@ -18,6 +18,7 @@ namespace Data.Repositories.Supply
         {
             var uomModel = new UomModel()
             {
+                Id = entity.Id,
                 Unit = entity.Unit,
                 IsActive = true,
             };

@@ -5,11 +5,11 @@ namespace Data.Models;
 
 public partial class ProductsKioscoModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
-    public int ProductId { get; set; }
+    public Guid ProductId { get; set; }
 
-    public int KioscoId { get; set; }
+    public Guid KioscoId { get; set; }
 
     public int Stock { get; set; }
 

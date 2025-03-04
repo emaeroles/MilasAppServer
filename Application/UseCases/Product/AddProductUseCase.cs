@@ -23,6 +23,7 @@ namespace Application.UseCases.Product
         public async Task<AppResult> Execute(AddProductInput addProductInput)
         {
             var productEntity = _mapper.Map<ProductEntity>(addProductInput);
+            productEntity.Id = Guid.NewGuid();
 
             bool isCreated = await _addProductRepo.AddAsync(productEntity);
 

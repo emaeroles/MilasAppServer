@@ -5,7 +5,7 @@ namespace Data.Models;
 
 public partial class UomModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Unit { get; set; } = null!;
 

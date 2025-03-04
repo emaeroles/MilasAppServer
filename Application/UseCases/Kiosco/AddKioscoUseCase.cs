@@ -23,6 +23,8 @@ namespace Application.UseCases.Kiosco
         public async Task<AppResult> Execute(AddKioscoInput addKioscoInput)
         {
             var kioscoEntity = _mapper.Map<KioscoEntity>(addKioscoInput);
+            kioscoEntity.Id = Guid.NewGuid();
+            kioscoEntity.Order = Guid.Empty;
 
             bool isCreated = await _addKioscoRepo.AddAsync(kioscoEntity);
 

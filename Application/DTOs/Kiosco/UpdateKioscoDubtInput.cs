@@ -2,7 +2,7 @@
 {
     public class UpdateKioscoDubtInput
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public decimal Dubt { get; set; }
     }
 }

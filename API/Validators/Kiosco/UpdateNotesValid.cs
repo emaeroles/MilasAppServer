@@ -8,7 +8,7 @@ namespace API.Validators.Kiosco
         public UpdateNotesValid() 
         {
             RuleFor(x => x.Id)
-                .GreaterThan(0);
+                .NotEmpty();
             RuleFor(x => x.Notes)
                 .NotEmpty()
                 .MaximumLength(995);

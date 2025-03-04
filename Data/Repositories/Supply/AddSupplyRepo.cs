@@ -18,6 +18,7 @@ namespace Data.Repositories.Supply
         {
             var supplyModel = new SupplyModel()
             {
+                Id = entity.Id,
                 Name = entity.Name,
                 Quantity = entity.Quantity,
                 UomId = entity.UoM.Id,

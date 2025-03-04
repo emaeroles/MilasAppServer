@@ -18,6 +18,7 @@ namespace Data.Repositories.User
         {
             var userModel = new UserModel()
             {
+                Id = entity.Id,
                 Username = entity.Username,
                 Password = entity.Password,
                 Email = entity.Email,

@@ -8,7 +8,7 @@ namespace API.Validators.Kiosco
         public UpdateOrderValid()
         {
             RuleFor(x => x.Id)
-                .GreaterThan(0);
+                .NotEmpty();
             RuleFor(x => x.Order)
                 .GreaterThanOrEqualTo(0);
         }

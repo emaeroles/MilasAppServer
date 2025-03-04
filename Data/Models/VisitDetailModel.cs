@@ -5,11 +5,11 @@ namespace Data.Models;
 
 public partial class VisitDetailModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
-    public int VisitId { get; set; }
+    public Guid VisitId { get; set; }
 
-    public int ProductId { get; set; }
+    public Guid ProductId { get; set; }
 
     public int Has { get; set; }
 

@@ -18,6 +18,7 @@ namespace Data.Repositories.Product
         {
             var productModel = new ProductModel()
             {
+                Id = entity.Id,
                 Name = entity.Name,
                 IsOwn = entity.IsOwn,
                 CostPrice = entity.CostPrice,

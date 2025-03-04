@@ -5,13 +5,13 @@ namespace Data.Models;
 
 public partial class SupplyModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Name { get; set; } = null!;
 
     public float Quantity { get; set; }
 
-    public int UomId { get; set; }
+    public Guid UomId { get; set; }
 
     public decimal CostPrice { get; set; }
 
