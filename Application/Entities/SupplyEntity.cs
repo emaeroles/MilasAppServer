@@ -8,5 +8,6 @@
         public UoMEntity UoM { get; set; } = new UoMEntity();
         public decimal CostPrice { get; set; }
         public int Yeild { get; set; }
+        public bool IsActive { get; set; }
     }
 }

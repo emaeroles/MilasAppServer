@@ -12,5 +12,6 @@
         public string Notes { get; set; } = string.Empty;
         public decimal Dubt { get; set; }
         public Guid Order { get; set; }
+        public bool IsActive { get; set; }
     }
 }

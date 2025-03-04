@@ -7,5 +7,6 @@
         public bool IsOwn {  get; set; }
         public decimal CostPrice {  get; set; }
         public decimal SalePrice { get; set; }
+        public bool IsActive { get; set; }
     }
 }
