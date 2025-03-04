@@ -22,7 +22,7 @@ namespace UnitTests.Application.UseCases.Supply
             SupplyEntity supplyEntity = new SupplyEntity();
 
             mapper.Setup(m => m.Map<SupplyEntity>(addSupplyInput)).Returns(supplyEntity);
-            addSupplyRepo.Setup(r => r.AddAsync(supplyEntity)).ReturnsAsync(1);
+            addSupplyRepo.Setup(r => r.AddAsync(supplyEntity)).ReturnsAsync(true);
 
             AddSupplyUseCase addSupplyUseCase = new AddSupplyUseCase(addSupplyRepo.Object, mapper.Object);
 
@@ -33,7 +33,6 @@ namespace UnitTests.Application.UseCases.Supply
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNotNull(result.Result.Data);
         }
 
         [TestMethod]
@@ -47,18 +46,17 @@ namespace UnitTests.Application.UseCases.Supply
             AddSupplyInput addSupplyInput = new AddSupplyInput();
 
             mapper.Setup(m => m.Map<SupplyEntity>(addSupplyInput)).Returns(supplyEntity);
-            addSupplyRepo.Setup(r => r.AddAsync(supplyEntity)).ReturnsAsync(0);
+            addSupplyRepo.Setup(r => r.AddAsync(supplyEntity)).ReturnsAsync(false);
 
             AddSupplyUseCase addSupplyUseCase = new AddSupplyUseCase(addSupplyRepo.Object, mapper.Object);
 
-            ResultState resultState = ResultState.NotFound;
+            ResultState resultState = ResultState.NotCreated;
 
             // Act
             var result = addSupplyUseCase.Execute(addSupplyInput);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }

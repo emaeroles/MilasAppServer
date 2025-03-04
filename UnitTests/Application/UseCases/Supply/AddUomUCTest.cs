@@ -22,7 +22,7 @@ namespace UnitTests.Application.UseCases.Supply
             UoMEntity uomEntity = new UoMEntity();
 
             mapper.Setup(m => m.Map<UoMEntity>(addUomInput)).Returns(uomEntity);
-            addUomRepo.Setup(r => r.AddAsync(uomEntity)).ReturnsAsync(1);
+            addUomRepo.Setup(r => r.AddAsync(uomEntity)).ReturnsAsync(true);
 
             AddUomUseCase addUomUseCase = new AddUomUseCase(addUomRepo.Object, mapper.Object);
 
@@ -33,7 +33,6 @@ namespace UnitTests.Application.UseCases.Supply
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNotNull(result.Result.Data);
         }
 
         [TestMethod]
@@ -47,18 +46,17 @@ namespace UnitTests.Application.UseCases.Supply
             AddUomInput addUomInput = new AddUomInput();
 
             mapper.Setup(m => m.Map<UoMEntity>(addUomInput)).Returns(uomEntity);
-            addUomRepo.Setup(r => r.AddAsync(uomEntity)).ReturnsAsync(0);
+            addUomRepo.Setup(r => r.AddAsync(uomEntity)).ReturnsAsync(false);
 
             AddUomUseCase addUomUseCase = new AddUomUseCase(addUomRepo.Object, mapper.Object);
 
-            ResultState resultState = ResultState.NotFound;
+            ResultState resultState = ResultState.NotCreated;
 
             // Act
             var result = addUomUseCase.Execute(addUomInput);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }

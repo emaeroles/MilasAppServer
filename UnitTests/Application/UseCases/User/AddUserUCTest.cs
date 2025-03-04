@@ -24,7 +24,7 @@ namespace UnitTests.Application.UseCases.User
             UserEntity userEntity = new UserEntity();
 
             mapper.Setup(m => m.Map<UserEntity>(addUserInput)).Returns(userEntity);
-            addUserRepo.Setup(r => r.AddAsync(userEntity)).ReturnsAsync(1);
+            addUserRepo.Setup(r => r.AddAsync(userEntity)).ReturnsAsync(true);
 
             AddUserUseCase addUserUseCase = new AddUserUseCase(addUserRepo.Object, checkUserRepo.Object, mapper.Object);
 
@@ -35,7 +35,6 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNotNull(result.Result.Data);
         }
 
         [TestMethod]
@@ -61,7 +60,6 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace UnitTests.Application.UseCases.Product
             ProductEntity productEntity = new ProductEntity();
 
             mapper.Setup(m => m.Map<ProductEntity>(addProductInput)).Returns(productEntity);
-            addProductRepo.Setup(r => r.AddAsync(productEntity)).ReturnsAsync(1);
+            addProductRepo.Setup(r => r.AddAsync(productEntity)).ReturnsAsync(true);
 
             AddProductUseCase addProductUseCase = new AddProductUseCase(addProductRepo.Object, mapper.Object);
 
@@ -33,7 +33,6 @@ namespace UnitTests.Application.UseCases.Product
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNotNull(result.Result.Data);
         }
 
         [TestMethod]
@@ -47,18 +46,17 @@ namespace UnitTests.Application.UseCases.Product
             AddProductInput addProductInput = new AddProductInput();
 
             mapper.Setup(m => m.Map<ProductEntity>(addProductInput)).Returns(productEntity);
-            addProductRepo.Setup(r => r.AddAsync(productEntity)).ReturnsAsync(0);
+            addProductRepo.Setup(r => r.AddAsync(productEntity)).ReturnsAsync(false);
 
             AddProductUseCase addProductUseCase = new AddProductUseCase(addProductRepo.Object, mapper.Object);
 
-            ResultState resultState = ResultState.NotFound;
+            ResultState resultState = ResultState.NotCreated;
 
             // Act
             var result = addProductUseCase.Execute(addProductInput);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }

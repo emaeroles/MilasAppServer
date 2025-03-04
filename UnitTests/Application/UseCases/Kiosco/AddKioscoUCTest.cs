@@ -22,7 +22,7 @@ namespace UnitTests.Application.UseCases.Kiosco
             KioscoEntity kioscoEntity = new KioscoEntity();
 
             mapper.Setup(m => m.Map<KioscoEntity>(addKioscoInput)).Returns(kioscoEntity);
-            addKioscoRepo.Setup(r => r.AddAsync(kioscoEntity)).ReturnsAsync(1);
+            addKioscoRepo.Setup(r => r.AddAsync(kioscoEntity)).ReturnsAsync(true);
 
             AddKioscoUseCase addKioscoUseCase = new AddKioscoUseCase(addKioscoRepo.Object, mapper.Object);
 
@@ -33,7 +33,6 @@ namespace UnitTests.Application.UseCases.Kiosco
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNotNull(result.Result.Data);
         }
 
         [TestMethod]
@@ -47,18 +46,17 @@ namespace UnitTests.Application.UseCases.Kiosco
             AddKioscoInput addKioscoInput = new AddKioscoInput();
 
             mapper.Setup(m => m.Map<KioscoEntity>(addKioscoInput)).Returns(kioscoEntity);
-            addKioscoRepo.Setup(r => r.AddAsync(kioscoEntity)).ReturnsAsync(0);
+            addKioscoRepo.Setup(r => r.AddAsync(kioscoEntity)).ReturnsAsync(false);
 
             AddKioscoUseCase addKioscoUseCase = new AddKioscoUseCase(addKioscoRepo.Object, mapper.Object);
 
-            ResultState resultState = ResultState.NotFound;
+            ResultState resultState = ResultState.NotCreated;
 
             // Act
             var result = addKioscoUseCase.Execute(addKioscoInput);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }
