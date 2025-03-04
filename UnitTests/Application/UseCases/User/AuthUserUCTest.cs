@@ -5,7 +5,6 @@ using Application.UseCases.User;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Moq;
-using System.Collections;
 
 namespace UnitTests.Application.UseCases.User
 {

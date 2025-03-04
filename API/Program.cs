@@ -55,7 +55,8 @@ string filePath = builder.Configuration["FilePaths:LogsFilePath"]!;
 Log.Logger = new LoggerConfiguration()
                 .WriteTo.File(filePath + @"\logs.txt",
                     outputTemplate: "{Timestamp:dd-MM-yyyy HH:mm:ss} [{Level:u3}]" +
-                        " {Message:lj}{NewLine}{Exception}")
+                        "{NewLine}{NewLine}{Message:lj}{NewLine}{Exception}" +
+                        "{NewLine}=================================================={NewLine}{NewLine}")
                 .MinimumLevel.Error()
                 .CreateLogger();
 
