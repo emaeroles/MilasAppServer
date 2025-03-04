@@ -14,7 +14,7 @@ namespace Data.Repositories.User
             _dbcontext = dbContext;
         }
 
-        public async Task<int> AddAsync(UserEntity entity)
+        public async Task<bool> AddAsync(UserEntity entity)
         {
             var userModel = new UserModel()
             {
@@ -27,7 +27,10 @@ namespace Data.Repositories.User
             _dbcontext.Users.Add(userModel);
             int rows = await _dbcontext.SaveChangesAsync();
 
-            return userModel.Id;
+            if (rows == 0)
+                return false;
+
+            return true;
         }
     }
 }

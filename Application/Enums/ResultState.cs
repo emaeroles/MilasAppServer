@@ -4,10 +4,11 @@
     {
         Success = 0,
         Created = 1,
-        NotFound = 2,
-        Conflict = 3,
-        BadRequest = 4,
-        Authorized = 5,
-        Unauthorized = 6,
+        NotCreated = 2,
+        NotFound = 3,
+        Conflict = 4,
+        BadRequest = 5,
+        Authorized = 6,
+        Unauthorized = 7,
     }
 }

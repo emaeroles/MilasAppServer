@@ -37,12 +37,12 @@ namespace Application.UseCases.User
             var passwordHasher = new PasswordHasher<UserEntity>();
             userEntity.Password = passwordHasher.HashPassword(userEntity, addUserInput.Password);
 
-            int id = await _addRepo.AddAsync(userEntity);
+            bool isCreated = await _addRepo.AddAsync(userEntity);
 
-            if(id == 0)
-                return ResultFactory.CreateNotFound("User was not created");
+            if(!isCreated)
+                return ResultFactory.CreateNotCreated("User was not created");
 
-            return ResultFactory.CreateCreated("User was created", id);
+            return ResultFactory.CreateCreated("User was created");
         }
     }
 }

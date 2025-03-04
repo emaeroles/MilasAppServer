@@ -14,18 +14,13 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<int> AddAsync(SupplyEntity entity)
+        public async Task<bool> AddAsync(SupplyEntity entity)
         {
-            var uomModel = await _dbcontext.Uoms.FindAsync(entity.UoM.Id);
-            if (uomModel == null)
-                // TODO: Crear un error propio para manejar problemas de foreing keys y manejarlo con el middleware
-                throw new InvalidOperationException("Unit of Mesure Id does not exist");
-
             var supplyModel = new SupplyModel()
             {
                 Name = entity.Name,
                 Quantity = entity.Quantity,
-                Uom = uomModel,
+                UomId = entity.UoM.Id,
                 CostPrice = entity.CostPrice,
                 Yeild = entity.Yeild,
                 IsActive = true,
@@ -34,7 +29,10 @@ namespace Data.Repositories.Supply
             _dbcontext.Supplies.Add(supplyModel);
             int rows = await _dbcontext.SaveChangesAsync();
 
-            return supplyModel.Id;
+            if (rows == 0)
+                return false;
+
+            return true;
         }
     }
 }

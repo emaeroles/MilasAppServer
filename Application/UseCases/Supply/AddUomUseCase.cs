@@ -24,12 +24,12 @@ namespace Application.UseCases.Supply
         {
             var uomEntity = _mapper.Map<UoMEntity>(addUomInput);
 
-            int id = await _addUomRepo.AddAsync(uomEntity);
+            bool isCreated = await _addUomRepo.AddAsync(uomEntity);
 
-            if (id == 0)
-                return ResultFactory.CreateNotFound("Unit of Mesure was not created");
+            if (!isCreated)
+                return ResultFactory.CreateNotCreated("Unit of Mesure was not created");
 
-            return ResultFactory.CreateCreated("Unit of Mesure was created", id);
+            return ResultFactory.CreateCreated("Unit of Mesure was created");
         }
     }
 }

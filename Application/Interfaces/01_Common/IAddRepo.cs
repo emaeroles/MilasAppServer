@@ -2,6 +2,6 @@
 {
     public interface IAddRepo<T>
     {
-        public Task<int> AddAsync(T entity);
+        public Task<bool> AddAsync(T entity);
     }
 }

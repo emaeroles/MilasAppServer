@@ -24,12 +24,12 @@ namespace Application.UseCases.Product
         {
             var productEntity = _mapper.Map<ProductEntity>(addProductInput);
 
-            int id = await _addProductRepo.AddAsync(productEntity);
+            bool isCreated = await _addProductRepo.AddAsync(productEntity);
 
-            if (id == 0)
-                return ResultFactory.CreateNotFound("Product was not created");
+            if (!isCreated)
+                return ResultFactory.CreateNotCreated("Product was not created");
 
-            return ResultFactory.CreateCreated("Product was created", id);
+            return ResultFactory.CreateCreated("Product was created");
         }
     }
 }

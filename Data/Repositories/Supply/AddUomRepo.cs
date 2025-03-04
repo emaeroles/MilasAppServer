@@ -14,7 +14,7 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<int> AddAsync(UoMEntity entity)
+        public async Task<bool> AddAsync(UoMEntity entity)
         {
             var uomModel = new UomModel()
             {
@@ -25,7 +25,10 @@ namespace Data.Repositories.Supply
             _dbcontext.Uoms.Add(uomModel);
             int rows = await _dbcontext.SaveChangesAsync();
 
-            return uomModel.Id;
+            if (rows == 0)
+                return false;
+
+            return true;
         }
     }
 }

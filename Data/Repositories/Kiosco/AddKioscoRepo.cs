@@ -14,10 +14,8 @@ namespace Data.Repositories.Kiosco
             _dbcontext = dbContext;
         }
 
-        public async Task<int> AddAsync(KioscoEntity entity)
+        public async Task<bool> AddAsync(KioscoEntity entity)
         {
-            // TODO: Comprobacion de existencia de User
-
             var kioscoModel = new KioscoModel()
             {
                 Name = entity.Name,
@@ -35,7 +33,10 @@ namespace Data.Repositories.Kiosco
             _dbcontext.Kioscos.Add(kioscoModel);
             int rows = await _dbcontext.SaveChangesAsync();
 
-            return kioscoModel.Id;
+            if(rows == 0)
+                return false;
+
+            return true;
         }
     }
 }

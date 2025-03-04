@@ -10,9 +10,14 @@ namespace Application.Factories
             return new AppResult(message, data, ResultState.Success);
         }
 
-        public static AppResult CreateCreated(string message, object data)
+        public static AppResult CreateCreated(string message)
         {
-            return new AppResult(message, data, ResultState.Created);
+            return new AppResult(message, null, ResultState.Created);
+        }
+
+        public static AppResult CreateNotCreated(string message)
+        {
+            return new AppResult(message, null, ResultState.NotCreated);
         }
 
         public static AppResult CreateNotFound(string message)

@@ -24,12 +24,12 @@ namespace Application.UseCases.Supply
         {
             var supplyEntity = _mapper.Map<SupplyEntity>(addSupplyInput);
 
-            int id = await _addSupplyRepo.AddAsync(supplyEntity);
+            bool isCreated = await _addSupplyRepo.AddAsync(supplyEntity);
 
-            if (id == 0)
-                return ResultFactory.CreateNotFound("Supply was not created");
+            if (!isCreated)
+                return ResultFactory.CreateNotCreated("Supply was not created");
 
-            return ResultFactory.CreateCreated("Supply was created", id);
+            return ResultFactory.CreateCreated("Supply was created");
         }
     }
 }

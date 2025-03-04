@@ -24,12 +24,12 @@ namespace Application.UseCases.Kiosco
         {
             var kioscoEntity = _mapper.Map<KioscoEntity>(addKioscoInput);
 
-            int id = await _addKioscoRepo.AddAsync(kioscoEntity);
+            bool isCreated = await _addKioscoRepo.AddAsync(kioscoEntity);
 
-            if (id == 0)
-                return ResultFactory.CreateNotFound("Kiosco was not created");
+            if (!isCreated)
+                return ResultFactory.CreateNotCreated("Kiosco was not created");
 
-            return ResultFactory.CreateCreated("Kiosco was created", id);
+            return ResultFactory.CreateCreated("Kiosco was created");
         }
     }
 }

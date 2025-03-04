@@ -14,7 +14,7 @@ namespace Data.Repositories.Product
             _dbcontext = dbContext;
         }
 
-        public async Task<int> AddAsync(ProductEntity entity)
+        public async Task<bool> AddAsync(ProductEntity entity)
         {
             var productModel = new ProductModel()
             {
@@ -28,7 +28,10 @@ namespace Data.Repositories.Product
             _dbcontext.Products.Add(productModel);
             int rows = await _dbcontext.SaveChangesAsync();
 
-            return productModel.Id;
+            if (rows == 0)
+                return false;
+
+            return true;
         }
     }
 }
