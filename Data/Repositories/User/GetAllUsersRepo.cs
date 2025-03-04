@@ -23,7 +23,6 @@ namespace Data.Repositories.User
                 {
                     Id = u.Id,
                     Username = u.Username,
-                    Password = u.Password,
                     Email = u.Email,
                 }).ToListAsync();
         }
