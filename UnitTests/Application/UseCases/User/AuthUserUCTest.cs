@@ -19,7 +19,7 @@ namespace UnitTests.Application.UseCases.User
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             UserEntity userEntity = new UserEntity();
-            userEntity.Id = 1;
+            userEntity.Id = Guid.NewGuid();
             userEntity.Password = "password";
             string username = "username";
             string password = "password";
@@ -48,7 +48,7 @@ namespace UnitTests.Application.UseCases.User
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             UserEntity userEntity = new UserEntity();
-            userEntity.Id = 1;
+            userEntity.Id = Guid.NewGuid();
             userEntity.Password = "password";
             string username = "username";
             string password = "password";
@@ -78,7 +78,7 @@ namespace UnitTests.Application.UseCases.User
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             UserEntity userEntity = new UserEntity();
-            userEntity.Id = 0;
+            userEntity.Id = Guid.Empty;
             string username = "username";
             string password = "password";
 
