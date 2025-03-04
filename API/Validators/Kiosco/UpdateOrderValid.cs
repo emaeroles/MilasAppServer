@@ -10,7 +10,7 @@ namespace API.Validators.Kiosco
             RuleFor(x => x.Id)
                 .NotEmpty();
             RuleFor(x => x.Order)
-                .GreaterThanOrEqualTo(0);
+                .NotEmpty();
         }
     }
 }
