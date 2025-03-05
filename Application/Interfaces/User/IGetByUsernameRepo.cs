@@ -4,6 +4,6 @@ namespace Application.Interfaces.User
 {
     public interface IGetByUsernameRepo
     {
-        public Task<UserEntity> GetByUsernameAsync(string username);
+        public Task<UserEntity?> GetByUsernameAsync(string username);
     }
 }

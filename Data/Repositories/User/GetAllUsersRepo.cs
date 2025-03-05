@@ -15,16 +15,24 @@ namespace Data.Repositories.User
             _dbcontext = dbContext;
         }
 
-        public async Task<IEnumerable<UserEntity>> GetAllByActiveAsync(bool isActive)
+        public async Task<IEnumerable<UserEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            return await _dbcontext.Users
+            IQueryable<UserEntity> queryUser = _dbcontext.Users
                 .Where(u => u.IsActive == isActive)
                 .Select(u => new UserEntity
                 {
                     Id = u.Id,
                     Username = u.Username,
                     Email = u.Email,
-                }).ToListAsync();
+                    IsActive = u.IsActive
+                });
+
+            IEnumerable<UserEntity> listUserEntity = await queryUser.ToListAsync();
+
+            if (!listUserEntity.Any())
+                return null;
+
+            return listUserEntity;
         }
     }
 }

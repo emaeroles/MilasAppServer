@@ -1,6 +1,7 @@
 ﻿using Application.Entities;
 using Application.Interfaces.User;
 using Data.Context;
+using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.User
@@ -14,13 +15,13 @@ namespace Data.Repositories.User
             _dbcontext = dbContext;
         }
 
-        public async Task<UserEntity> GetByUsernameAsync(string username)
+        public async Task<UserEntity?> GetByUsernameAsync(string username)
         {
-            var userModel = await _dbcontext.Users
+            UserModel? userModel = await _dbcontext.Users
                 .FirstOrDefaultAsync(u => u.Username == username);
 
             if (userModel == null)
-                return new UserEntity();
+                return null;
 
             return new UserEntity()
             {
@@ -28,6 +29,7 @@ namespace Data.Repositories.User
                 Username = username,
                 Password = userModel.Password,
                 Email = userModel.Email,
+                IsActive = userModel.IsActive,
             };
         }
     }

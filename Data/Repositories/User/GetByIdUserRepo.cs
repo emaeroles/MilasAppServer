@@ -1,6 +1,7 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
 using Data.Context;
+using Data.Models;
 
 namespace Data.Repositories.User
 {
@@ -13,18 +14,19 @@ namespace Data.Repositories.User
             _dbcontext = dbContext;
         }
 
-        public async Task<UserEntity> GetByIdAsync(Guid entityId)
+        public async Task<UserEntity?> GetByIdAsync(Guid entityId)
         {
-            var userModel = await _dbcontext.Users.FindAsync(entityId);
+            UserModel? userModel = await _dbcontext.Users.FindAsync(entityId);
 
             if (userModel == null)
-                return new UserEntity();
+                return null;
 
             return new UserEntity()
             {
                 Id = userModel.Id,
                 Username = userModel.Username,
                 Email = userModel.Email,
+                IsActive = userModel.IsActive,
             };
         }
     }

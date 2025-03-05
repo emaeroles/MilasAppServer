@@ -16,7 +16,7 @@ namespace Data.Repositories.User
 
         public async Task<bool> AddAsync(UserEntity entity)
         {
-            var userModel = new UserModel()
+            UserModel userModel = new UserModel()
             {
                 Id = entity.Id,
                 Username = entity.Username,
