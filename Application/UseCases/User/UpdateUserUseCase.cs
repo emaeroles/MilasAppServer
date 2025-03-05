@@ -3,7 +3,6 @@ using Application.DTOs.User;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.UseCases.User
@@ -13,18 +12,15 @@ namespace Application.UseCases.User
         private readonly IUpdateRepo<UserEntity> _updateRepo;
         private readonly IGetByIdRepo<UserEntity> _getByIdRepo;
         private readonly IPasswordHasher<UserEntity> _passwordHasher;
-        private readonly IMapper _mapper;
 
         public UpdateUserUseCase(
             IUpdateRepo<UserEntity> updateRepo,
             IGetByIdRepo<UserEntity> getByIdRepo,
-            IPasswordHasher<UserEntity> passwordHasher,
-            IMapper mapper) 
+            IPasswordHasher<UserEntity> passwordHasher) 
         {
             _updateRepo = updateRepo;
             _getByIdRepo = getByIdRepo;
             _passwordHasher = passwordHasher;
-            _mapper = mapper;
         }
 
         public async Task<AppResult> Execute(UpdateUserInput updateUserInput)
@@ -34,8 +30,9 @@ namespace Application.UseCases.User
             if (userEntity == null)
                 return ResultFactory.CreateNotFound("The user does not exist");
 
-            userEntity = _mapper.Map<UserEntity>(updateUserInput);
+            userEntity.Username = updateUserInput.Username;
             userEntity.Password = _passwordHasher.HashPassword(userEntity, updateUserInput.Password);
+            userEntity.Email = updateUserInput.Email;
 
             var isUpdated = await _updateRepo.UpdateAsync(userEntity);
             if (!isUpdated)
