@@ -2,6 +2,9 @@ using API;
 using API.Middleware;
 using Application;
 using Data;
+using Data.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
@@ -58,7 +61,7 @@ Log.Logger = new LoggerConfiguration()
                         "{NewLine}{NewLine}{Message:lj}{NewLine}{Exception}" +
                         "{NewLine}=================================================={NewLine}{NewLine}")
                 .MinimumLevel.Error()
-                .CreateLogger();
+.CreateLogger();
 
 builder.Host.UseSerilog();
 
@@ -66,6 +69,13 @@ builder.Host.UseSerilog();
 var app = builder.Build();
 
 // ==============================================================================
+
+// Entity Framework Warm-up Query
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Users.FirstOrDefault();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
