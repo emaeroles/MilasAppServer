@@ -16,7 +16,7 @@ namespace Data.Repositories.Kiosco
 
         public async Task<bool> AddAsync(KioscoEntity entity)
         {
-            var kioscoModel = new KioscoModel()
+            KioscoModel kioscoModel = new KioscoModel()
             {
                 Id = entity.Id,
                 Name = entity.Name,

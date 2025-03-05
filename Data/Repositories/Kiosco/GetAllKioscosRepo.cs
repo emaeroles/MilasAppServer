@@ -1,6 +1,7 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
 using Data.Context;
+using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.Kiosco
@@ -14,9 +15,9 @@ namespace Data.Repositories.Kiosco
             _dbcontext = dbContext;
         }
 
-        public async Task<IEnumerable<KioscoEntity>> GetAllByActiveAsync(bool isActive)
+        public async Task<IEnumerable<KioscoEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            return await _dbcontext.Kioscos
+            IQueryable<KioscoEntity> queryKiosco = _dbcontext.Kioscos
                 .Where(k => k.IsActive == isActive)
                 .Select(k => new KioscoEntity
                 {
@@ -30,7 +31,15 @@ namespace Data.Repositories.Kiosco
                     Notes = k.Notes,
                     Dubt = k.Dubt,
                     Order = k.Order,
-                }).ToListAsync();
+                    IsActive = k.IsActive
+                });
+
+            IEnumerable<KioscoEntity> listKioscoEntity = await queryKiosco.ToListAsync();
+
+            if(!listKioscoEntity.Any())
+                return null;
+
+            return listKioscoEntity;
         }
     }
 }

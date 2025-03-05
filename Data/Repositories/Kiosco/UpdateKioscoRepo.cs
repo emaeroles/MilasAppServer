@@ -1,11 +1,11 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
-using Application.Interfaces.Kiosco;
 using Data.Context;
+using Data.Models;
 
 namespace Data.Repositories.Kiosco
 {
-    public class UpdateKioscoRepo : IUpdateRepo<KioscoEntity>, IUpdateKioscoRepo<KioscoEntity>
+    public class UpdateKioscoRepo : IUpdateRepo<KioscoEntity>
     {
         private readonly AppDbContext _dbcontext;
 
@@ -16,65 +16,21 @@ namespace Data.Repositories.Kiosco
 
         public async Task<bool> UpdateAsync(KioscoEntity entity)
         {
-            var kioscoModel = await _dbcontext.Kioscos.FindAsync(entity.Id);
+            KioscoModel? kioscoModel = await _dbcontext.Kioscos.FindAsync(entity.Id);
 
             if (kioscoModel == null)
-                return false;
+                throw new KeyNotFoundException($"No kiosco found with Id {entity.Id}.");
 
             kioscoModel.Name = entity.Name;
             kioscoModel.Manager = entity.Manager;
             kioscoModel.Phone = entity.Phone;
             kioscoModel.Address = entity.Address;
-            
-            int rows = await _dbcontext.SaveChangesAsync();
-
-            if (rows == 0)
-                return false;
-
-            return true;
-        }
-        public async Task<bool> UpdateNotesAsync(KioscoEntity entity)
-        {
-            var kioscoModel = await _dbcontext.Kioscos.FindAsync(entity.Id);
-
-            if (kioscoModel == null)
-                return false;
-
+            kioscoModel.UserId = entity.UserId;
+            kioscoModel.IsEnableChanges = entity.IsEnableChanges;
             kioscoModel.Notes = entity.Notes;
-
-            int rows = await _dbcontext.SaveChangesAsync();
-
-            if (rows == 0)
-                return false;
-
-            return true;
-        }
-
-        public async Task<bool> UpdateDubtAsync(KioscoEntity entity)
-        {
-            var kioscoModel = await _dbcontext.Kioscos.FindAsync(entity.Id);
-
-            if (kioscoModel == null)
-                return false;
-
             kioscoModel.Dubt = entity.Dubt;
-
-            int rows = await _dbcontext.SaveChangesAsync();
-
-            if (rows == 0)
-                return false;
-
-            return true;
-        }
-
-        public async Task<bool> UpdateOrderAsync(KioscoEntity entity)
-        {
-            var kioscoModel = await _dbcontext.Kioscos.FindAsync(entity.Id);
-
-            if (kioscoModel == null)
-                return false;
-
             kioscoModel.Order = entity.Order;
+            kioscoModel.IsActive = entity.IsActive;
 
             int rows = await _dbcontext.SaveChangesAsync();
 

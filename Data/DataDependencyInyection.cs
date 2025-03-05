@@ -1,6 +1,5 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
-using Application.Interfaces.Kiosco;
 using Application.Interfaces.User;
 using Data.Context;
 using Data.Repositories.Kiosco;
@@ -44,9 +43,6 @@ namespace Data
             services.AddScoped<IGetAllByActiveRepo<KioscoEntity>, GetAllKioscosRepo>();
             services.AddScoped<IAddRepo<KioscoEntity>, AddKioscoRepo>();
             services.AddScoped<IUpdateRepo<KioscoEntity>, UpdateKioscoRepo>();
-            services.AddScoped<IUpdateKioscoRepo<KioscoEntity>, UpdateKioscoRepo>();
-            services.AddScoped<IToggleIsChangesRepo, ToggleIsChangesRepo>();
-            services.AddScoped<IToggleActiveRepo<KioscoEntity>, ToggleActiveKioscoRepo>();
 
             return services;
         }

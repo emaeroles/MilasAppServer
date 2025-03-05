@@ -1,6 +1,7 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
 using Data.Context;
+using Data.Models;
 
 namespace Data.Repositories.Kiosco
 {
@@ -13,12 +14,12 @@ namespace Data.Repositories.Kiosco
             _dbcontext = dbContext;
         }
 
-        public async Task<KioscoEntity> GetByIdAsync(Guid entityId)
+        public async Task<KioscoEntity?> GetByIdAsync(Guid entityId)
         {
-            var kioscoModel = await _dbcontext.Kioscos.FindAsync(entityId);
+            KioscoModel? kioscoModel = await _dbcontext.Kioscos.FindAsync(entityId);
 
             if (kioscoModel == null)
-                return new KioscoEntity();
+                return null;
 
             return new KioscoEntity()
             {
@@ -32,6 +33,7 @@ namespace Data.Repositories.Kiosco
                 Notes = kioscoModel.Notes,
                 Dubt = kioscoModel.Dubt,
                 Order = kioscoModel.Order,
+                IsActive = kioscoModel.IsActive
             };
         }
     }
