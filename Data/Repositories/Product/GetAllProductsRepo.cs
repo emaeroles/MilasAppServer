@@ -16,7 +16,7 @@ namespace Data.Repositories.Product
 
         public async Task<IEnumerable<ProductEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            IQueryable<ProductEntity> queryKiosco = _dbcontext.Products
+            IQueryable<ProductEntity> queryProduct = _dbcontext.Products
                 .Where(p => p.IsActive == isActive)
                 .Select(p => new ProductEntity
                 {
@@ -28,12 +28,12 @@ namespace Data.Repositories.Product
                     IsActive = p.IsActive
                 });
 
-            IEnumerable<ProductEntity> listKioscoEntity = await queryKiosco.ToListAsync();
+            IEnumerable<ProductEntity> listproductEntity = await queryProduct.ToListAsync();
 
-            if (!listKioscoEntity.Any())
+            if (!listproductEntity.Any())
                 return null;
 
-            return listKioscoEntity;
+            return listproductEntity;
         }
     }
 }

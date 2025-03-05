@@ -16,7 +16,7 @@ namespace Data.Repositories.Supply
 
         public async Task<IEnumerable<SupplyEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            IQueryable<SupplyEntity> queryKiosco = _dbcontext.Supplies
+            IQueryable<SupplyEntity> querySupply = _dbcontext.Supplies
                 .Where(s => s.IsActive == isActive)
                 .Select(s => new SupplyEntity
                 {
@@ -34,12 +34,12 @@ namespace Data.Repositories.Supply
                     IsActive = s.IsActive
                 });
 
-            IEnumerable<SupplyEntity> listKioscoEntity = await queryKiosco.ToListAsync();
+            IEnumerable<SupplyEntity> listSupplyEntity = await querySupply.ToListAsync();
 
-            if (!listKioscoEntity.Any())
+            if (!listSupplyEntity.Any())
                 return null;
 
-            return listKioscoEntity;
+            return listSupplyEntity;
         }
     }
 }
