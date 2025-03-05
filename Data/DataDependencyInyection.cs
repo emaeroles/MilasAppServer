@@ -58,7 +58,6 @@ namespace Data
             services.AddScoped<IGetAllByActiveRepo<UoMEntity>, GetAllUomRepo>();
             services.AddScoped<IAddRepo<UoMEntity>, AddUomRepo>();
             services.AddScoped<IUpdateRepo<UoMEntity>, UpdateUomRepo>();
-            services.AddScoped<IToggleActiveRepo<UoMEntity>, ToggleActiveUomRepo>();
 
             return services;
         }

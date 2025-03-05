@@ -1,6 +1,7 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
 using Data.Context;
+using Data.Models;
 
 namespace Data.Repositories.Supply
 {
@@ -13,17 +14,18 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<UoMEntity> GetByIdAsync(Guid entityId)
+        public async Task<UoMEntity?> GetByIdAsync(Guid entityId)
         {
-            var uomModel = await _dbcontext.Uoms.FindAsync(entityId);
+            UomModel? uomModel = await _dbcontext.Uoms.FindAsync(entityId);
 
             if (uomModel == null)
-                return new UoMEntity();
+                return null;
 
             return new UoMEntity()
             {
                 Id = uomModel.Id,
                 Unit = uomModel.Unit,
+                IsActive = uomModel.IsActive
             };
         }
     }

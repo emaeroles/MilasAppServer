@@ -1,6 +1,7 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
 using Data.Context;
+using Data.Models;
 
 namespace Data.Repositories.Supply
 {
@@ -15,12 +16,13 @@ namespace Data.Repositories.Supply
 
         public async Task<bool> UpdateAsync(UoMEntity entity)
         {
-            var uomModel = await _dbcontext.Uoms.FindAsync(entity.Id);
+            UomModel? uomModel = await _dbcontext.Uoms.FindAsync(entity.Id);
 
             if (uomModel == null)
-                return false;
+                throw new KeyNotFoundException($"No unit of measure found with Id {entity.Id}.");
 
             uomModel.Unit = entity.Unit;
+            uomModel.IsActive = entity.IsActive;
 
             int rows = await _dbcontext.SaveChangesAsync();
 

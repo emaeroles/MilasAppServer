@@ -16,11 +16,11 @@ namespace Data.Repositories.Supply
 
         public async Task<bool> AddAsync(UoMEntity entity)
         {
-            var uomModel = new UomModel()
+            UomModel uomModel = new UomModel()
             {
                 Id = entity.Id,
                 Unit = entity.Unit,
-                IsActive = true,
+                IsActive = entity.IsActive,
             };
 
             _dbcontext.Uoms.Add(uomModel);
