@@ -1,6 +1,7 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
 using Data.Context;
+using Data.Models;
 
 namespace Data.Repositories.Supply
 {
@@ -15,16 +16,17 @@ namespace Data.Repositories.Supply
 
         public async Task<bool> UpdateAsync(SupplyEntity entity)
         {
-            var supplyModel = await _dbcontext.Supplies.FindAsync(entity.Id);
+            SupplyModel? supplyModel = await _dbcontext.Supplies.FindAsync(entity.Id);
 
             if (supplyModel == null)
-                return false;
+                throw new KeyNotFoundException($"No supply found with Id {entity.Id}.");
 
             supplyModel.Name = entity.Name;
             supplyModel.Quantity = entity.Quantity;
             supplyModel.UomId = entity.Id;
             supplyModel.CostPrice = entity.CostPrice;
             supplyModel.Yeild = entity.Yeild;
+            supplyModel.IsActive = entity.IsActive;
 
             int rows = await _dbcontext.SaveChangesAsync();
 

@@ -14,11 +14,10 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<IEnumerable<SupplyEntity>> GetAllByActiveAsync(bool isActive)
+        public async Task<IEnumerable<SupplyEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            return await _dbcontext.Supplies
+            IQueryable<SupplyEntity> queryKiosco = _dbcontext.Supplies
                 .Where(s => s.IsActive == isActive)
-                .Include(s => s.Uom)
                 .Select(s => new SupplyEntity
                 {
                     Id = s.Id,
@@ -26,11 +25,21 @@ namespace Data.Repositories.Supply
                     Quantity = s.Quantity,
                     UoM = new UoMEntity()
                     {
+                        Id = s.Uom.Id,
                         Unit = s.Uom.Unit,
+                        IsActive = s.Uom.IsActive
                     },
                     CostPrice = s.CostPrice,
                     Yeild = s.Yeild,
-                }).ToListAsync();
+                    IsActive = s.IsActive
+                });
+
+            IEnumerable<SupplyEntity> listKioscoEntity = await queryKiosco.ToListAsync();
+
+            if (!listKioscoEntity.Any())
+                return null;
+
+            return listKioscoEntity;
         }
     }
 }

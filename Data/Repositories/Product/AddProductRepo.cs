@@ -23,7 +23,7 @@ namespace Data.Repositories.Product
                 IsOwn = entity.IsOwn,
                 CostPrice = entity.CostPrice,
                 SalePrice = entity.SalePrice,
-                IsActive = true,
+                IsActive = entity.IsActive,
             };
 
             _dbcontext.Products.Add(productModel);

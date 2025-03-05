@@ -16,7 +16,7 @@ namespace Data.Repositories.Supply
 
         public async Task<bool> AddAsync(SupplyEntity entity)
         {
-            var supplyModel = new SupplyModel()
+            SupplyModel supplyModel = new SupplyModel()
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -24,7 +24,7 @@ namespace Data.Repositories.Supply
                 UomId = entity.UoM.Id,
                 CostPrice = entity.CostPrice,
                 Yeild = entity.Yeild,
-                IsActive = true,
+                IsActive = entity.IsActive,
             };
 
             _dbcontext.Supplies.Add(supplyModel);

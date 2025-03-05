@@ -18,7 +18,7 @@ namespace Data.Repositories.Product
             var productModel = await _dbcontext.Products.FindAsync(entity.Id);
 
             if (productModel == null)
-                return false;
+                throw new KeyNotFoundException($"No product found with Id {entity.Id}.");
 
             productModel.Name = entity.Name;
             productModel.IsOwn = entity.IsOwn;
