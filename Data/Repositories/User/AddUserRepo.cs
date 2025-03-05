@@ -22,7 +22,7 @@ namespace Data.Repositories.User
                 Username = entity.Username,
                 Password = entity.Password,
                 Email = entity.Email,
-                IsActive = true,
+                IsActive = entity.IsActive,
             };
 
             _dbcontext.Users.Add(userModel);
