@@ -7,20 +7,32 @@ namespace Application.UseCases.User
 {
     public class ToggleActiveUserUseCase
     {
-        private readonly IToggleActiveRepo<UserEntity> _toggleActiveRepo;
+        private readonly IUpdateRepo<UserEntity> _updateRepo;
+        private readonly IGetByIdRepo<UserEntity> _getByIdRepo;
 
-        public ToggleActiveUserUseCase(IToggleActiveRepo<UserEntity> toggleActiveRepo)
+        public ToggleActiveUserUseCase(
+            IUpdateRepo<UserEntity> updateRepo,
+            IGetByIdRepo<UserEntity> getByIdRepo)
         {
-            _toggleActiveRepo = toggleActiveRepo;
+            _updateRepo = updateRepo;
+            _getByIdRepo = getByIdRepo;
         }
 
-        public async Task<AppResult> Execute(int id)
+        public async Task<AppResult> Execute(Guid id)
         {
-            var isOk = await _toggleActiveRepo.ToggleActiveAsync(id);
-            if (!isOk)
-                return ResultFactory.CreateNotFound("User was not exist");
+            UserEntity? userEntity = await _getByIdRepo.GetByIdAsync(id);
 
-            return ResultFactory.CreateSuccess("User activation was changed", null);
+            if (userEntity == null)
+                return ResultFactory.CreateNotFound("The user does not exist");
+
+            userEntity.IsActive = !userEntity.IsActive;
+
+            var isUpdated = await _updateRepo.UpdateAsync(userEntity);
+
+            if (!isUpdated)
+                return ResultFactory.CreateNotUpdated("The user activation was not changed");
+
+            return ResultFactory.CreateSuccess("The user activation was changed", null);
         }
     }
 }

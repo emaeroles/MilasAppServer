@@ -21,17 +21,16 @@ namespace Application.UseCases.User
 
         public async Task<AppResult> Execute(string username, string password)
         {
-            var userEntity = await _getByUsernameRepo.GetByUsernameAsync(username);
+            UserEntity? userEntity = await _getByUsernameRepo.GetByUsernameAsync(username);
 
-            if (userEntity.Id == Guid.Empty)
-                return ResultFactory.CreateNotFound("User does not exist");
+            if (userEntity == null)
+                return ResultFactory.CreateNotFound("The username does not exist");
 
-            var result = _passwordHasher.VerifyHashedPassword(userEntity, userEntity.Password, password);
+            PasswordVerificationResult result = _passwordHasher.VerifyHashedPassword(
+                userEntity, userEntity.Password, password);
 
             if (result != PasswordVerificationResult.Success)
-            {
                 return ResultFactory.CreateUnauthorized("The user is not authorized");
-            }
 
             return ResultFactory.CreateAuthorized("The user is authorized");
         }

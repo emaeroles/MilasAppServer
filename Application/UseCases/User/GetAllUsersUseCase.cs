@@ -22,11 +22,15 @@ namespace Application.UseCases.User
 
         public async Task<AppResult> Execute(bool isActive)
         {
-            var listUserEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
-            var listGetUserOutput = listUserEntity
+            IEnumerable<UserEntity>? listUserEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
+
+            if (listUserEntity == null)
+                return ResultFactory.CreateNotFound("There are no users");
+
+            IEnumerable<GetUserOutput> listGetUserOutput = listUserEntity
                 .Select(userEntity => _mapper.Map<GetUserOutput>(userEntity));
 
-            return ResultFactory.CreateSuccess("Users", listGetUserOutput);
+            return ResultFactory.CreateData("Users", listGetUserOutput);
         }
     }
 }

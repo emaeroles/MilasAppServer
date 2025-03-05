@@ -12,38 +12,42 @@ namespace Application.UseCases.User
     public class AddUserUseCase
     {
         private readonly IAddRepo<UserEntity> _addRepo;
-        private readonly ICheckUserExistRepo _checkUserExistRepo;
+        private readonly IGetByUsernameRepo _getByUsernameRepo;
+        private readonly IPasswordHasher<UserEntity> _passwordHasher;
         private readonly IMapper _mapper;
 
         public AddUserUseCase(
             IAddRepo<UserEntity> addRepo,
-            ICheckUserExistRepo checkUserExistRepo,
+            IGetByUsernameRepo getByUsernameRepo,
+            IPasswordHasher<UserEntity> passwordHasher,
             IMapper mapper)
         {
             _addRepo = addRepo;
-            _checkUserExistRepo = checkUserExistRepo;
+            _getByUsernameRepo = getByUsernameRepo;
+            _passwordHasher = passwordHasher;
             _mapper = mapper;
         }
 
         public async Task<AppResult> Execute(AddUserInput addUserInput)
         {
             addUserInput.Username = addUserInput.Username.ToLower();
-            var isUserExist = await _checkUserExistRepo.CheckUserExistAsync(addUserInput.Username);
-            if (isUserExist)
-                return ResultFactory.CreateConflict("Username already exists");
 
-            var userEntity = _mapper.Map<UserEntity>(addUserInput);
+            UserEntity? userEntity = await _getByUsernameRepo.GetByUsernameAsync(addUserInput.Username);
+
+            if (userEntity != null)
+                return ResultFactory.CreateConflict("The username already exists");
+
+            userEntity = _mapper.Map<UserEntity>(addUserInput);
             userEntity.Id = Guid.NewGuid();
-
-            var passwordHasher = new PasswordHasher<UserEntity>();
-            userEntity.Password = passwordHasher.HashPassword(userEntity, addUserInput.Password);
-
+            userEntity.Password = _passwordHasher.HashPassword(userEntity, addUserInput.Password);
+            userEntity.IsActive = true;
+            
             bool isCreated = await _addRepo.AddAsync(userEntity);
 
             if(!isCreated)
-                return ResultFactory.CreateNotCreated("User was not created");
+                return ResultFactory.CreateNotCreated("The user was not created");
 
-            return ResultFactory.CreateCreated("User was created", userEntity.Id);
+            return ResultFactory.CreateCreated("The user was created", userEntity.Id);
         }
     }
 }
