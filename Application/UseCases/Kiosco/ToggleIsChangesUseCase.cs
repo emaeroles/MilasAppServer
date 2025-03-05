@@ -32,7 +32,7 @@ namespace Application.UseCases.Kiosco
             if (!isUpdated)
                 return ResultFactory.CreateNotUpdated("The kiosco activation was not changed");
 
-            return ResultFactory.CreateSuccess("The kiosco activation was changed", null);
+            return ResultFactory.CreateUpdated("The kiosco activation was changed");
         }
     }
 }

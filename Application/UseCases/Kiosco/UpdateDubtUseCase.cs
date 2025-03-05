@@ -33,7 +33,7 @@ namespace Application.UseCases.Kiosco
             if (!isUpdated)
                 return ResultFactory.CreateNotUpdated("The kiosco dubt was not updated");
 
-            return ResultFactory.CreateSuccess("The kiosco dubt was updated", null);
+            return ResultFactory.CreateUpdated("The kiosco dubt was updated");
         }
     }
 }

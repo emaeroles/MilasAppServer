@@ -34,7 +34,7 @@ namespace Application.UseCases.Kiosco
             if (!isUpdated)
                 return ResultFactory.CreateNotUpdated("The kiosco notes was not updated");
 
-            return ResultFactory.CreateSuccess("The kiosco notes was updated", null);
+            return ResultFactory.CreateUpdated("The kiosco notes was updated");
         }
     }
 }

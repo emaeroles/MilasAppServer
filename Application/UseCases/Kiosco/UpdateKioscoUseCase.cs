@@ -36,7 +36,7 @@ namespace Application.UseCases.Kiosco
             if (!isUpdated)
                 return ResultFactory.CreateNotUpdated("The kiosco was not updated");
 
-            return ResultFactory.CreateSuccess("The kiosco was updated", null);
+            return ResultFactory.CreateUpdated("The kiosco was updated");
         }
     }
 }

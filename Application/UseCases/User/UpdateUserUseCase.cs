@@ -39,7 +39,7 @@ namespace Application.UseCases.User
                 return ResultFactory.CreateNotFound($"The user was not updated, " +
                     $"id {updateUserInput.Id} does not exist");
 
-            return ResultFactory.CreateSuccess("User was updated", null);
+            return ResultFactory.CreateUpdated("User was updated");
         }
     }
 }

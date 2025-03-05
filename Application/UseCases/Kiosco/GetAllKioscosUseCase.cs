@@ -30,7 +30,7 @@ namespace Application.UseCases.Kiosco
             IEnumerable<GetKioscoOutput> listGetKioscosOutput = listKioscosEntity
                 .Select(kioscoEntity => _mapper.Map<GetKioscoOutput>(kioscoEntity));
 
-            return ResultFactory.CreateSuccess("Kioscos", listGetKioscosOutput);
+            return ResultFactory.CreateData("Kioscos", listGetKioscosOutput);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Application.UseCases.User
             if (!isUpdated)
                 return ResultFactory.CreateNotUpdated("The user activation was not changed");
 
-            return ResultFactory.CreateSuccess("The user activation was changed", null);
+            return ResultFactory.CreateUpdated("The user activation was changed");
         }
     }
 }
