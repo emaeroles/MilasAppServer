@@ -14,7 +14,7 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<SupplyEntity> GetListByAsync(Guid entityId)
+        public async Task<SupplyEntity> GetByIdAsync(Guid entityId)
         {
             var supplyModel = await _dbcontext.Supplies.FindAsync(entityId);
 

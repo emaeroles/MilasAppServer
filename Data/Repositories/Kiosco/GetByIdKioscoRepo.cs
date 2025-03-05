@@ -13,7 +13,7 @@ namespace Data.Repositories.Kiosco
             _dbcontext = dbContext;
         }
 
-        public async Task<KioscoEntity> GetListByAsync(Guid entityId)
+        public async Task<KioscoEntity> GetByIdAsync(Guid entityId)
         {
             var kioscoModel = await _dbcontext.Kioscos.FindAsync(entityId);
 

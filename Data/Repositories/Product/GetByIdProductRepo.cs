@@ -13,7 +13,7 @@ namespace Data.Repositories.Product
             _dbcontext = dbContext;
         }
 
-        public async Task<ProductEntity> GetListByAsync(Guid entityId)
+        public async Task<ProductEntity> GetByIdAsync(Guid entityId)
         {
             var productModel = await _dbcontext.Products.FindAsync(entityId);
 

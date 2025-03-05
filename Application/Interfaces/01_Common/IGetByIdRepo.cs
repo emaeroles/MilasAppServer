@@ -2,6 +2,6 @@
 {
     public interface IGetByIdRepo<T>
     {
-        public Task<T> GetListByAsync(Guid entityId);
+        public Task<T> GetByIdAsync(Guid entityId);
     }
 }

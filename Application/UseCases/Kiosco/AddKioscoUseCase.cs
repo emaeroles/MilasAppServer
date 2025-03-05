@@ -33,7 +33,7 @@ namespace Application.UseCases.Kiosco
             kioscoEntity.Order = Guid.Empty;
             kioscoEntity.IsActive = true;
 
-            var userEntity = await _getByIdRepo.GetListByAsync(addKioscoInput.UserId);
+            var userEntity = await _getByIdRepo.GetByIdAsync(addKioscoInput.UserId);
             if(userEntity.Id == Guid.Empty)
                 return ResultFactory.CreateNotFound("User was not found");
 

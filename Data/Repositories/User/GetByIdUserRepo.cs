@@ -13,7 +13,7 @@ namespace Data.Repositories.User
             _dbcontext = dbContext;
         }
 
-        public async Task<UserEntity> GetListByAsync(Guid entityId)
+        public async Task<UserEntity> GetByIdAsync(Guid entityId)
         {
             var userModel = await _dbcontext.Users.FindAsync(entityId);
 

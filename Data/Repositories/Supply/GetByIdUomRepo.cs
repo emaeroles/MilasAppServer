@@ -13,7 +13,7 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<UoMEntity> GetListByAsync(Guid entityId)
+        public async Task<UoMEntity> GetByIdAsync(Guid entityId)
         {
             var uomModel = await _dbcontext.Uoms.FindAsync(entityId);
 
