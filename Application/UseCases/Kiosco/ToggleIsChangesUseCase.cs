@@ -1,25 +1,38 @@
 ﻿using Application.DTOs._01_Common;
+using Application.Entities;
 using Application.Factories;
-using Application.Interfaces.Kiosco;
+using Application.Interfaces._01_Common;
 
 namespace Application.UseCases.Kiosco
 {
     public class ToggleIsChangesUseCase
     {
-        private readonly IToggleIsChangesRepo _toggleIsChangesRepo;
+        private readonly IUpdateRepo<KioscoEntity> _updateRepo;
+        private readonly IGetByIdRepo<KioscoEntity> _getByIdRepo;
 
-        public ToggleIsChangesUseCase(IToggleIsChangesRepo toggleIsChangesRepo)
+        public ToggleIsChangesUseCase(
+            IUpdateRepo<KioscoEntity> updateRepo,
+            IGetByIdRepo<KioscoEntity> getByIdRepo)
         {
-            _toggleIsChangesRepo = toggleIsChangesRepo;
+            _updateRepo = updateRepo;
+            _getByIdRepo = getByIdRepo;
         }
 
-        public async Task<AppResult> Execute(int id)
+        public async Task<AppResult> Execute(Guid id)
         {
-            var isOk = await _toggleIsChangesRepo.ToggleIsChangesAsync(id);
-            if (!isOk)
-                return ResultFactory.CreateNotFound("Kiosco was not exist");
+            KioscoEntity? kioscoEntity = await _getByIdRepo.GetByIdAsync(id);
 
-            return ResultFactory.CreateSuccess("Changes from kiosco was changed", null);
+            if (kioscoEntity == null)
+                return ResultFactory.CreateNotFound("The kiosco does not exist");
+
+            kioscoEntity.IsEnableChanges = !kioscoEntity.IsEnableChanges;
+
+            var isUpdated = await _updateRepo.UpdateAsync(kioscoEntity);
+
+            if (!isUpdated)
+                return ResultFactory.CreateNotUpdated("The kiosco activation was not changed");
+
+            return ResultFactory.CreateSuccess("The kiosco activation was changed", null);
         }
     }
 }

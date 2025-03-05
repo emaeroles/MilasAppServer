@@ -22,8 +22,12 @@ namespace Application.UseCases.Kiosco
 
         public async Task<AppResult> Execute(bool isActive)
         {
-            var listKioscosEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
-            var listGetKioscosOutput = listKioscosEntity
+            IEnumerable<KioscoEntity>? listKioscosEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
+
+            if (listKioscosEntity == null)
+                return ResultFactory.CreateNotFound("There are no kioscos");
+
+            IEnumerable<GetKioscoOutput> listGetKioscosOutput = listKioscosEntity
                 .Select(kioscoEntity => _mapper.Map<GetKioscoOutput>(kioscoEntity));
 
             return ResultFactory.CreateSuccess("Kioscos", listGetKioscosOutput);

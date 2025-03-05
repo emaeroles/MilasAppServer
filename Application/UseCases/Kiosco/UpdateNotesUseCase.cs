@@ -2,34 +2,39 @@
 using Application.DTOs.Kiosco;
 using Application.Entities;
 using Application.Factories;
-using Application.Interfaces.Kiosco;
+using Application.Interfaces._01_Common;
 using AutoMapper;
 
 namespace Application.UseCases.Kiosco
 {
     public class UpdateNotesUseCase
     {
-        private readonly IUpdateKioscoRepo<KioscoEntity> _updateRepo;
-        private readonly IMapper _mapper;
+        private readonly IUpdateRepo<KioscoEntity> _updateRepo;
+        private readonly IGetByIdRepo<KioscoEntity> _getByIdRepo;
 
         public UpdateNotesUseCase(
-            IUpdateKioscoRepo<KioscoEntity> updateRepo,
-            IMapper mapper)
+            IUpdateRepo<KioscoEntity> updateRepo,
+            IGetByIdRepo<KioscoEntity> getByIdRepo)
         {
             _updateRepo = updateRepo;
-            _mapper = mapper;
+            _getByIdRepo = getByIdRepo;
         }
 
         public async Task<AppResult> Execute(UpdateKioscoNotesInput updateKioscoNotesInput)
         {
-            var kioscoEntity = _mapper.Map<KioscoEntity>(updateKioscoNotesInput);
+            KioscoEntity? kioscoEntity = await _getByIdRepo.GetByIdAsync(updateKioscoNotesInput.Id);
 
-            var isOk = await _updateRepo.UpdateNotesAsync(kioscoEntity);
-            if (!isOk)
-                return ResultFactory.CreateNotFound($"Notes from kiosco was not updated, " +
-                    $"id {updateKioscoNotesInput.Id} does not exist");
+            if (kioscoEntity == null)
+                return ResultFactory.CreateNotFound("The kiosco does not exist");
 
-            return ResultFactory.CreateSuccess("Notes from kiosco was updated", null);
+            kioscoEntity.Notes = updateKioscoNotesInput.Notes;
+
+            var isUpdated = await _updateRepo.UpdateAsync(kioscoEntity);
+
+            if (!isUpdated)
+                return ResultFactory.CreateNotUpdated("The kiosco notes was not updated");
+
+            return ResultFactory.CreateSuccess("The kiosco notes was updated", null);
         }
     }
 }

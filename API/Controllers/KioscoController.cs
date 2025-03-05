@@ -99,7 +99,7 @@ namespace API.Controllers
 
         [HttpPost("{id}/toggle-is-changes")]
         public async Task<IActionResult> ToggleIsChangesKiosco(
-            int id,
+            Guid id,
             KioscoUseCases kioscoUseCases)
         {
             var appResult = await kioscoUseCases.ToggleIsChangesUseCase.Execute(id);
@@ -108,7 +108,7 @@ namespace API.Controllers
 
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveKiosco(
-            int id,
+            Guid id,
             KioscoUseCases kioscoUseCases)
         {
             var appResult = await kioscoUseCases.ToggleActiveKioscoUseCase.Execute(id);

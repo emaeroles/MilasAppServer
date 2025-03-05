@@ -25,7 +25,11 @@ namespace Application.UseCases.Kiosco
 
         public async Task<AppResult> Execute(AddKioscoInput addKioscoInput)
         {
-            var kioscoEntity = _mapper.Map<KioscoEntity>(addKioscoInput);
+            UserEntity? userEntity = await _getByIdRepo.GetByIdAsync(addKioscoInput.UserId);
+            if(userEntity == null)
+                return ResultFactory.CreateNotFound("The user was not found");
+
+            KioscoEntity kioscoEntity = _mapper.Map<KioscoEntity>(addKioscoInput);
             kioscoEntity.Id = Guid.NewGuid();
             kioscoEntity.IsEnableChanges = false;
             kioscoEntity.Notes = string.Empty;
@@ -33,16 +37,12 @@ namespace Application.UseCases.Kiosco
             kioscoEntity.Order = Guid.Empty;
             kioscoEntity.IsActive = true;
 
-            var userEntity = await _getByIdRepo.GetByIdAsync(addKioscoInput.UserId);
-            if(userEntity.Id == Guid.Empty)
-                return ResultFactory.CreateNotFound("User was not found");
-
             bool isCreated = await _addKioscoRepo.AddAsync(kioscoEntity);
 
             if (!isCreated)
-                return ResultFactory.CreateNotCreated("Kiosco was not created");
+                return ResultFactory.CreateNotCreated("The kiosco was not created");
 
-            return ResultFactory.CreateCreated("Kiosco was created", kioscoEntity.Id);
+            return ResultFactory.CreateCreated("The kiosco was created", kioscoEntity.Id);
         }
     }
 }
