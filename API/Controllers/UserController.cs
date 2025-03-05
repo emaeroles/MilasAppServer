@@ -58,7 +58,7 @@ namespace API.Controllers
 
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveUser(
-            int id,
+            Guid id,
             UserUseCases userUseCases)
         {
             var appResult = await userUseCases.ToggleActiveUserUseCase.Execute(id);
