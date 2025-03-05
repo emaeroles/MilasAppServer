@@ -24,6 +24,7 @@ namespace Data.Repositories.Product
             productModel.IsOwn = entity.IsOwn;
             productModel.CostPrice = entity.CostPrice;
             productModel.SalePrice = entity.SalePrice;
+            productModel.IsActive = entity.IsActive;
 
             int rows = await _dbcontext.SaveChangesAsync();
 

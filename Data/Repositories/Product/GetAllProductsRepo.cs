@@ -14,18 +14,26 @@ namespace Data.Repositories.Product
             _dbcontext = dbContext;
         }
 
-        public async Task<IEnumerable<ProductEntity>> GetAllByActiveAsync(bool isActive)
+        public async Task<IEnumerable<ProductEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            return await _dbcontext.Products
-                .Where(s => s.IsActive == isActive)
-                .Select(s => new ProductEntity
+            IQueryable<ProductEntity> queryKiosco = _dbcontext.Products
+                .Where(p => p.IsActive == isActive)
+                .Select(p => new ProductEntity
                 {
-                    Id = s.Id,
-                    Name = s.Name,
-                    IsOwn = s.IsOwn,
-                    CostPrice = s.CostPrice,
-                    SalePrice = s.SalePrice,
-                }).ToListAsync();
+                    Id = p.Id,
+                    Name = p.Name,
+                    IsOwn = p.IsOwn,
+                    CostPrice = p.CostPrice,
+                    SalePrice = p.SalePrice,
+                    IsActive = p.IsActive
+                });
+
+            IEnumerable<ProductEntity> listKioscoEntity = await queryKiosco.ToListAsync();
+
+            if (!listKioscoEntity.Any())
+                return null;
+
+            return listKioscoEntity;
         }
     }
 }

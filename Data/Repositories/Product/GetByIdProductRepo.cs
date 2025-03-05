@@ -1,6 +1,7 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
 using Data.Context;
+using Data.Models;
 
 namespace Data.Repositories.Product
 {
@@ -13,12 +14,12 @@ namespace Data.Repositories.Product
             _dbcontext = dbContext;
         }
 
-        public async Task<ProductEntity> GetByIdAsync(Guid entityId)
+        public async Task<ProductEntity?> GetByIdAsync(Guid entityId)
         {
-            var productModel = await _dbcontext.Products.FindAsync(entityId);
+            ProductModel? productModel = await _dbcontext.Products.FindAsync(entityId);
 
             if (productModel == null)
-                return new ProductEntity();
+                return null;
 
             return new ProductEntity()
             {
@@ -27,6 +28,7 @@ namespace Data.Repositories.Product
                 IsOwn = productModel.IsOwn,
                 CostPrice = productModel.CostPrice,
                 SalePrice = productModel.SalePrice,
+                IsActive = productModel.IsActive
             };
         }
     }
