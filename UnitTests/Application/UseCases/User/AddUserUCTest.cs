@@ -5,6 +5,7 @@ using Application.Interfaces._01_Common;
 using Application.Interfaces.User;
 using Application.UseCases.User;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Moq;
 
 namespace UnitTests.Application.UseCases.User
@@ -17,7 +18,8 @@ namespace UnitTests.Application.UseCases.User
         {
             // Arrange
             Mock<IAddRepo<UserEntity>> addUserRepo = new Mock<IAddRepo<UserEntity>>();
-            Mock<ICheckUserExistRepo> checkUserRepo = new Mock<ICheckUserExistRepo>();
+            Mock<IGetByUsernameRepo> getByUsernameRepo = new Mock<IGetByUsernameRepo>();
+            Mock<IPasswordHasher<UserEntity>> passwordHasher = new Mock<IPasswordHasher<UserEntity>>();
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             AddUserInput addUserInput = new AddUserInput();
@@ -26,7 +28,8 @@ namespace UnitTests.Application.UseCases.User
             mapper.Setup(m => m.Map<UserEntity>(addUserInput)).Returns(userEntity);
             addUserRepo.Setup(r => r.AddAsync(userEntity)).ReturnsAsync(true);
 
-            AddUserUseCase addUserUseCase = new AddUserUseCase(addUserRepo.Object, checkUserRepo.Object, mapper.Object);
+            AddUserUseCase addUserUseCase = new AddUserUseCase(
+                addUserRepo.Object, getByUsernameRepo.Object, passwordHasher.Object, mapper.Object);
 
             ResultState resultState = ResultState.Created;
 
@@ -35,6 +38,7 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
+            Assert.IsNotNull(result.Result.Data);
         }
 
         [TestMethod]
@@ -42,16 +46,19 @@ namespace UnitTests.Application.UseCases.User
         {
             // Arrange
             Mock<IAddRepo<UserEntity>> addUserRepo = new Mock<IAddRepo<UserEntity>>();
-            Mock<ICheckUserExistRepo> checkUserRepo = new Mock<ICheckUserExistRepo>();
+            Mock<IGetByUsernameRepo> getByUsernameRepo = new Mock<IGetByUsernameRepo>();
+            Mock<IPasswordHasher<UserEntity>> passwordHasher = new Mock<IPasswordHasher<UserEntity>>();
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             AddUserInput addUserInput = new AddUserInput();
             addUserInput.Username = "username";
             UserEntity userEntity = new UserEntity();
 
-            checkUserRepo.Setup(r => r.CheckUserExistAsync(addUserInput.Username)).ReturnsAsync(true);
+            getByUsernameRepo.Setup(r => r.GetByUsernameAsync(addUserInput.Username))
+                .ReturnsAsync(userEntity);
 
-            AddUserUseCase addUserUseCase = new AddUserUseCase(addUserRepo.Object, checkUserRepo.Object, mapper.Object);
+            AddUserUseCase addUserUseCase = new AddUserUseCase(
+                addUserRepo.Object, getByUsernameRepo.Object, passwordHasher.Object, mapper.Object);
 
             ResultState resultState = ResultState.Conflict;
 
@@ -60,6 +67,7 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
+            Assert.IsNull(result.Result.Data);
         }
     }
 }

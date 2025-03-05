@@ -5,6 +5,7 @@ using Application.UseCases.User;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Moq;
+using System.Xml;
 
 namespace UnitTests.Application.UseCases.User
 {
@@ -82,7 +83,7 @@ namespace UnitTests.Application.UseCases.User
             string username = "username";
             string password = "password";
 
-            getByUsernameRepo.Setup(r => r.GetByUsernameAsync(username)).ReturnsAsync(userEntity);
+            getByUsernameRepo.Setup(r => r.GetByUsernameAsync(username)).ReturnsAsync((UserEntity?)null);
 
             AuthUserUseCase authUserUseCase = new AuthUserUseCase(getByUsernameRepo.Object, passwordHasher.Object);
 
