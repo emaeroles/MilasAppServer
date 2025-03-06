@@ -113,7 +113,7 @@ namespace API.Controllers
 
         [HttpPost("uom/{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveUom(
-            int id,
+            Guid id,
             SupplyUseCases supliesUseCases)
         {
             var appResult = await supliesUseCases.ToggleActiveUomUseCase.Execute(id);
