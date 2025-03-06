@@ -1,9 +1,8 @@
 ﻿using Application.DTOs.Kiosco;
 using Application.Entities;
 using Application.Enums;
-using Application.Interfaces.Kiosco;
+using Application.Interfaces._01_Common;
 using Application.UseCases.Kiosco;
-using AutoMapper;
 using Moq;
 
 namespace UnitTests.Application.UseCases.Kiosco
@@ -12,44 +11,44 @@ namespace UnitTests.Application.UseCases.Kiosco
     public class UpdateNotesUCTest
     {
         [TestMethod]
-        public void UpdateNotes_ShouldReturnSuccsessWithData()
+        public void UpdateNotes_ShouldReturnUpdated()
         {
             // Arrange
-            Mock<IUpdateKioscoRepo<KioscoEntity>> updateKioscoRepo = new Mock<IUpdateKioscoRepo<KioscoEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
+            Mock<IUpdateRepo<KioscoEntity>> updateRepo = new Mock<IUpdateRepo<KioscoEntity>>();
+            Mock<IGetByIdRepo<KioscoEntity>> getByIdRepo = new Mock<IGetByIdRepo<KioscoEntity>>();
 
             KioscoEntity kioscoEntity = new KioscoEntity();
             UpdateKioscoNotesInput updateKioscoNotesInput = new UpdateKioscoNotesInput();
 
-            mapper.Setup(m => m.Map<KioscoEntity>(updateKioscoNotesInput)).Returns(kioscoEntity);
-            updateKioscoRepo.Setup(r => r.UpdateNotesAsync(kioscoEntity)).ReturnsAsync(true);
+            getByIdRepo.Setup(r => r.GetByIdAsync(updateKioscoNotesInput.Id)).ReturnsAsync(kioscoEntity);
+            updateRepo.Setup(r => r.UpdateAsync(It.IsAny<KioscoEntity>())).ReturnsAsync(true);
 
-            UpdateNotesUseCase updateNotesUseCase = new UpdateNotesUseCase(updateKioscoRepo.Object, mapper.Object);
+            UpdateNotesUseCase updateNotesUseCase = new UpdateNotesUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
-            ResultState resultState = ResultState.Success;
+            ResultState resultState = ResultState.Updated;
 
             // Act
             var result = updateNotesUseCase.Execute(updateKioscoNotesInput);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
 
         [TestMethod]
-        public void UpdateNotes_ShouldReturnNotFoundWithNullData()
+        public void UpdateNotes_ShouldReturnNotFound()
         {
             // Arrange
-            Mock<IUpdateKioscoRepo<KioscoEntity>> updateKioscoRepo = new Mock<IUpdateKioscoRepo<KioscoEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
+            Mock<IUpdateRepo<KioscoEntity>> updateRepo = new Mock<IUpdateRepo<KioscoEntity>>();
+            Mock<IGetByIdRepo<KioscoEntity>> getByIdRepo = new Mock<IGetByIdRepo<KioscoEntity>>();
 
-            KioscoEntity kioscoEntity = new KioscoEntity();
+            KioscoEntity? kioscoEntity = null;
             UpdateKioscoNotesInput updateKioscoNotesInput = new UpdateKioscoNotesInput();
 
-            mapper.Setup(m => m.Map<KioscoEntity>(updateKioscoNotesInput)).Returns(kioscoEntity);
-            updateKioscoRepo.Setup(r => r.UpdateNotesAsync(kioscoEntity)).ReturnsAsync(false);
+            getByIdRepo.Setup(r => r.GetByIdAsync(updateKioscoNotesInput.Id)).ReturnsAsync(kioscoEntity);
 
-            UpdateNotesUseCase updateNotesUseCase = new UpdateNotesUseCase(updateKioscoRepo.Object, mapper.Object);
+            UpdateNotesUseCase updateNotesUseCase = new UpdateNotesUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 
@@ -58,7 +57,6 @@ namespace UnitTests.Application.UseCases.Kiosco
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }

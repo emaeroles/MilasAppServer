@@ -10,17 +10,22 @@ namespace UnitTests.Application.UseCases.Kiosco
     public class ToggleActiveKioscoUCTest
     {
         [TestMethod]
-        public void ToggleActiveKiosco_ShouldReturnSuccess()
+        public void ToggleActiveKiosco_ShouldReturnUpdated()
         {
             // Arrange
-            Mock<IToggleActiveRepo<KioscoEntity>> toggleActiveKioscoRepo = new Mock<IToggleActiveRepo<KioscoEntity>>();
-            int entityId = 1;
+            Mock<IUpdateRepo<KioscoEntity>> updateRepo = new Mock<IUpdateRepo<KioscoEntity>>();
+            Mock<IGetByIdRepo<KioscoEntity>> getByIdRepo = new Mock<IGetByIdRepo<KioscoEntity>>();
+            
+            Guid entityId = Guid.NewGuid();
+            KioscoEntity kioscoEntity = new KioscoEntity();
 
-            toggleActiveKioscoRepo.Setup(r => r.ToggleActiveAsync(entityId)).ReturnsAsync(true);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(kioscoEntity);
+            updateRepo.Setup(r => r.UpdateAsync(It.IsAny<KioscoEntity>())).ReturnsAsync(true);
 
-            ToggleActiveKioscoUseCase toggleActiveKioscoUseCase = new ToggleActiveKioscoUseCase(toggleActiveKioscoRepo.Object);
+            ToggleActiveKioscoUseCase toggleActiveKioscoUseCase = new ToggleActiveKioscoUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
-            ResultState resultState = ResultState.Success;
+            ResultState resultState = ResultState.Updated;
 
             // Act
             var result = toggleActiveKioscoUseCase.Execute(entityId);
@@ -33,12 +38,16 @@ namespace UnitTests.Application.UseCases.Kiosco
         public void ToggleActiveKiosco_ShouldReturnNotFound()
         {
             // Arrange
-            Mock<IToggleActiveRepo<KioscoEntity>> toggleActiveKioscoRepo = new Mock<IToggleActiveRepo<KioscoEntity>>();
-            int entityId = 1;
+            Mock<IUpdateRepo<KioscoEntity>> updateRepo = new Mock<IUpdateRepo<KioscoEntity>>();
+            Mock<IGetByIdRepo<KioscoEntity>> getByIdRepo = new Mock<IGetByIdRepo<KioscoEntity>>();
 
-            toggleActiveKioscoRepo.Setup(r => r.ToggleActiveAsync(entityId)).ReturnsAsync(false);
+            Guid entityId = Guid.NewGuid();
+            KioscoEntity? kioscoEntity = null;
 
-            ToggleActiveKioscoUseCase toggleActiveKioscoUseCase = new ToggleActiveKioscoUseCase(toggleActiveKioscoRepo.Object);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(kioscoEntity);
+
+            ToggleActiveKioscoUseCase toggleActiveKioscoUseCase = new ToggleActiveKioscoUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 

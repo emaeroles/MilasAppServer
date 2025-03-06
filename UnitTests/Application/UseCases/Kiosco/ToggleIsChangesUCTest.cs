@@ -1,5 +1,6 @@
-﻿using Application.Enums;
-using Application.Interfaces.Kiosco;
+﻿using Application.Entities;
+using Application.Enums;
+using Application.Interfaces._01_Common;
 using Application.UseCases.Kiosco;
 using Moq;
 
@@ -9,17 +10,22 @@ namespace UnitTests.Application.UseCases.Kiosco
     public class ToggleIsChangesUCTest
     {
         [TestMethod]
-        public void ToggleIsChanges_ShouldReturnSuccess()
+        public void ToggleIsChanges_ShouldReturnUpdated()
         {
             // Arrange
-            Mock<IToggleIsChangesRepo> toggleIsChangesRepo = new Mock<IToggleIsChangesRepo>();
-            int entityId = 1;
+            Mock<IUpdateRepo<KioscoEntity>> updateRepo = new Mock<IUpdateRepo<KioscoEntity>>();
+            Mock<IGetByIdRepo<KioscoEntity>> getByIdRepo = new Mock<IGetByIdRepo<KioscoEntity>>();
 
-            toggleIsChangesRepo.Setup(r => r.ToggleIsChangesAsync(entityId)).ReturnsAsync(true);
+            Guid entityId = Guid.NewGuid();
+            KioscoEntity kioscoEntity = new KioscoEntity();
 
-            ToggleIsChangesUseCase toggleIsChangesUseCase = new ToggleIsChangesUseCase(toggleIsChangesRepo.Object);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(kioscoEntity);
+            updateRepo.Setup(r => r.UpdateAsync(It.IsAny<KioscoEntity>())).ReturnsAsync(true);
 
-            ResultState resultState = ResultState.Success;
+            ToggleIsChangesUseCase toggleIsChangesUseCase = new ToggleIsChangesUseCase(
+                updateRepo.Object, getByIdRepo.Object);
+
+            ResultState resultState = ResultState.Updated;
 
             // Act
             var result = toggleIsChangesUseCase.Execute(entityId);
@@ -32,12 +38,16 @@ namespace UnitTests.Application.UseCases.Kiosco
         public void ToggleIsChanges_ShouldReturnNotFound()
         {
             // Arrange
-            Mock<IToggleIsChangesRepo> toggleIsChangesRepo = new Mock<IToggleIsChangesRepo>();
-            int entityId = 1;
+            Mock<IUpdateRepo<KioscoEntity>> updateRepo = new Mock<IUpdateRepo<KioscoEntity>>();
+            Mock<IGetByIdRepo<KioscoEntity>> getByIdRepo = new Mock<IGetByIdRepo<KioscoEntity>>();
 
-            toggleIsChangesRepo.Setup(r => r.ToggleIsChangesAsync(entityId)).ReturnsAsync(false);
+            Guid entityId = Guid.NewGuid();
+            KioscoEntity? kioscoEntity = null;
 
-            ToggleIsChangesUseCase toggleIsChangesUseCase = new ToggleIsChangesUseCase(toggleIsChangesRepo.Object);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(kioscoEntity);
+
+            ToggleIsChangesUseCase toggleIsChangesUseCase = new ToggleIsChangesUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 
