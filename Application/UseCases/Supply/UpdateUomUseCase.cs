@@ -30,9 +30,9 @@ namespace Application.UseCases.Supply
 
             bool isUpdated = await _updateRepo.UpdateAsync(uomEntity);
             if (!isUpdated)
-                return ResultFactory.CreateNotUpdated("Unit of mesure was not updated");
+                return ResultFactory.CreateNotUpdated("The unit of mesure was not updated");
 
-            return ResultFactory.CreateUpdated("Unit of mesure was updated");
+            return ResultFactory.CreateUpdated("The unit of mesure was updated");
         }
     }
 }

@@ -34,9 +34,9 @@ namespace Application.UseCases.Supply
 
             var isUpdated = await _updateRepo.UpdateAsync(supplyEntity);
             if (!isUpdated)
-                return ResultFactory.CreateNotUpdated("Supply was not updated");
+                return ResultFactory.CreateNotUpdated("The supply was not updated");
 
-            return ResultFactory.CreateUpdated("Supply was updated");
+            return ResultFactory.CreateUpdated("The supply was updated");
         }
     }
 }
