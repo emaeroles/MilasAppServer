@@ -22,15 +22,16 @@ namespace Application.UseCases.Product
 
         public async Task<AppResult> Execute(AddProductInput addProductInput)
         {
-            var productEntity = _mapper.Map<ProductEntity>(addProductInput);
+            ProductEntity productEntity = _mapper.Map<ProductEntity>(addProductInput);
             productEntity.Id = Guid.NewGuid();
+            productEntity.IsActive = true;
 
             bool isCreated = await _addProductRepo.AddAsync(productEntity);
 
             if (!isCreated)
-                return ResultFactory.CreateNotCreated("Product was not created");
+                return ResultFactory.CreateNotCreated("The product was not created");
 
-            return ResultFactory.CreateCreated("Product was created", productEntity.Id);
+            return ResultFactory.CreateCreated("The product was created", productEntity.Id);
         }
     }
 }

@@ -3,33 +3,39 @@ using Application.DTOs.Product;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
-using AutoMapper;
 
 namespace Application.UseCases.Product
 {
     public class UpdateProductUseCase
     {
         private readonly IUpdateRepo<ProductEntity> _updateRepo;
-        private readonly IMapper _mapper;
+        private readonly IGetByIdRepo<ProductEntity> _getByIdRepo;
 
         public UpdateProductUseCase(
             IUpdateRepo<ProductEntity> updateRepo,
-            IMapper mapper)
+            IGetByIdRepo<ProductEntity> getByIdRepo)
         {
             _updateRepo = updateRepo;
-            _mapper = mapper;
+            _getByIdRepo = getByIdRepo;
         }
 
         public async Task<AppResult> Execute(UpdateProductInput updateProductInput)
         {
-            var productEntity = _mapper.Map<ProductEntity>(updateProductInput);
+            ProductEntity? productEntity = await _getByIdRepo.GetByIdAsync(updateProductInput.Id);
 
-            var isOk = await _updateRepo.UpdateAsync(productEntity);
-            if (!isOk)
-                return ResultFactory.CreateNotFound($"Product was not updated, " +
-                    $"id {updateProductInput.Id} does not exist");
+            if (productEntity == null)
+                return ResultFactory.CreateNotFound("The product does not exist");
 
-            return ResultFactory.CreateSuccess("Product was updated", null);
+            productEntity.Name = updateProductInput.Name;
+            productEntity.IsOwn = updateProductInput.IsOwn;
+            productEntity.CostPrice = updateProductInput.CostPrice;
+            productEntity.SalePrice = updateProductInput.SalePrice;
+
+            bool isUpdated = await _updateRepo.UpdateAsync(productEntity);
+            if (!isUpdated)
+                return ResultFactory.CreateNotUpdated("The product was not updated");
+
+            return ResultFactory.CreateUpdated("The product was updated");
         }
     }
 }

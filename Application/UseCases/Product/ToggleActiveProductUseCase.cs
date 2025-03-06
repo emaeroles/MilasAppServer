@@ -7,20 +7,31 @@ namespace Application.UseCases.Product
 {
     public class ToggleActiveProductUseCase
     {
-        private readonly IToggleActiveRepo<ProductEntity> _toggleActiveRepo;
+        private readonly IUpdateRepo<ProductEntity> _updateRepo;
+        private readonly IGetByIdRepo<ProductEntity> _getByIdRepo;
 
-        public ToggleActiveProductUseCase(IToggleActiveRepo<ProductEntity> toggleActiveRepo)
+        public ToggleActiveProductUseCase(
+            IUpdateRepo<ProductEntity> updateRepo,
+            IGetByIdRepo<ProductEntity> getByIdRepo)
         {
-            _toggleActiveRepo = toggleActiveRepo;
+            _updateRepo = updateRepo;
+            _getByIdRepo = getByIdRepo;
         }
 
-        public async Task<AppResult> Execute(int id)
+        public async Task<AppResult> Execute(Guid id)
         {
-            var isOk = await _toggleActiveRepo.ToggleActiveAsync(id);
-            if (!isOk)
-                return ResultFactory.CreateNotFound("Product was not exist");
+            ProductEntity? productEntity = await _getByIdRepo.GetByIdAsync(id);
 
-            return ResultFactory.CreateSuccess("Product activation was changed", null);
+            if (productEntity == null)
+                return ResultFactory.CreateNotFound("The product does not exist");
+
+            productEntity.IsActive = !productEntity.IsActive;
+
+            bool isUpdated = await _updateRepo.UpdateAsync(productEntity);
+            if (!isUpdated)
+                return ResultFactory.CreateNotUpdated("The product was not updated");
+
+            return ResultFactory.CreateUpdated("The product was updated");
         }
     }
 }
