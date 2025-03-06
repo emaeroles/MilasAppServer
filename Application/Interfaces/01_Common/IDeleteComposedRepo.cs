@@ -2,6 +2,6 @@
 {
     public interface IDeleteComposedRepo<T>
     {
-        public Task<bool> DeleteComposedAsync(int entityId, int byEntityId);
+        public Task<bool> DeleteComposedAsync(Guid entityId, Guid byEntityId);
     }
 }

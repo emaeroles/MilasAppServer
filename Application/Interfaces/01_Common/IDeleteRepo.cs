@@ -2,6 +2,6 @@
 {
     public interface IDeleteRepo<T>
     {
-        public Task<bool> DeleteAsync(int entityId);
+        public Task<bool> DeleteAsync(Guid entityId);
     }
 }
