@@ -35,9 +35,9 @@ namespace Application.UseCases.User
             userEntity.Email = updateUserInput.Email;
 
             var isUpdated = await _updateRepo.UpdateAsync(userEntity);
+
             if (!isUpdated)
-                return ResultFactory.CreateNotFound($"The user was not updated, " +
-                    $"id {updateUserInput.Id} does not exist");
+                return ResultFactory.CreateNotUpdated("The user was not updated");
 
             return ResultFactory.CreateUpdated("User was updated");
         }
