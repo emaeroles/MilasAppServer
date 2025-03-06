@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.Supply
 {
-    public class GetAllSupliesProductRepo : IGetAllSupliesProductRepo
+    public class GetAllSuppliesProductRepo : IGetAllSupliesProductRepo
     {
         private readonly AppDbContext _dbcontext;
 
-        public GetAllSupliesProductRepo(AppDbContext dbContext)
+        public GetAllSuppliesProductRepo(AppDbContext dbContext)
         {
             _dbcontext = dbContext;
         }
