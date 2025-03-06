@@ -90,6 +90,16 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
+        [HttpDelete("product/delete")]
+        public async Task<IActionResult> DeleteSuppliesProducts(
+            Guid supplyId,
+            Guid productId,
+            SupplyUseCases supliesUseCases)
+        {
+            var appResult = await supliesUseCases.DeleteSupplyProductUseCase.Execute(supplyId, productId);
+            return ResponseConverter.Execute(appResult);
+        }
+
         // ==========================================================================
 
         [HttpGet("uom/get-actives")]

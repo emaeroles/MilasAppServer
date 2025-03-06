@@ -54,8 +54,9 @@ namespace Data
             services.AddScoped<IUpdateRepo<SupplyEntity>, UpdateSupplyRepo>();
 
             services.AddScoped<IGetByIdComposedRepo<SupplyProductEntity>, GetByIdSupplyProductRepo>();
-            services.AddScoped<IGetAllSupliesProductRepo, GetAllSupliesProductRepo>();
+            services.AddScoped<IGetAllSupliesProductRepo, GetAllSuppliesProductRepo>();
             services.AddScoped<IAddRepo<SupplyProductEntity>, AddSupplyProductRepo>();
+            services.AddScoped<IDeleteComposedRepo<SupplyProductEntity>, DeleteSupplyProductRepo>();
 
             services.AddScoped<IGetByIdRepo<UomEntity>, GetByIdUomRepo>();
             services.AddScoped<IGetAllByActiveRepo<UomEntity>, GetAllUomRepo>();

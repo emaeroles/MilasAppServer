@@ -8,6 +8,7 @@
 
     GetAllSuppliesProductUseCase GetAllSuppliesProductUseCase,
     AddSupplyProductUseCase AddSupplyProductUseCase,
+    DeleteSupplyProductUseCase DeleteSupplyProductUseCase,
 
     GetAllUomsUseCase GetAllUomsUseCase,
     AddUomUseCase AddUomUseCase,
