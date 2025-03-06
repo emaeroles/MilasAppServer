@@ -2,12 +2,9 @@
 {
     public enum ResultState
     {
-        Success,
-
         Data,
         NotFound,
         Conflict,
-        BadRequest,
 
         Created,
         NotCreated,

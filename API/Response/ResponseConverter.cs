@@ -1,6 +1,5 @@
 ﻿using Application.DTOs._01_Common;
 using Application.Enums;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -12,7 +11,6 @@ namespace API.Response
         {
             switch (appResp.ResultState)
             {
-                case ResultState.Success:
                 case ResultState.Data:
                 case ResultState.Updated:
                 case ResultState.Deleted:
@@ -32,10 +30,6 @@ namespace API.Response
                     return new ConflictObjectResult(
                         new ApiResponse(false, appResp.Message, null));
 
-                case ResultState.BadRequest:
-                    return new BadRequestObjectResult(
-                        new ApiResponse(false, appResp.Message, null));
-
                 case ResultState.NotCreated:
                 case ResultState.NotUpdated:
                 case ResultState.NotDeleted:
@@ -51,8 +45,6 @@ namespace API.Response
                     Log.Error($"Something went wrong... {appResp.Message}");
                     Log.CloseAndFlush();
                     return new ObjectResult(
-                        // TODO: Los mensajes podria ser manejado con constantes 
-                        // que estarian, por ej, en una clase "ApiConstants"
                         new ApiResponse(false, "Internal Server Error from ResultFactory", null))
                     {
                         StatusCode = 500

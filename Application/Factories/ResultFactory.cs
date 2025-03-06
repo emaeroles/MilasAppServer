@@ -5,12 +5,6 @@ namespace Application.Factories
 {
     internal static class ResultFactory
     {
-        // TODO: Quitar este metodo
-        public static AppResult CreateSuccess(string message, object? data)
-        {
-            return new AppResult(message, data, ResultState.Success);
-        }
-
         public static AppResult CreateData(string message, object data)
         {
             return new AppResult(message, data, ResultState.Data);
@@ -24,11 +18,6 @@ namespace Application.Factories
         public static AppResult CreateConflict(string message)
         {
             return new AppResult(message, null, ResultState.Conflict);
-        }
-
-        public static AppResult CreateBadRequest(string message)
-        {
-            return new AppResult(message, null, ResultState.BadRequest);
         }
 
         public static AppResult CreateCreated(string message, object data)
