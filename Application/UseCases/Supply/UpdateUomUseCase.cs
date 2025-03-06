@@ -28,8 +28,8 @@ namespace Application.UseCases.Supply
 
             uomEntity.Unit = updateUomInput.Unit;
 
-            var isOk = await _updateRepo.UpdateAsync(uomEntity);
-            if (!isOk)
+            bool isUpdated = await _updateRepo.UpdateAsync(uomEntity);
+            if (!isUpdated)
                 return ResultFactory.CreateNotUpdated("Unit of mesure was not updated");
 
             return ResultFactory.CreateUpdated("Unit of mesure was updated");

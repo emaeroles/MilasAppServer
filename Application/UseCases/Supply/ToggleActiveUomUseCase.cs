@@ -27,8 +27,8 @@ namespace Application.UseCases.Supply
 
             uomEntity.IsActive = !uomEntity.IsActive;
 
-            var isOk = await _updateRepo.UpdateAsync(uomEntity);
-            if (!isOk)
+            bool isUpdated = await _updateRepo.UpdateAsync(uomEntity);
+            if (!isUpdated)
                 return ResultFactory.CreateNotUpdated("The unit of mesure activation was not changed");
 
             return ResultFactory.CreateUpdated("The unit of mesure activation was changed");
