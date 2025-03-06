@@ -10,12 +10,12 @@ namespace Application.UseCases.Supply
     {
         private readonly IUpdateRepo<SupplyEntity> _updateRepo;
         private readonly IGetByIdRepo<SupplyEntity> _getByIdSupplyRepo;
-        private readonly IGetByIdRepo<UoMEntity> _getByIdUomRepo;
+        private readonly IGetByIdRepo<UomEntity> _getByIdUomRepo;
 
         public UpdateSupplyUseCase(
             IUpdateRepo<SupplyEntity> updateRepo,
             IGetByIdRepo<SupplyEntity> getByIdSupplyRepo,
-            IGetByIdRepo<UoMEntity> getByIdUomRepo)
+            IGetByIdRepo<UomEntity> getByIdUomRepo)
         {
             _updateRepo = updateRepo;
             _getByIdSupplyRepo = getByIdSupplyRepo;
@@ -24,7 +24,7 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(UpdateSupplyInput updateSupplyInput)
         {
-            UoMEntity? uomEntity = await _getByIdUomRepo.GetByIdAsync(updateSupplyInput.UoMId);
+            UomEntity? uomEntity = await _getByIdUomRepo.GetByIdAsync(updateSupplyInput.UomId);
             if (uomEntity == null)
                 return ResultFactory.CreateNotFound("The unit of measure was not found");
 
@@ -35,7 +35,7 @@ namespace Application.UseCases.Supply
 
             supplyEntity.Name = updateSupplyInput.Name;
             supplyEntity.Quantity = updateSupplyInput.Quantity;
-            supplyEntity.UoM.Id = updateSupplyInput.UoMId;
+            supplyEntity.Uom.Id = updateSupplyInput.UomId;
             supplyEntity.CostPrice = updateSupplyInput.CostPrice;
             supplyEntity.Yeild = updateSupplyInput.Yeild;
 

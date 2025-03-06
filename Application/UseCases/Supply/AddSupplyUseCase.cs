@@ -10,12 +10,12 @@ namespace Application.UseCases.Supply
     public class AddSupplyUseCase
     {
         private readonly IAddRepo<SupplyEntity> _addSupplyRepo;
-        private readonly IGetByIdRepo<UoMEntity> _getByIdRepo;
+        private readonly IGetByIdRepo<UomEntity> _getByIdRepo;
         private readonly IMapper _mapper;
 
         public AddSupplyUseCase(
             IAddRepo<SupplyEntity> addSupplyRepo,
-            IGetByIdRepo<UoMEntity> getByIdRepo,
+            IGetByIdRepo<UomEntity> getByIdRepo,
             IMapper mapper)
         {
             _addSupplyRepo = addSupplyRepo;
@@ -25,7 +25,7 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(AddSupplyInput addSupplyInput)
         {
-            UoMEntity? uomEntity = await _getByIdRepo.GetByIdAsync(addSupplyInput.UoMId);
+            UomEntity? uomEntity = await _getByIdRepo.GetByIdAsync(addSupplyInput.UomId);
             if (uomEntity == null)
                 return ResultFactory.CreateNotFound("The unit of measure was not found");
 

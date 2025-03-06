@@ -23,7 +23,7 @@ namespace Data.Repositories.Supply
 
             supplyModel.Name = entity.Name;
             supplyModel.Quantity = entity.Quantity;
-            supplyModel.UomId = entity.UoM.Id;
+            supplyModel.UomId = entity.Uom.Id;
             supplyModel.CostPrice = entity.CostPrice;
             supplyModel.Yeild = entity.Yeild;
             supplyModel.IsActive = entity.IsActive;

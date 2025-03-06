@@ -7,12 +7,12 @@ namespace Application.UseCases.Supply
 {
     public class ToggleActiveUomUseCase
     {
-        private readonly IUpdateRepo<UoMEntity> _updateRepo;
-        private readonly IGetByIdRepo<UoMEntity> _getByIdRepo;
+        private readonly IUpdateRepo<UomEntity> _updateRepo;
+        private readonly IGetByIdRepo<UomEntity> _getByIdRepo;
 
         public ToggleActiveUomUseCase(
-            IUpdateRepo<UoMEntity> updateRepo,
-            IGetByIdRepo<UoMEntity> getByIdRepo)
+            IUpdateRepo<UomEntity> updateRepo,
+            IGetByIdRepo<UomEntity> getByIdRepo)
         {
             _updateRepo = updateRepo;
             _getByIdRepo = getByIdRepo;
@@ -20,7 +20,7 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(Guid id)
         {
-            UoMEntity? uomEntity = await _getByIdRepo.GetByIdAsync(id);
+            UomEntity? uomEntity = await _getByIdRepo.GetByIdAsync(id);
 
             if (uomEntity == null)
                 return ResultFactory.CreateNotFound("The unit of mesure does not exist");

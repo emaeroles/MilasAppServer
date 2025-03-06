@@ -8,12 +8,12 @@ namespace Application.UseCases.Supply
 {
     public class UpdateUomUseCase
     {
-        private readonly IUpdateRepo<UoMEntity> _updateRepo;
-        private readonly IGetByIdRepo<UoMEntity> _getByIdRepo;
+        private readonly IUpdateRepo<UomEntity> _updateRepo;
+        private readonly IGetByIdRepo<UomEntity> _getByIdRepo;
 
         public UpdateUomUseCase(
-            IUpdateRepo<UoMEntity> updateRepo,
-            IGetByIdRepo<UoMEntity> getByIdRepo)
+            IUpdateRepo<UomEntity> updateRepo,
+            IGetByIdRepo<UomEntity> getByIdRepo)
         {
             _updateRepo = updateRepo;
             _getByIdRepo = getByIdRepo;
@@ -21,7 +21,7 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(UpdateUomInput updateUomInput)
         {
-            UoMEntity? uomEntity = await _getByIdRepo.GetByIdAsync(updateUomInput.Id);
+            UomEntity? uomEntity = await _getByIdRepo.GetByIdAsync(updateUomInput.Id);
 
             if (uomEntity == null)
                 return ResultFactory.CreateNotFound("The unit of mesure does not exist");

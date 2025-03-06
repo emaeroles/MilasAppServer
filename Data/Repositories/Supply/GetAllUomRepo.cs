@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.Supply
 {
-    public class GetAllUomRepo : IGetAllByActiveRepo<UoMEntity>
+    public class GetAllUomRepo : IGetAllByActiveRepo<UomEntity>
     {
         private readonly AppDbContext _dbcontext;
 
@@ -14,18 +14,18 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<IEnumerable<UoMEntity>?> GetAllByActiveAsync(bool isActive)
+        public async Task<IEnumerable<UomEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            IQueryable<UoMEntity> queryUom = _dbcontext.Uoms
+            IQueryable<UomEntity> queryUom = _dbcontext.Uoms
                 .Where(um => um.IsActive == isActive)
-                .Select(um => new UoMEntity
+                .Select(um => new UomEntity
                 {
                     Id = um.Id,
                     Unit = um.Unit,
                     IsActive = um.IsActive
                 });
 
-            IEnumerable<UoMEntity> listUomEntity = await queryUom.ToListAsync();
+            IEnumerable<UomEntity> listUomEntity = await queryUom.ToListAsync();
 
             if (!listUomEntity.Any())
                 return null;

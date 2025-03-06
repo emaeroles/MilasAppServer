@@ -5,7 +5,7 @@ using Data.Models;
 
 namespace Data.Repositories.Supply
 {
-    public class GetByIdUomRepo : IGetByIdRepo<UoMEntity>
+    public class GetByIdUomRepo : IGetByIdRepo<UomEntity>
     {
         private readonly AppDbContext _dbcontext;
 
@@ -14,14 +14,14 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<UoMEntity?> GetByIdAsync(Guid entityId)
+        public async Task<UomEntity?> GetByIdAsync(Guid entityId)
         {
             UomModel? uomModel = await _dbcontext.Uoms.FindAsync(entityId);
 
             if (uomModel == null)
                 return null;
 
-            return new UoMEntity()
+            return new UomEntity()
             {
                 Id = uomModel.Id,
                 Unit = uomModel.Unit,

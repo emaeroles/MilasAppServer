@@ -1,6 +1,6 @@
 ﻿namespace Application.Entities
 {
-    public class UoMEntity
+    public class UomEntity
     {
         public Guid Id { get; set; }
         public string Unit { get; set; } = string.Empty;

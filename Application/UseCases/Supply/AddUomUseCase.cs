@@ -9,11 +9,11 @@ namespace Application.UseCases.Supply
 {
     public class AddUomUseCase
     {
-        private readonly IAddRepo<UoMEntity> _addUomRepo;
+        private readonly IAddRepo<UomEntity> _addUomRepo;
         private readonly IMapper _mapper;
 
         public AddUomUseCase(
-            IAddRepo<UoMEntity> addUomRepo,
+            IAddRepo<UomEntity> addUomRepo,
             IMapper mapper)
         {
             _addUomRepo = addUomRepo;
@@ -22,7 +22,7 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(AddUomInput addUomInput)
         {
-            UoMEntity uomEntity = _mapper.Map<UoMEntity>(addUomInput);
+            UomEntity uomEntity = _mapper.Map<UomEntity>(addUomInput);
             uomEntity.Id = Guid.NewGuid();
             uomEntity.IsActive = true;
 

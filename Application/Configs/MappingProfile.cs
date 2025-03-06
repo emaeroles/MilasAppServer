@@ -28,15 +28,15 @@ namespace Application.Configs
 
             // Suplies
             CreateMap<SupplyEntity, GetSupplyOutput>()
-                .ForMember(dest => dest.UoM, opt => opt.MapFrom(src => src.UoM.Unit));
+                .ForMember(dest => dest.Uom, opt => opt.MapFrom(src => src.Uom.Unit));
             CreateMap<AddSupplyInput, SupplyEntity>()
-                .ForPath(dest => dest.UoM.Id, opt => opt.MapFrom(src => src.UoMId));
+                .ForPath(dest => dest.Uom.Id, opt => opt.MapFrom(src => src.UomId));
             CreateMap<UpdateSupplyInput, SupplyEntity>()
-                .ForPath(dest => dest.UoM.Id, opt => opt.MapFrom(src => src.UoMId));
+                .ForPath(dest => dest.Uom.Id, opt => opt.MapFrom(src => src.UomId));
 
-            CreateMap<UoMEntity, GetUomOutput>();
-            CreateMap<AddUomInput, UoMEntity>();
-            CreateMap<UpdateUomInput, UoMEntity>();
+            CreateMap<UomEntity, GetUomOutput>();
+            CreateMap<AddUomInput, UomEntity>();
+            CreateMap<UpdateUomInput, UomEntity>();
 
             // Products
             CreateMap<ProductEntity, GetProductOutput>();

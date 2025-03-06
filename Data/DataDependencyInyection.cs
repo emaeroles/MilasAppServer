@@ -52,10 +52,10 @@ namespace Data
             services.AddScoped<IAddRepo<SupplyEntity>, AddSupplyRepo>();
             services.AddScoped<IUpdateRepo<SupplyEntity>, UpdateSupplyRepo>();
 
-            services.AddScoped<IGetByIdRepo<UoMEntity>, GetByIdUomRepo>();
-            services.AddScoped<IGetAllByActiveRepo<UoMEntity>, GetAllUomRepo>();
-            services.AddScoped<IAddRepo<UoMEntity>, AddUomRepo>();
-            services.AddScoped<IUpdateRepo<UoMEntity>, UpdateUomRepo>();
+            services.AddScoped<IGetByIdRepo<UomEntity>, GetByIdUomRepo>();
+            services.AddScoped<IGetAllByActiveRepo<UomEntity>, GetAllUomRepo>();
+            services.AddScoped<IAddRepo<UomEntity>, AddUomRepo>();
+            services.AddScoped<IUpdateRepo<UomEntity>, UpdateUomRepo>();
 
             return services;
         }

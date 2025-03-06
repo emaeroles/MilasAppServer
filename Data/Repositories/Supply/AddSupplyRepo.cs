@@ -21,7 +21,7 @@ namespace Data.Repositories.Supply
                 Id = entity.Id,
                 Name = entity.Name,
                 Quantity = entity.Quantity,
-                UomId = entity.UoM.Id,
+                UomId = entity.Uom.Id,
                 CostPrice = entity.CostPrice,
                 Yeild = entity.Yeild,
                 IsActive = entity.IsActive,

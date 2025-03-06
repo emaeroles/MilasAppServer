@@ -5,7 +5,7 @@ using Data.Models;
 
 namespace Data.Repositories.Supply
 {
-    public class UpdateUomRepo : IUpdateRepo<UoMEntity>
+    public class UpdateUomRepo : IUpdateRepo<UomEntity>
     {
         private readonly AppDbContext _dbcontext;
 
@@ -14,7 +14,7 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<bool> UpdateAsync(UoMEntity entity)
+        public async Task<bool> UpdateAsync(UomEntity entity)
         {
             UomModel? uomModel = await _dbcontext.Uoms.FindAsync(entity.Id);
 

@@ -9,11 +9,11 @@ namespace Application.UseCases.Supply
 {
     public class GetAllUomsUseCase
     {
-        private readonly IGetAllByActiveRepo<UoMEntity> _getAllByActiveRepo;
+        private readonly IGetAllByActiveRepo<UomEntity> _getAllByActiveRepo;
         private readonly IMapper _mapper;
 
         public GetAllUomsUseCase(
-            IGetAllByActiveRepo<UoMEntity> getAllByActiveRepo,
+            IGetAllByActiveRepo<UomEntity> getAllByActiveRepo,
             IMapper mapper)
         {
             _getAllByActiveRepo = getAllByActiveRepo;
@@ -22,7 +22,7 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(bool isActive)
         {
-            IEnumerable<UoMEntity>? listUomsEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
+            IEnumerable<UomEntity>? listUomsEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
 
             if (listUomsEntity == null)
                 return ResultFactory.CreateNotFound("There are no units of measure");

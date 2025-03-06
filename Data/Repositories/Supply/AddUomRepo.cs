@@ -5,7 +5,7 @@ using Data.Models;
 
 namespace Data.Repositories.Supply
 {
-    public class AddUomRepo : IAddRepo<UoMEntity>
+    public class AddUomRepo : IAddRepo<UomEntity>
     {
         private readonly AppDbContext _dbcontext;
 
@@ -14,7 +14,7 @@ namespace Data.Repositories.Supply
             _dbcontext = dbContext;
         }
 
-        public async Task<bool> AddAsync(UoMEntity entity)
+        public async Task<bool> AddAsync(UomEntity entity)
         {
             UomModel uomModel = new UomModel()
             {

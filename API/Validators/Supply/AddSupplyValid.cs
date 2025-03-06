@@ -12,7 +12,7 @@ namespace API.Validators.Supply
                 .Length(3, 45);
             RuleFor(x => x.Quantity)
                 .GreaterThan(0);
-            RuleFor(x => x.UoMId)
+            RuleFor(x => x.UomId)
                 .NotEmpty();
             RuleFor(x => x.CostPrice)
                 .GreaterThanOrEqualTo(0);

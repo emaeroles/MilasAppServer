@@ -29,7 +29,7 @@ namespace Data.Repositories.Supply
                 Id = supplyModel.Id,
                 Name = supplyModel.Name,
                 Quantity = supplyModel.Quantity,
-                UoM = new UoMEntity()
+                Uom = new UomEntity()
                 {
                     Id = supplyModel.Uom.Id,
                     Unit = supplyModel.Uom.Unit,
