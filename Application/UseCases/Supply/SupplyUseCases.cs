@@ -6,6 +6,7 @@
     UpdateSupplyUseCase UpdateSupplyUseCase,
     ToggleActiveSupplyUseCase ToggleActiveSupplyUseCase,
 
+    GetAllSuppliesProductUseCase GetAllSuppliesProductUseCase,
     AddSupplyProductUseCase AddSupplyProductUseCase,
 
     GetAllUomsUseCase GetAllUomsUseCase,

@@ -1,5 +1,6 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
+using Application.Interfaces.Supply;
 using Application.Interfaces.User;
 using Data.Context;
 using Data.Repositories.Kiosco;
@@ -53,6 +54,7 @@ namespace Data
             services.AddScoped<IUpdateRepo<SupplyEntity>, UpdateSupplyRepo>();
 
             services.AddScoped<IGetByIdComposedRepo<SupplyProductEntity>, GetByIdSupplyProductRepo>();
+            services.AddScoped<IGetAllSupliesProductRepo, GetAllSupliesProductRepo>();
             services.AddScoped<IAddRepo<SupplyProductEntity>, AddSupplyProductRepo>();
 
             services.AddScoped<IGetByIdRepo<UomEntity>, GetByIdUomRepo>();

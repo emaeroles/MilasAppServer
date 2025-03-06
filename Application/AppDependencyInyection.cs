@@ -62,6 +62,7 @@ namespace Application
             services.AddScoped<UpdateSupplyUseCase>();
             services.AddScoped<ToggleActiveSupplyUseCase>();
 
+            services.AddScoped<GetAllSuppliesProductUseCase>();
             services.AddScoped<AddSupplyProductUseCase>();
 
             services.AddScoped<GetAllUomsUseCase>();

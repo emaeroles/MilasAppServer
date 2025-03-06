@@ -66,6 +66,15 @@ namespace API.Controllers
 
         // ==========================================================================
 
+        [HttpGet("product/get-actives")]
+        public async Task<IActionResult> GetSuppliesProducts(
+            Guid productId,
+            SupplyUseCases supliesUseCases)
+        {
+            var appResult = await supliesUseCases.GetAllSuppliesProductUseCase.Execute(productId);
+            return ResponseConverter.Execute(appResult);
+        }
+
         [HttpPost("product/add")]
         public async Task<IActionResult> AddSupplyProduct(
             [FromBody] AddSupplyProductInput addSupplyProductInput,
