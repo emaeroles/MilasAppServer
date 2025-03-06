@@ -7,20 +7,31 @@ namespace Application.UseCases.Supply
 {
     public class ToggleActiveSupplyUseCase
     {
-        private readonly IToggleActiveRepo<SupplyEntity> _toggleActiveRepo;
+        private readonly IUpdateRepo<SupplyEntity> _updateRepo;
+        private readonly IGetByIdRepo<SupplyEntity> _getByIdRepo;
 
-        public ToggleActiveSupplyUseCase(IToggleActiveRepo<SupplyEntity> toggleActiveRepo)
+        public ToggleActiveSupplyUseCase(
+            IUpdateRepo<SupplyEntity> updateRepo,
+            IGetByIdRepo<SupplyEntity> getByIdRepo)
         {
-            _toggleActiveRepo = toggleActiveRepo;
+            _updateRepo = updateRepo;
+            _getByIdRepo = getByIdRepo;
         }
 
-        public async Task<AppResult> Execute(int id)
+        public async Task<AppResult> Execute(Guid id)
         {
-            var isOk = await _toggleActiveRepo.ToggleActiveAsync(id);
-            if (!isOk)
-                return ResultFactory.CreateNotFound("Supply was not exist");
+            SupplyEntity? supplyEntity = await _getByIdRepo.GetByIdAsync(id);
 
-            return ResultFactory.CreateSuccess("Supply activation was changed", null);
+            if (supplyEntity == null)
+                return ResultFactory.CreateNotFound("The supply does not exist");
+
+            supplyEntity.IsActive = !supplyEntity.IsActive;
+
+            var isUpdated = await _updateRepo.UpdateAsync(supplyEntity);
+            if (!isUpdated)
+                return ResultFactory.CreateNotUpdated("Supply activation was not changed");
+
+            return ResultFactory.CreateUpdated("Supply activation was changed");
         }
     }
 }

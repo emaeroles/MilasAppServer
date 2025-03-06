@@ -22,11 +22,15 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(bool isActive)
         {
-            var listSuppliesEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
-            var listGetSuppliesOutput = listSuppliesEntity
+            IEnumerable<SupplyEntity>? listSuppliesEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
+
+            if (listSuppliesEntity == null)
+                return ResultFactory.CreateNotFound("There are no supplies");
+
+            IEnumerable<GetSupplyOutput> listGetSuppliesOutput = listSuppliesEntity
                 .Select(supplyEntity => _mapper.Map<GetSupplyOutput>(supplyEntity));
 
-            return ResultFactory.CreateSuccess("Sipplies", listGetSuppliesOutput);
+            return ResultFactory.CreateData("Sipplies", listGetSuppliesOutput);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Application.UseCases.Supply
             IEnumerable<GetUomOutput> listGetUomsOutput = listUomsEntity
                 .Select(uomEntity => _mapper.Map<GetUomOutput>(uomEntity));
 
-            return ResultFactory.CreateCreated("Units of mesure", listGetUomsOutput);
+            return ResultFactory.CreateData("Units of measure", listGetUomsOutput);
         }
     }
 }

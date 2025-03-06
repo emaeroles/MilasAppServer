@@ -57,7 +57,7 @@ namespace API.Controllers
 
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveSupply(
-            int id,
+            Guid id,
             SupplyUseCases supliesUseCases)
         {
             var appResult = await supliesUseCases.ToggleActiveSupplyUseCase.Execute(id);

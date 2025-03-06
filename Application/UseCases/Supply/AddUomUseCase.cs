@@ -24,13 +24,14 @@ namespace Application.UseCases.Supply
         {
             UoMEntity uomEntity = _mapper.Map<UoMEntity>(addUomInput);
             uomEntity.Id = Guid.NewGuid();
+            uomEntity.IsActive = true;
 
             bool isCreated = await _addUomRepo.AddAsync(uomEntity);
 
             if (!isCreated)
-                return ResultFactory.CreateNotCreated("Unit of mesure was not created");
+                return ResultFactory.CreateNotCreated("The unit of mesure was not created");
 
-            return ResultFactory.CreateCreated("Unit of mesure was created", uomEntity.Id);
+            return ResultFactory.CreateCreated("The unit of mesure was created", uomEntity.Id);
         }
     }
 }
