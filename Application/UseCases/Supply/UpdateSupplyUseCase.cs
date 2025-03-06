@@ -9,19 +9,26 @@ namespace Application.UseCases.Supply
     public class UpdateSupplyUseCase
     {
         private readonly IUpdateRepo<SupplyEntity> _updateRepo;
-        private readonly IGetByIdRepo<SupplyEntity> _getByIdRepo;
+        private readonly IGetByIdRepo<SupplyEntity> _getByIdSupplyRepo;
+        private readonly IGetByIdRepo<UoMEntity> _getByIdUomRepo;
 
         public UpdateSupplyUseCase(
             IUpdateRepo<SupplyEntity> updateRepo,
-            IGetByIdRepo<SupplyEntity> getByIdRepo)
+            IGetByIdRepo<SupplyEntity> getByIdSupplyRepo,
+            IGetByIdRepo<UoMEntity> getByIdUomRepo)
         {
             _updateRepo = updateRepo;
-            _getByIdRepo = getByIdRepo;
+            _getByIdSupplyRepo = getByIdSupplyRepo;
+            _getByIdUomRepo = getByIdUomRepo;
         }
 
         public async Task<AppResult> Execute(UpdateSupplyInput updateSupplyInput)
         {
-            SupplyEntity? supplyEntity = await _getByIdRepo.GetByIdAsync(updateSupplyInput.Id);
+            UoMEntity? uomEntity = await _getByIdUomRepo.GetByIdAsync(updateSupplyInput.UoMId);
+            if (uomEntity == null)
+                return ResultFactory.CreateNotFound("The unit of measure was not found");
+
+            SupplyEntity? supplyEntity = await _getByIdSupplyRepo.GetByIdAsync(updateSupplyInput.Id);
 
             if (supplyEntity == null)
                 return ResultFactory.CreateNotFound("The supply does not exist");
