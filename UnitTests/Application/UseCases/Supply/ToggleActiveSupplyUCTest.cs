@@ -10,43 +10,52 @@ namespace UnitTests.Application.UseCases.Supply
     public class ToggleActiveSupplyUCTest
     {
         [TestMethod]
-        public void ToggleActiveSupply_ShouldReturnSuccess()
+        public void ToggleActiveSupply_ShouldReturnUpdated()
         {
             // Arrange
-            Mock<IToggleActiveRepo<SupplyEntity>> toggleActiveSupplyRepo = new Mock<IToggleActiveRepo<SupplyEntity>>();
-            int entityId = 1;
+            Mock<IUpdateRepo<SupplyEntity>> updateRepo = new Mock<IUpdateRepo<SupplyEntity>>();
+            Mock<IGetByIdRepo<SupplyEntity>> getByIdRepo = new Mock<IGetByIdRepo<SupplyEntity>>();
 
-            toggleActiveSupplyRepo.Setup(r => r.ToggleActiveAsync(entityId)).ReturnsAsync(true);
+            Guid entityId = Guid.NewGuid();
+            SupplyEntity supplyEntity = new SupplyEntity();
 
-            //ToggleActiveSupplyUseCase toggleActiveSupplyUseCase = new ToggleActiveSupplyUseCase(toggleActiveSupplyRepo.Object);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(supplyEntity);
+            updateRepo.Setup(r => r.UpdateAsync(supplyEntity)).ReturnsAsync(true);
 
-            ResultState resultState = ResultState.Success;
+            ToggleActiveSupplyUseCase toggleActiveSupplyUseCase = new ToggleActiveSupplyUseCase(
+                updateRepo.Object, getByIdRepo.Object);
+
+            ResultState resultState = ResultState.Updated;
 
             // Act
-            //var result = toggleActiveSupplyUseCase.Execute(entityId);
+            var result = toggleActiveSupplyUseCase.Execute(entityId);
 
             // Assert
-            //Assert.AreEqual(result.Result.ResultState, resultState);
+            Assert.AreEqual(result.Result.ResultState, resultState);
         }
 
         [TestMethod]
         public void ToggleActiveSupply_ShouldReturnNotFound()
         {
             // Arrange
-            Mock<IToggleActiveRepo<SupplyEntity>> toggleActiveSupplyRepo = new Mock<IToggleActiveRepo<SupplyEntity>>();
-            int entityId = 1;
+            Mock<IUpdateRepo<SupplyEntity>> updateRepo = new Mock<IUpdateRepo<SupplyEntity>>();
+            Mock<IGetByIdRepo<SupplyEntity>> getByIdRepo = new Mock<IGetByIdRepo<SupplyEntity>>();
 
-            toggleActiveSupplyRepo.Setup(r => r.ToggleActiveAsync(entityId)).ReturnsAsync(false);
+            Guid entityId = Guid.NewGuid();
+            SupplyEntity? supplyEntity = null;
 
-            //ToggleActiveSupplyUseCase toggleActiveSupplyUseCase = new ToggleActiveSupplyUseCase(toggleActiveSupplyRepo.Object);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(supplyEntity);
+
+            ToggleActiveSupplyUseCase toggleActiveSupplyUseCase = new ToggleActiveSupplyUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 
             // Act
-            //var result = toggleActiveSupplyUseCase.Execute(entityId);
+            var result = toggleActiveSupplyUseCase.Execute(entityId);
 
             // Assert
-            //Assert.AreEqual(result.Result.ResultState, resultState);
+            Assert.AreEqual(result.Result.ResultState, resultState);
         }
     }
 }

@@ -12,19 +12,23 @@ namespace UnitTests.Application.UseCases.Supply
     public class AddSupplyUCTest
     {
         [TestMethod]
-        public void AddSupply_ShouldReturnCreatedWithData()
+        public void AddSupply_ShouldReturnCreated()
         {
             // Arrange
             Mock<IAddRepo<SupplyEntity>> addSupplyRepo = new Mock<IAddRepo<SupplyEntity>>();
+            Mock<IGetByIdRepo<UoMEntity>> getByIdRepo = new Mock<IGetByIdRepo<UoMEntity>>();
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             AddSupplyInput addSupplyInput = new AddSupplyInput();
             SupplyEntity supplyEntity = new SupplyEntity();
+            UoMEntity uomEntity = new UoMEntity();
 
             mapper.Setup(m => m.Map<SupplyEntity>(addSupplyInput)).Returns(supplyEntity);
+            getByIdRepo.Setup(r => r.GetByIdAsync(addSupplyInput.UoMId)).ReturnsAsync(uomEntity);
             addSupplyRepo.Setup(r => r.AddAsync(supplyEntity)).ReturnsAsync(true);
 
-            AddSupplyUseCase addSupplyUseCase = new AddSupplyUseCase(addSupplyRepo.Object, mapper.Object);
+            AddSupplyUseCase addSupplyUseCase = new AddSupplyUseCase(
+                addSupplyRepo.Object, getByIdRepo.Object, mapper.Object);
 
             ResultState resultState = ResultState.Created;
 
@@ -36,21 +40,22 @@ namespace UnitTests.Application.UseCases.Supply
         }
 
         [TestMethod]
-        public void AddSupply_ShouldReturnCreatedWithNullData()
+        public void AddSupply_ShouldReturnNotFound()
         {
             // Arrange
             Mock<IAddRepo<SupplyEntity>> addSupplyRepo = new Mock<IAddRepo<SupplyEntity>>();
+            Mock<IGetByIdRepo<UoMEntity>> getByIdRepo = new Mock<IGetByIdRepo<UoMEntity>>();
             Mock<IMapper> mapper = new Mock<IMapper>();
 
-            SupplyEntity supplyEntity = new SupplyEntity();
             AddSupplyInput addSupplyInput = new AddSupplyInput();
+            UoMEntity? uomEntity = null;
 
-            mapper.Setup(m => m.Map<SupplyEntity>(addSupplyInput)).Returns(supplyEntity);
-            addSupplyRepo.Setup(r => r.AddAsync(supplyEntity)).ReturnsAsync(false);
+            getByIdRepo.Setup(r => r.GetByIdAsync(addSupplyInput.UoMId)).ReturnsAsync(uomEntity);
 
-            AddSupplyUseCase addSupplyUseCase = new AddSupplyUseCase(addSupplyRepo.Object, mapper.Object);
+            AddSupplyUseCase addSupplyUseCase = new AddSupplyUseCase(
+                addSupplyRepo.Object, getByIdRepo.Object, mapper.Object);
 
-            ResultState resultState = ResultState.NotCreated;
+            ResultState resultState = ResultState.NotFound;
 
             // Act
             var result = addSupplyUseCase.Execute(addSupplyInput);
