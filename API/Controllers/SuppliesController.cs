@@ -66,6 +66,23 @@ namespace API.Controllers
 
         // ==========================================================================
 
+        [HttpPost("product/add")]
+        public async Task<IActionResult> AddSupplyProduct(
+            [FromBody] AddSupplyProductInput addSupplyProductInput,
+            IValidator<AddSupplyProductInput> validator,
+            SupplyUseCases supliesUseCases)
+        {
+            var validResult = await validator.ValidateAsync(addSupplyProductInput);
+            if (!validResult.IsValid)
+                throw new ValidationException(validResult.Errors);
+
+            var appResult = await supliesUseCases.AddSupplyProductUseCase.Execute(addSupplyProductInput);
+            string url = $"/api/supplies/product/get-actives";
+            return ResponseConverter.Execute(appResult, url);
+        }
+
+        // ==========================================================================
+
         [HttpGet("uom/get-actives")]
         public async Task<IActionResult> GetActivesUom(
             SupplyUseCases supliesUseCases)

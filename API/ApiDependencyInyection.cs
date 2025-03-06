@@ -34,6 +34,8 @@ namespace API
             services.AddScoped<IValidator<AddSupplyInput>, AddSupplyValid>();
             services.AddScoped<IValidator<UpdateSupplyInput>, UpdateSupplyValid>();
 
+            services.AddScoped<IValidator<AddSupplyProductInput>, AddSupplyProductValid>();
+
             services.AddScoped<IValidator<AddUomInput>, AddUomValid>();
             services.AddScoped<IValidator<UpdateUomInput>, UpdateUomValid>();
 

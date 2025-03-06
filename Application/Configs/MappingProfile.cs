@@ -34,6 +34,8 @@ namespace Application.Configs
             CreateMap<UpdateSupplyInput, SupplyEntity>()
                 .ForPath(dest => dest.Uom.Id, opt => opt.MapFrom(src => src.UomId));
 
+            CreateMap<AddSupplyProductInput, SupplyProductEntity>();
+
             CreateMap<UomEntity, GetUomOutput>();
             CreateMap<AddUomInput, UomEntity>();
             CreateMap<UpdateUomInput, UomEntity>();
