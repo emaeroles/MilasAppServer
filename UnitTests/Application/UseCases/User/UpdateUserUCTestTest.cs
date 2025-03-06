@@ -2,8 +2,10 @@
 using Application.Entities;
 using Application.Enums;
 using Application.Interfaces._01_Common;
+using Application.Interfaces.User;
 using Application.UseCases.User;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Moq;
 
 namespace UnitTests.Application.UseCases.User
@@ -12,53 +14,57 @@ namespace UnitTests.Application.UseCases.User
     public class UpdateUserUCTestTest
     {
         [TestMethod]
-        public void UpdateUser_ShouldReturnSuccsessWithData()
+        public void UpdateUser_ShouldReturnUpdateWithNullData()
         {
             // Arrange
             Mock<IUpdateRepo<UserEntity>> updateRepo = new Mock<IUpdateRepo<UserEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
+            Mock<IGetByIdRepo<UserEntity>> getByIdRepo = new Mock<IGetByIdRepo<UserEntity>>();
+            Mock<IPasswordHasher<UserEntity>> passwordHasher = new Mock<IPasswordHasher<UserEntity>>();
 
-            UserEntity userEntity = new UserEntity();
             UpdateUserInput updateUserInput = new UpdateUserInput();
+            UserEntity userEntity = new UserEntity();
 
-            mapper.Setup(m => m.Map<UserEntity>(updateUserInput)).Returns(userEntity);
+            getByIdRepo.Setup(r => r.GetByIdAsync(updateUserInput.Id)).ReturnsAsync(userEntity);
             updateRepo.Setup(r => r.UpdateAsync(userEntity)).ReturnsAsync(true);
 
-            //UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(updateRepo.Object, mapper.Object);
+            UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(
+                updateRepo.Object, getByIdRepo.Object, passwordHasher.Object);
 
-            ResultState resultState = ResultState.Success;
+            ResultState resultState = ResultState.Updated;
 
             // Act
-            //var result = updateUserUseCase.Execute(updateUserInput);
+            var result = updateUserUseCase.Execute(updateUserInput);
 
             // Assert
-            //Assert.AreEqual(result.Result.ResultState, resultState);
-            //Assert.IsNull(result.Result.Data);
+            Assert.AreEqual(result.Result.ResultState, resultState);
+            Assert.IsNull(result.Result.Data);
         }
 
         [TestMethod]
-        public void UpdateUser_ShouldReturnNotFoundWithNullData()
+        public void UpdateUser_ShouldReturnNotUpdateWithNullData()
         {
             // Arrange
-            Mock<IUpdateRepo<UserEntity>> updateUserRepo = new Mock<IUpdateRepo<UserEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
+            Mock<IUpdateRepo<UserEntity>> updateRepo = new Mock<IUpdateRepo<UserEntity>>();
+            Mock<IGetByIdRepo<UserEntity>> getByIdRepo = new Mock<IGetByIdRepo<UserEntity>>();
+            Mock<IPasswordHasher<UserEntity>> passwordHasher = new Mock<IPasswordHasher<UserEntity>>();
 
-            UserEntity userEntity = new UserEntity();
             UpdateUserInput updateUserInput = new UpdateUserInput();
+            UserEntity userEntity = new UserEntity();
 
-            mapper.Setup(m => m.Map<UserEntity>(updateUserInput)).Returns(userEntity);
-            updateUserRepo.Setup(r => r.UpdateAsync(userEntity)).ReturnsAsync(false);
+            getByIdRepo.Setup(r => r.GetByIdAsync(updateUserInput.Id)).ReturnsAsync(userEntity);
+            updateRepo.Setup(r => r.UpdateAsync(userEntity)).ReturnsAsync(false);
 
-            //UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(updateUserRepo.Object, mapper.Object);
+            UpdateUserUseCase updateUserUseCase = new UpdateUserUseCase(
+                updateRepo.Object, getByIdRepo.Object, passwordHasher.Object);
 
-            ResultState resultState = ResultState.NotFound;
+            ResultState resultState = ResultState.NotUpdated;
 
             // Act
-            //var result = updateUserUseCase.Execute(updateUserInput);
+            var result = updateUserUseCase.Execute(updateUserInput);
 
             // Assert
-            //Assert.AreEqual(result.Result.ResultState, resultState);
-            //Assert.IsNull(result.Result.Data);
+            Assert.AreEqual(result.Result.ResultState, resultState);
+            Assert.IsNull(result.Result.Data);
         }
     }
 }

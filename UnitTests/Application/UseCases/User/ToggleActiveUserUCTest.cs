@@ -10,43 +10,52 @@ namespace UnitTests.Application.UseCases.User
     public class ToggleActiveUserUCTest
     {
         [TestMethod]
-        public void ToggleActiveUser_ShouldReturnSuccess()
+        public void ToggleActiveUser_ShouldReturnUpdated()
         {
             // Arrange
-            Mock<IToggleActiveRepo<UserEntity>> toggleActiveUserRepo = new Mock<IToggleActiveRepo<UserEntity>>();
-            int entityId = 1;
+            Mock<IUpdateRepo<UserEntity>> updateRepo = new Mock<IUpdateRepo<UserEntity>>();
+            Mock<IGetByIdRepo<UserEntity>> getByIdRepo = new Mock<IGetByIdRepo<UserEntity>>();
+            UserEntity userEntity = new UserEntity();
+            
+            Guid entityId = Guid.NewGuid();
 
-            toggleActiveUserRepo.Setup(r => r.ToggleActiveAsync(entityId)).ReturnsAsync(true);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(userEntity);
+            updateRepo.Setup(r => r.UpdateAsync(userEntity)).ReturnsAsync(true);
 
-            //ToggleActiveUserUseCase toggleActiveUserUseCase = new ToggleActiveUserUseCase(toggleActiveUserRepo.Object);
+            ToggleActiveUserUseCase toggleActiveUserUseCase = new ToggleActiveUserUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
-            ResultState resultState = ResultState.Success;
+            ResultState resultState = ResultState.Updated;
 
             // Act
-            //var result = toggleActiveUserUseCase.Execute(entityId);
+            var result = toggleActiveUserUseCase.Execute(entityId);
 
             // Assert
-            //Assert.AreEqual(result.Result.ResultState, resultState);
+            Assert.AreEqual(result.Result.ResultState, resultState);
         }
 
         [TestMethod]
-        public void ToggleActiveUser_ShouldReturnNotFound()
+        public void ToggleActiveUser_ShouldReturnNotUpdate()
         {
             // Arrange
-            Mock<IToggleActiveRepo<UserEntity>> toggleActiveUserRepo = new Mock<IToggleActiveRepo<UserEntity>>();
-            int entityId = 1;
+            Mock<IUpdateRepo<UserEntity>> updateRepo = new Mock<IUpdateRepo<UserEntity>>();
+            Mock<IGetByIdRepo<UserEntity>> getByIdRepo = new Mock<IGetByIdRepo<UserEntity>>();
+            UserEntity userEntity = new UserEntity();
+            Guid entityId = Guid.NewGuid();
 
-            toggleActiveUserRepo.Setup(r => r.ToggleActiveAsync(entityId)).ReturnsAsync(false);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(userEntity);
+            updateRepo.Setup(r => r.UpdateAsync(userEntity)).ReturnsAsync(false);
 
-            //ToggleActiveUserUseCase toggleActiveUserUseCase = new ToggleActiveUserUseCase(toggleActiveUserRepo.Object);
+            ToggleActiveUserUseCase toggleActiveUserUseCase = new ToggleActiveUserUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
-            ResultState resultState = ResultState.NotFound;
+            ResultState resultState = ResultState.NotUpdated;
 
             // Act
-            //var result = toggleActiveUserUseCase.Execute(entityId);
+            var result = toggleActiveUserUseCase.Execute(entityId);
 
             // Assert
-            //Assert.AreEqual(result.Result.ResultState, resultState);
+            Assert.AreEqual(result.Result.ResultState, resultState);
         }
     }
 }
