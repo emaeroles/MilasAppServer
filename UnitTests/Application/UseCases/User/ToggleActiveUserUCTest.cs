@@ -40,6 +40,7 @@ namespace UnitTests.Application.UseCases.User
             // Arrange
             Mock<IUpdateRepo<UserEntity>> updateRepo = new Mock<IUpdateRepo<UserEntity>>();
             Mock<IGetByIdRepo<UserEntity>> getByIdRepo = new Mock<IGetByIdRepo<UserEntity>>();
+            
             UserEntity userEntity = new UserEntity();
             Guid entityId = Guid.NewGuid();
 

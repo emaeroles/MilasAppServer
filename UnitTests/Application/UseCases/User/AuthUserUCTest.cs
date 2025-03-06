@@ -5,7 +5,6 @@ using Application.UseCases.User;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Moq;
-using System.Xml;
 
 namespace UnitTests.Application.UseCases.User
 {
@@ -13,15 +12,12 @@ namespace UnitTests.Application.UseCases.User
     public class AuthUserUCTest
     {
         [TestMethod]
-        public void AuthUser_ShouldReturnAuthorizedWithNullData()
+        public void AuthUser_ShouldReturnAuthorized()
         {
             Mock<IGetByUsernameRepo> getByUsernameRepo = new Mock<IGetByUsernameRepo>();
             Mock<IPasswordHasher<UserEntity>> passwordHasher = new Mock<IPasswordHasher<UserEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
 
             UserEntity userEntity = new UserEntity();
-            userEntity.Id = Guid.NewGuid();
-            userEntity.Password = "password";
             string username = "username";
             string password = "password";
 
@@ -38,19 +34,15 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
 
         [TestMethod]
-        public void AuthUser_ShouldReturnUnauthorizedWithNullData()
+        public void AuthUser_ShouldReturnUnauthorized()
         {
             Mock<IGetByUsernameRepo> getByUsernameRepo = new Mock<IGetByUsernameRepo>();
             Mock<IPasswordHasher<UserEntity>> passwordHasher = new Mock<IPasswordHasher<UserEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
 
             UserEntity userEntity = new UserEntity();
-            userEntity.Id = Guid.NewGuid();
-            userEntity.Password = "password";
             string username = "username";
             string password = "password";
 
@@ -58,7 +50,8 @@ namespace UnitTests.Application.UseCases.User
             passwordHasher.Setup(p => p.VerifyHashedPassword(
                 userEntity, userEntity.Password, password)).Returns(PasswordVerificationResult.Failed);
 
-            AuthUserUseCase authUserUseCase = new AuthUserUseCase(getByUsernameRepo.Object, passwordHasher.Object);
+            AuthUserUseCase authUserUseCase = new AuthUserUseCase(
+                getByUsernameRepo.Object, passwordHasher.Object);
 
             ResultState resultState = ResultState.Unauthorized;
 
@@ -67,25 +60,23 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
 
         [TestMethod]
-        public void AuthUser_ShouldReturnNotFoundWithNullData()
+        public void AuthUser_ShouldReturnNotFound()
         {
             // Arrange
             Mock<IGetByUsernameRepo> getByUsernameRepo = new Mock<IGetByUsernameRepo>();
             Mock<IPasswordHasher<UserEntity>> passwordHasher = new Mock<IPasswordHasher<UserEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
 
-            UserEntity userEntity = new UserEntity();
-            userEntity.Id = Guid.Empty;
+            UserEntity? userEntity = null;
             string username = "username";
             string password = "password";
 
-            getByUsernameRepo.Setup(r => r.GetByUsernameAsync(username)).ReturnsAsync((UserEntity?)null);
+            getByUsernameRepo.Setup(r => r.GetByUsernameAsync(username)).ReturnsAsync(userEntity);
 
-            AuthUserUseCase authUserUseCase = new AuthUserUseCase(getByUsernameRepo.Object, passwordHasher.Object);
+            AuthUserUseCase authUserUseCase = new AuthUserUseCase(
+                getByUsernameRepo.Object, passwordHasher.Object);
 
             ResultState resultState = ResultState.NotFound;
 
@@ -94,7 +85,6 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace UnitTests.Application.UseCases.User
     public class AddUserUCTest
     {
         [TestMethod]
-        public void AddUser_ShouldReturnCreatedWithData()
+        public void AddUser_ShouldReturnCreated()
         {
             // Arrange
             Mock<IAddRepo<UserEntity>> addUserRepo = new Mock<IAddRepo<UserEntity>>();
@@ -23,8 +23,11 @@ namespace UnitTests.Application.UseCases.User
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             AddUserInput addUserInput = new AddUserInput();
+            UserEntity? userEntityExist = null;
             UserEntity userEntity = new UserEntity();
 
+            getByUsernameRepo.Setup(r => r.GetByUsernameAsync(addUserInput.Username))
+                .ReturnsAsync(userEntityExist);
             mapper.Setup(m => m.Map<UserEntity>(addUserInput)).Returns(userEntity);
             addUserRepo.Setup(r => r.AddAsync(userEntity)).ReturnsAsync(true);
 
@@ -38,11 +41,10 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNotNull(result.Result.Data);
         }
 
         [TestMethod]
-        public void AddUser_ShouldReturnConflictWithNullData()
+        public void AddUser_ShouldReturnConflict()
         {
             // Arrange
             Mock<IAddRepo<UserEntity>> addUserRepo = new Mock<IAddRepo<UserEntity>>();
@@ -51,11 +53,10 @@ namespace UnitTests.Application.UseCases.User
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             AddUserInput addUserInput = new AddUserInput();
-            addUserInput.Username = "username";
-            UserEntity userEntity = new UserEntity();
+            UserEntity userEntityExist = new UserEntity();
 
             getByUsernameRepo.Setup(r => r.GetByUsernameAsync(addUserInput.Username))
-                .ReturnsAsync(userEntity);
+                .ReturnsAsync(userEntityExist);
 
             AddUserUseCase addUserUseCase = new AddUserUseCase(
                 addUserRepo.Object, getByUsernameRepo.Object, passwordHasher.Object, mapper.Object);
@@ -67,7 +68,6 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }

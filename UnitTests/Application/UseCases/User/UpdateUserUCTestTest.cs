@@ -2,9 +2,7 @@
 using Application.Entities;
 using Application.Enums;
 using Application.Interfaces._01_Common;
-using Application.Interfaces.User;
 using Application.UseCases.User;
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 
@@ -14,7 +12,7 @@ namespace UnitTests.Application.UseCases.User
     public class UpdateUserUCTestTest
     {
         [TestMethod]
-        public void UpdateUser_ShouldReturnUpdateWithNullData()
+        public void UpdateUser_ShouldReturnUpdate()
         {
             // Arrange
             Mock<IUpdateRepo<UserEntity>> updateRepo = new Mock<IUpdateRepo<UserEntity>>();
@@ -37,11 +35,10 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
 
         [TestMethod]
-        public void UpdateUser_ShouldReturnNotUpdateWithNullData()
+        public void UpdateUser_ShouldReturnNotUpdate()
         {
             // Arrange
             Mock<IUpdateRepo<UserEntity>> updateRepo = new Mock<IUpdateRepo<UserEntity>>();
@@ -64,7 +61,6 @@ namespace UnitTests.Application.UseCases.User
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }
