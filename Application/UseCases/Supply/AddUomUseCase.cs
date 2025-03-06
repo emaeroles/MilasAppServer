@@ -22,15 +22,15 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(AddUomInput addUomInput)
         {
-            var uomEntity = _mapper.Map<UoMEntity>(addUomInput);
+            UoMEntity uomEntity = _mapper.Map<UoMEntity>(addUomInput);
             uomEntity.Id = Guid.NewGuid();
 
             bool isCreated = await _addUomRepo.AddAsync(uomEntity);
 
             if (!isCreated)
-                return ResultFactory.CreateNotCreated("Unit of Mesure was not created");
+                return ResultFactory.CreateNotCreated("Unit of mesure was not created");
 
-            return ResultFactory.CreateCreated("Unit of Mesure was created", uomEntity.Id);
+            return ResultFactory.CreateCreated("Unit of mesure was created", uomEntity.Id);
         }
     }
 }

@@ -10,26 +10,30 @@ namespace Application.UseCases.Supply
     public class UpdateUomUseCase
     {
         private readonly IUpdateRepo<UoMEntity> _updateRepo;
-        private readonly IMapper _mapper;
+        private readonly IGetByIdRepo<UoMEntity> _getByIdRepo;
 
         public UpdateUomUseCase(
             IUpdateRepo<UoMEntity> updateRepo,
-            IMapper mapper)
+            IGetByIdRepo<UoMEntity> getByIdRepo)
         {
             _updateRepo = updateRepo;
-            _mapper = mapper;
+            _getByIdRepo = getByIdRepo;
         }
 
         public async Task<AppResult> Execute(UpdateUomInput updateUomInput)
         {
-            var uomEntity = _mapper.Map<UoMEntity>(updateUomInput);
+            UoMEntity? uomEntity = await _getByIdRepo.GetByIdAsync(updateUomInput.Id);
+
+            if (uomEntity == null)
+                return ResultFactory.CreateNotFound("The unit of mesure does not exist");
+
+            uomEntity.Unit = updateUomInput.Unit;
 
             var isOk = await _updateRepo.UpdateAsync(uomEntity);
             if (!isOk)
-                return ResultFactory.CreateNotFound($"Unit of Mesure was not updated, " +
-                    $"id {updateUomInput.Id} does not exist");
+                return ResultFactory.CreateNotUpdated("Unit of mesure was not updated");
 
-            return ResultFactory.CreateSuccess("Unit of Mesure was updated", null);
+            return ResultFactory.CreateUpdated("Unit of mesure was updated");
         }
     }
 }

@@ -22,11 +22,15 @@ namespace Application.UseCases.Supply
 
         public async Task<AppResult> Execute(bool isActive)
         {
-            var listUomsEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
-            var listGetUomsOutput = listUomsEntity
+            IEnumerable<UoMEntity>? listUomsEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
+
+            if (listUomsEntity == null)
+                return ResultFactory.CreateNotFound("There are no units of measure");
+
+            IEnumerable<GetUomOutput> listGetUomsOutput = listUomsEntity
                 .Select(uomEntity => _mapper.Map<GetUomOutput>(uomEntity));
 
-            return ResultFactory.CreateSuccess("Units of Mesure", listGetUomsOutput);
+            return ResultFactory.CreateCreated("Units of mesure", listGetUomsOutput);
         }
     }
 }
