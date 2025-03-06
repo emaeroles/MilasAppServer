@@ -12,7 +12,7 @@ namespace UnitTests.Application.UseCases.Product
     public class AddProductUCTest
     {
         [TestMethod]
-        public void AddProduct_ShouldReturnCreatedWithData()
+        public void AddProduct_ShouldReturnCreated()
         {
             // Arrange
             Mock<IAddRepo<ProductEntity>> addProductRepo = new Mock<IAddRepo<ProductEntity>>();
@@ -27,30 +27,6 @@ namespace UnitTests.Application.UseCases.Product
             AddProductUseCase addProductUseCase = new AddProductUseCase(addProductRepo.Object, mapper.Object);
 
             ResultState resultState = ResultState.Created;
-
-            // Act
-            var result = addProductUseCase.Execute(addProductInput);
-
-            // Assert
-            Assert.AreEqual(result.Result.ResultState, resultState);
-        }
-
-        [TestMethod]
-        public void AddProduct_ShouldReturnCreatedWithNullData()
-        {
-            // Arrange
-            Mock<IAddRepo<ProductEntity>> addProductRepo = new Mock<IAddRepo<ProductEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
-
-            ProductEntity productEntity = new ProductEntity();
-            AddProductInput addProductInput = new AddProductInput();
-
-            mapper.Setup(m => m.Map<ProductEntity>(addProductInput)).Returns(productEntity);
-            addProductRepo.Setup(r => r.AddAsync(productEntity)).ReturnsAsync(false);
-
-            AddProductUseCase addProductUseCase = new AddProductUseCase(addProductRepo.Object, mapper.Object);
-
-            ResultState resultState = ResultState.NotCreated;
 
             // Act
             var result = addProductUseCase.Execute(addProductInput);

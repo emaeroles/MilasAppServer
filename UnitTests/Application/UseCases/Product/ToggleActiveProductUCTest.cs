@@ -10,17 +10,22 @@ namespace UnitTests.Application.UseCases.Product
     public class ToggleActiveProductUCTest
     {
         [TestMethod]
-        public void ToggleActiveProduct_ShouldReturnSuccess()
+        public void ToggleActiveProduct_ShouldUpdated()
         {
             // Arrange
-            Mock<IToggleActiveRepo<ProductEntity>> toggleActiveProductRepo = new Mock<IToggleActiveRepo<ProductEntity>>();
-            int entityId = 1;
+            Mock<IUpdateRepo<ProductEntity>> updateRepo = new Mock<IUpdateRepo<ProductEntity>>();
+            Mock<IGetByIdRepo<ProductEntity>> getByIdRepo = new Mock<IGetByIdRepo<ProductEntity>>();
 
-            toggleActiveProductRepo.Setup(r => r.ToggleActiveAsync(entityId)).ReturnsAsync(true);
+            Guid entityId = Guid.NewGuid();
+            ProductEntity productEntity = new ProductEntity();
 
-            ToggleActiveProductUseCase toggleActiveProductUseCase = new ToggleActiveProductUseCase(toggleActiveProductRepo.Object);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(productEntity);
+            updateRepo.Setup(r => r.UpdateAsync(productEntity)).ReturnsAsync(true);
 
-            ResultState resultState = ResultState.Success;
+            ToggleActiveProductUseCase toggleActiveProductUseCase = new ToggleActiveProductUseCase(
+                updateRepo.Object, getByIdRepo.Object);
+
+            ResultState resultState = ResultState.Updated;
 
             // Act
             var result = toggleActiveProductUseCase.Execute(entityId);
@@ -33,12 +38,16 @@ namespace UnitTests.Application.UseCases.Product
         public void ToggleActiveProduct_ShouldReturnNotFound()
         {
             // Arrange
-            Mock<IToggleActiveRepo<ProductEntity>> toggleActiveProductRepo = new Mock<IToggleActiveRepo<ProductEntity>>();
-            int entityId = 1;
+            Mock<IUpdateRepo<ProductEntity>> updateRepo = new Mock<IUpdateRepo<ProductEntity>>();
+            Mock<IGetByIdRepo<ProductEntity>> getByIdRepo = new Mock<IGetByIdRepo<ProductEntity>>();
 
-            toggleActiveProductRepo.Setup(r => r.ToggleActiveAsync(entityId)).ReturnsAsync(false);
+            Guid entityId = Guid.NewGuid();
+            ProductEntity? productEntity = null;
 
-            ToggleActiveProductUseCase toggleActiveProductUseCase = new ToggleActiveProductUseCase(toggleActiveProductRepo.Object);
+            getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(productEntity);
+
+            ToggleActiveProductUseCase toggleActiveProductUseCase = new ToggleActiveProductUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 

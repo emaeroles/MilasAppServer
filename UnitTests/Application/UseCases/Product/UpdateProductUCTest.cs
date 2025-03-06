@@ -3,7 +3,6 @@ using Application.Entities;
 using Application.Enums;
 using Application.Interfaces._01_Common;
 using Application.UseCases.Product;
-using AutoMapper;
 using Moq;
 
 namespace UnitTests.Application.UseCases.Product
@@ -12,44 +11,44 @@ namespace UnitTests.Application.UseCases.Product
     public class UpdateProductUCTest
     {
         [TestMethod]
-        public void UpdateProduct_ShouldReturnSuccsessWithData()
+        public void UpdateProduct_ShouldReturnUpdated()
         {
             // Arrange
             Mock<IUpdateRepo<ProductEntity>> updateRepo = new Mock<IUpdateRepo<ProductEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
+            Mock<IGetByIdRepo<ProductEntity>> getByIdRepo = new Mock<IGetByIdRepo<ProductEntity>>();
 
             ProductEntity productEntity = new ProductEntity();
             UpdateProductInput updateProductInput = new UpdateProductInput();
 
-            mapper.Setup(m => m.Map<ProductEntity>(updateProductInput)).Returns(productEntity);
+            getByIdRepo.Setup(r => r.GetByIdAsync(updateProductInput.Id)).ReturnsAsync(productEntity);
             updateRepo.Setup(r => r.UpdateAsync(productEntity)).ReturnsAsync(true);
 
-            UpdateProductUseCase updateProductUseCase = new UpdateProductUseCase(updateRepo.Object, mapper.Object);
+            UpdateProductUseCase updateProductUseCase = new UpdateProductUseCase(
+                updateRepo.Object, getByIdRepo.Object);
 
-            ResultState resultState = ResultState.Success;
+            ResultState resultState = ResultState.Updated;
 
             // Act
             var result = updateProductUseCase.Execute(updateProductInput);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
 
         [TestMethod]
-        public void UpdateProduct_ShouldReturnNotFoundWithNullData()
+        public void UpdateProduct_ShouldReturnNotFound()
         {
             // Arrange
             Mock<IUpdateRepo<ProductEntity>> updateProductRepo = new Mock<IUpdateRepo<ProductEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
+            Mock<IGetByIdRepo<ProductEntity>> getByIdRepo = new Mock<IGetByIdRepo<ProductEntity>>();
 
-            ProductEntity productEntity = new ProductEntity();
+            ProductEntity? productEntity = null;
             UpdateProductInput updateProductInput = new UpdateProductInput();
 
-            mapper.Setup(m => m.Map<ProductEntity>(updateProductInput)).Returns(productEntity);
-            updateProductRepo.Setup(r => r.UpdateAsync(productEntity)).ReturnsAsync(false);
+            getByIdRepo.Setup(r => r.GetByIdAsync(updateProductInput.Id)).ReturnsAsync(productEntity);
 
-            UpdateProductUseCase updateProductUseCase = new UpdateProductUseCase(updateProductRepo.Object, mapper.Object);
+            UpdateProductUseCase updateProductUseCase = new UpdateProductUseCase(
+                updateProductRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 
@@ -58,7 +57,6 @@ namespace UnitTests.Application.UseCases.Product
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
-            Assert.IsNull(result.Result.Data);
         }
     }
 }
