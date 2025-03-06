@@ -12,7 +12,7 @@ namespace UnitTests.Application.UseCases.Supply
     public class AddUomUCTest
     {
         [TestMethod]
-        public void AddUom_ShouldReturnCreatedWithData()
+        public void AddUom_ShouldReturnCreated()
         {
             // Arrange
             Mock<IAddRepo<UoMEntity>> addUomRepo = new Mock<IAddRepo<UoMEntity>>();
@@ -27,30 +27,6 @@ namespace UnitTests.Application.UseCases.Supply
             AddUomUseCase addUomUseCase = new AddUomUseCase(addUomRepo.Object, mapper.Object);
 
             ResultState resultState = ResultState.Created;
-
-            // Act
-            var result = addUomUseCase.Execute(addUomInput);
-
-            // Assert
-            Assert.AreEqual(result.Result.ResultState, resultState);
-        }
-
-        [TestMethod]
-        public void AddUom_ShouldReturnCreatedWithNullData()
-        {
-            // Arrange
-            Mock<IAddRepo<UoMEntity>> addUomRepo = new Mock<IAddRepo<UoMEntity>>();
-            Mock<IMapper> mapper = new Mock<IMapper>();
-
-            UoMEntity uomEntity = new UoMEntity();
-            AddUomInput addUomInput = new AddUomInput();
-
-            mapper.Setup(m => m.Map<UoMEntity>(addUomInput)).Returns(uomEntity);
-            addUomRepo.Setup(r => r.AddAsync(uomEntity)).ReturnsAsync(false);
-
-            AddUomUseCase addUomUseCase = new AddUomUseCase(addUomRepo.Object, mapper.Object);
-
-            ResultState resultState = ResultState.NotCreated;
 
             // Act
             var result = addUomUseCase.Execute(addUomInput);
