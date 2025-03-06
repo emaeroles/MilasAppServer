@@ -22,13 +22,13 @@ namespace UnitTests.Application.UseCases.Kiosco
             getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(kioscoEntity);
             updateRepo.Setup(r => r.UpdateAsync(It.IsAny<KioscoEntity>())).ReturnsAsync(true);
 
-            ToggleIsChangesUseCase toggleIsChangesUseCase = new ToggleIsChangesUseCase(
+            UpdateKioscoIsChangesUseCase updateKioscoIsChangesUseCase = new UpdateKioscoIsChangesUseCase(
                 updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.Updated;
 
             // Act
-            var result = toggleIsChangesUseCase.Execute(entityId);
+            var result = updateKioscoIsChangesUseCase.Execute(entityId);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
@@ -46,13 +46,13 @@ namespace UnitTests.Application.UseCases.Kiosco
 
             getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(kioscoEntity);
 
-            ToggleIsChangesUseCase toggleIsChangesUseCase = new ToggleIsChangesUseCase(
+            UpdateKioscoIsChangesUseCase updateKioscoIsChangesUseCase = new UpdateKioscoIsChangesUseCase(
                 updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 
             // Act
-            var result = toggleIsChangesUseCase.Execute(entityId);
+            var result = updateKioscoIsChangesUseCase.Execute(entityId);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);

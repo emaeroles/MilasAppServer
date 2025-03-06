@@ -56,7 +56,7 @@ namespace API.Controllers
         }
 
         [HttpPut("update-notes")]
-        public async Task<IActionResult> UpdateNotes(
+        public async Task<IActionResult> UpdateKioscoNotes(
             [FromBody] UpdateKioscoNotesInput updateKioscoNotesInput,
             IValidator<UpdateKioscoNotesInput> validator,
             KioscoUseCases kioscoUseCases)
@@ -65,12 +65,12 @@ namespace API.Controllers
             if (!validResult.IsValid)
                 throw new ValidationException(validResult.Errors);
 
-            var appResult = await kioscoUseCases.UpdateNotesUseCase.Execute(updateKioscoNotesInput);
+            var appResult = await kioscoUseCases.UpdateKioscoNotesUseCase.Execute(updateKioscoNotesInput);
             return ResponseConverter.Execute(appResult);
         }
 
         [HttpPut("update-dubt")]
-        public async Task<IActionResult> UpdateDubt(
+        public async Task<IActionResult> UpdateKioscoDubt(
             [FromBody] UpdateKioscoDubtInput updateKioscoDubtInput,
             IValidator<UpdateKioscoDubtInput> validator,
             KioscoUseCases kioscoUseCases)
@@ -79,12 +79,12 @@ namespace API.Controllers
             if (!validResult.IsValid)
                 throw new ValidationException(validResult.Errors);
 
-            var appResult = await kioscoUseCases.UpdateDubtUseCase.Execute(updateKioscoDubtInput);
+            var appResult = await kioscoUseCases.UpdateKioscoDubtUseCase.Execute(updateKioscoDubtInput);
             return ResponseConverter.Execute(appResult);
         }
 
         [HttpPut("update-order")]
-        public async Task<IActionResult> UpdateOrder(
+        public async Task<IActionResult> UpdateKioscoOrder(
             [FromBody] UpdateKioscoOrderInput updateKioscoOrderInput,
             IValidator<UpdateKioscoOrderInput> validator,
             KioscoUseCases kioscoUseCases)
@@ -93,16 +93,16 @@ namespace API.Controllers
             if (!validResult.IsValid)
                 throw new ValidationException(validResult.Errors);
 
-            var appResult = await kioscoUseCases.UpdateOrderUseCase.Execute(updateKioscoOrderInput);
+            var appResult = await kioscoUseCases.UpdateKioscoOrderUseCase.Execute(updateKioscoOrderInput);
             return ResponseConverter.Execute(appResult);
         }
 
-        [HttpPost("{id}/toggle-is-changes")]
-        public async Task<IActionResult> ToggleIsChangesKiosco(
+        [HttpPost("{id}/update-is-changes")]
+        public async Task<IActionResult> UpdateKioscoIsChanges(
             Guid id,
             KioscoUseCases kioscoUseCases)
         {
-            var appResult = await kioscoUseCases.ToggleIsChangesUseCase.Execute(id);
+            var appResult = await kioscoUseCases.UpdateKioscoIsChangesUseCase.Execute(id);
             return ResponseConverter.Execute(appResult);
         }
 

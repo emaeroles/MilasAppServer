@@ -4,9 +4,9 @@
         GetAllKioscosUseCase GetAllKioscosUseCase,
         AddKioscoUseCase AddKioscoUseCase,
         UpdateKioscoUseCase UpdateKioscoUseCase,
-        UpdateNotesUseCase UpdateNotesUseCase,
-        UpdateDubtUseCase UpdateDubtUseCase,
-        UpdateOrderUseCase UpdateOrderUseCase,
-        ToggleIsChangesUseCase ToggleIsChangesUseCase,
+        UpdateKioscoNotesUseCase UpdateKioscoNotesUseCase,
+        UpdateKioscoDubtUseCase UpdateKioscoDubtUseCase,
+        UpdateKioscoOrderUseCase UpdateKioscoOrderUseCase,
+        UpdateKioscoIsChangesUseCase UpdateKioscoIsChangesUseCase,
         ToggleActiveKioscoUseCase ToggleActiveKioscoUseCase);
 }

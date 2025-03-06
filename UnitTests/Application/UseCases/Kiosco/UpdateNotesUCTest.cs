@@ -23,13 +23,13 @@ namespace UnitTests.Application.UseCases.Kiosco
             getByIdRepo.Setup(r => r.GetByIdAsync(updateKioscoNotesInput.Id)).ReturnsAsync(kioscoEntity);
             updateRepo.Setup(r => r.UpdateAsync(It.IsAny<KioscoEntity>())).ReturnsAsync(true);
 
-            UpdateNotesUseCase updateNotesUseCase = new UpdateNotesUseCase(
+            UpdateKioscoNotesUseCase updateKioscoNotesUseCase = new UpdateKioscoNotesUseCase(
                 updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.Updated;
 
             // Act
-            var result = updateNotesUseCase.Execute(updateKioscoNotesInput);
+            var result = updateKioscoNotesUseCase.Execute(updateKioscoNotesInput);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);
@@ -47,13 +47,13 @@ namespace UnitTests.Application.UseCases.Kiosco
 
             getByIdRepo.Setup(r => r.GetByIdAsync(updateKioscoNotesInput.Id)).ReturnsAsync(kioscoEntity);
 
-            UpdateNotesUseCase updateNotesUseCase = new UpdateNotesUseCase(
+            UpdateKioscoNotesUseCase updateKioscoNotesUseCase = new UpdateKioscoNotesUseCase(
                 updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 
             // Act
-            var result = updateNotesUseCase.Execute(updateKioscoNotesInput);
+            var result = updateKioscoNotesUseCase.Execute(updateKioscoNotesInput);
 
             // Assert
             Assert.AreEqual(result.Result.ResultState, resultState);

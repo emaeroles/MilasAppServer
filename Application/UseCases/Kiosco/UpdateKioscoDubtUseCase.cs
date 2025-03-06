@@ -6,12 +6,12 @@ using Application.Interfaces._01_Common;
 
 namespace Application.UseCases.Kiosco
 {
-    public class UpdateDubtUseCase
+    public class UpdateKioscoDubtUseCase
     {
         private readonly IUpdateRepo<KioscoEntity> _updateRepo;
         private readonly IGetByIdRepo<KioscoEntity> _getByIdRepo;
 
-        public UpdateDubtUseCase(
+        public UpdateKioscoDubtUseCase(
             IUpdateRepo<KioscoEntity> updateRepo,
             IGetByIdRepo<KioscoEntity> getByIdRepo)
         {

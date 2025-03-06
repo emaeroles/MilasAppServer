@@ -44,10 +44,10 @@ namespace Application
             services.AddScoped<GetAllKioscosUseCase>();
             services.AddScoped<AddKioscoUseCase>();
             services.AddScoped<UpdateKioscoUseCase>();
-            services.AddScoped<UpdateNotesUseCase>();
-            services.AddScoped<UpdateDubtUseCase>();
-            services.AddScoped<UpdateOrderUseCase>();
-            services.AddScoped<ToggleIsChangesUseCase>();
+            services.AddScoped<UpdateKioscoNotesUseCase>();
+            services.AddScoped<UpdateKioscoDubtUseCase>();
+            services.AddScoped<UpdateKioscoOrderUseCase>();
+            services.AddScoped<UpdateKioscoIsChangesUseCase>();
             services.AddScoped<ToggleActiveKioscoUseCase>();
 
             return services;

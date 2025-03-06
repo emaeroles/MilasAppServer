@@ -3,16 +3,15 @@ using Application.DTOs.Kiosco;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
-using AutoMapper;
 
 namespace Application.UseCases.Kiosco
 {
-    public class UpdateNotesUseCase
+    public class UpdateKioscoNotesUseCase
     {
         private readonly IUpdateRepo<KioscoEntity> _updateRepo;
         private readonly IGetByIdRepo<KioscoEntity> _getByIdRepo;
 
-        public UpdateNotesUseCase(
+        public UpdateKioscoNotesUseCase(
             IUpdateRepo<KioscoEntity> updateRepo,
             IGetByIdRepo<KioscoEntity> getByIdRepo)
         {
