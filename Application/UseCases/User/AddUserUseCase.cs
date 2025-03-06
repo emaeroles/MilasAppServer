@@ -32,12 +32,12 @@ namespace Application.UseCases.User
         {
             addUserInput.Username = addUserInput.Username.ToLower();
 
-            UserEntity? userEntity = await _getByUsernameRepo.GetByUsernameAsync(addUserInput.Username);
+            UserEntity? userEntityExist = await _getByUsernameRepo.GetByUsernameAsync(addUserInput.Username);
 
-            if (userEntity != null)
+            if (userEntityExist != null)
                 return ResultFactory.CreateConflict("The username already exists");
 
-            userEntity = _mapper.Map<UserEntity>(addUserInput);
+            UserEntity userEntity = _mapper.Map<UserEntity>(addUserInput);
             userEntity.Id = Guid.NewGuid();
             userEntity.Password = _passwordHasher.HashPassword(userEntity, addUserInput.Password);
             userEntity.IsActive = true;
