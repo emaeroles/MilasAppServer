@@ -21,7 +21,7 @@ namespace Data.Repositories.ProductKiosco
                 .FirstOrDefaultAsync(pk => pk.ProductId == entity.ProductId && pk.KioscoId == entity.KioscoId);
 
             if (productKioscoModel == null)
-                throw new KeyNotFoundException($"No supply found with Id {entity.Id}.");
+                throw new KeyNotFoundException($"No product found with Id {entity.ProductId} from kiosco {entity.KioscoId}.");
 
             productKioscoModel.KioscoPrice = entity.KioscoSalePrice;
             productKioscoModel.Stock = entity.Stock;

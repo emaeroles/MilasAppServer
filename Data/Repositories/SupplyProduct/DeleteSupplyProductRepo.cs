@@ -21,7 +21,7 @@ namespace Data.Repositories.SupplyProduct
                 .FirstOrDefaultAsync(sp => sp.SupplyId == entityId && sp.ProductId == byEntityId);
 
             if (suppliesProductModel == null)
-                throw new KeyNotFoundException($"No supply product found with Id {entityId} from product {byEntityId}.");
+                throw new KeyNotFoundException($"No supply found with Id {entityId} from product {byEntityId}.");
 
             _dbcontext.SuppliesProducts.Remove(suppliesProductModel);
             int rows = await _dbcontext.SaveChangesAsync();

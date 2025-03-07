@@ -21,7 +21,7 @@ namespace Data.Repositories.ProductKiosco
                 .FirstOrDefaultAsync(sp => sp.ProductId == entityId && sp.KioscoId == byEntityId);
 
             if (productKioscoModel == null)
-                throw new KeyNotFoundException($"No supply product found with Id {entityId} from product {byEntityId}.");
+                throw new KeyNotFoundException($"No product found with Id {entityId} from kiosco {byEntityId}.");
 
             _dbcontext.ProductsKioscos.Remove(productKioscoModel);
             int rows = await _dbcontext.SaveChangesAsync();

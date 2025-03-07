@@ -10,19 +10,13 @@ namespace Application.UseCases.ProductKiosco
     {
         private readonly IUpdateRepo<ProductKioscoEntity> _updateRepo;
         private readonly IGetByIdComposedRepo<ProductKioscoEntity> _getByIdComposedRepo;
-        private readonly IGetByIdRepo<KioscoEntity> _getByIdKioscoRepo;
-        private readonly IGetByIdRepo<ProductEntity> _getByIdProductRepo;
 
         public UpdateProductKioscoPriceUseCase(
             IUpdateRepo<ProductKioscoEntity> updateRepo,
-            IGetByIdComposedRepo<ProductKioscoEntity> getByIdComposedRepo,
-            IGetByIdRepo<KioscoEntity> getByIdKioscoRepo,
-            IGetByIdRepo<ProductEntity> getByIdProductRepo)
+            IGetByIdComposedRepo<ProductKioscoEntity> getByIdComposedRepo)
         {
             _updateRepo = updateRepo;
             _getByIdComposedRepo = getByIdComposedRepo;
-            _getByIdKioscoRepo = getByIdKioscoRepo;
-            _getByIdProductRepo = getByIdProductRepo;
         }
 
         public async Task<AppResult> Execute(UpdateProductKioscoPriceIuput updateProductKioscoPriceIuput)
@@ -31,14 +25,6 @@ namespace Application.UseCases.ProductKiosco
                 .GetByIdComposedAsync(updateProductKioscoPriceIuput.ProductId, updateProductKioscoPriceIuput.KioscoId);
             if (productKioscoEntity == null)
                 return ResultFactory.CreateNotFound("The kiosco product does not exists");
-
-            KioscoEntity? kioscoEntity = await _getByIdKioscoRepo.GetByIdAsync(updateProductKioscoPriceIuput.KioscoId);
-            if (kioscoEntity == null)
-                return ResultFactory.CreateNotFound("The kiosco does not exist");
-
-            ProductEntity? productEntity = await _getByIdProductRepo.GetByIdAsync(updateProductKioscoPriceIuput.ProductId);
-            if (productEntity == null)
-                return ResultFactory.CreateNotFound("The product does not exist");
 
             productKioscoEntity.KioscoSalePrice = updateProductKioscoPriceIuput.KioscoSalePrice;
 
