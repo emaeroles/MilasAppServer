@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\ProductKiosco\" />
     <Folder Include="Interfaces\Kiosco\" />
     <Folder Include="Interfaces\ProductKiosco\" />
     <Folder Include="Interfaces\Product\" />

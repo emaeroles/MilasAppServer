@@ -6,6 +6,7 @@ using Data;
 using Data.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Globalization;
 using System.Text;
@@ -31,7 +32,6 @@ builder.Services
     .AddData();
 
 // JWT
-builder.Services.AddAuthentication();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt =>
 {
     var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]!));
@@ -41,10 +41,10 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt =>
     {
         ValidateLifetime = true,
 
-        ValidateAudience = true,
+        ValidateIssuer = true,
         ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
 
-        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidAudience = builder.Configuration["JwtSettings:Audience"],
 
         ValidateIssuerSigningKey = true,
@@ -95,6 +95,37 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+// Swagger configuration
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MilasAPP", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter the JWT token in the field below."
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
+
 // Build
 var app = builder.Build();
 
@@ -111,7 +142,10 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "MilasApp v1");
+    });
 }
 
 // CORS
