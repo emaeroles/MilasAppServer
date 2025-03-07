@@ -1,4 +1,4 @@
-﻿namespace Application.DTOs.Product
+﻿namespace Application.DTOs.ProductKiosco
 {
     public class UpdateProductKioscoPriceIuput
     {
