@@ -17,7 +17,7 @@ namespace API.Validators.Kiosco
                 .NotEmpty()
                 .Matches(@"^\d+$")
                 .Length(10, 10)
-                .WithMessage("'{PropertyName}' debe tener 10 numeros, ej: 3515445566");
+                .WithMessage("'{PropertyName}' contain exactly 10 digits, like: 3515445566.");
             RuleFor(x => x.Address)
                 .NotEmpty()
                 .Length(3, 95);

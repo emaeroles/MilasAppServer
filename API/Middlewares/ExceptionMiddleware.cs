@@ -41,7 +41,7 @@ namespace API.Middleware
             var errors = ex.Errors.Select(e => e.ErrorMessage);
             var apiResp = JsonSerializer.Serialize(new ApiResponse(
                 false,
-                "Data validation errors",
+                "Errors in data format validation.",
                 errors));
 
             await response.WriteAsync(apiResp);
@@ -58,7 +58,7 @@ namespace API.Middleware
 
             var apiResp = JsonSerializer.Serialize(new ApiResponse(
                 false,
-                "A server error occurred, please contact the developer",
+                "A server error has occurred. Please contact the developer.",
                 null));
 
             await response.WriteAsync(apiResp);

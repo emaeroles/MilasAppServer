@@ -14,8 +14,8 @@ namespace API.Validators.Auth
                 .NotEmpty()
                 .Length(8, 16)
                 .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$")
-                .WithMessage("'{PropertyName}' debe tener al menos una letra minúscula, " +
-                    "al menos una letra mayúscula y al menos un número.");
+                .WithMessage("'{PropertyName}' should contain at least one lowercase letter, " +
+                    "one uppercase letter, and one number.");
         }
     }
 }

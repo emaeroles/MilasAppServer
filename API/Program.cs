@@ -1,12 +1,13 @@
 using API;
 using API.Middleware;
+using API.Response;
 using Application;
 using Data;
 using Data.Context;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Globalization;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Set ASP.NET to English by default
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 // Inyections
 builder.Services
@@ -46,11 +52,35 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt =>
     };
 });
 
-// Disable automatic ASP.NET validation
-//builder.Services.Configure<ApiBehaviorOptions>(options =>
-//{
-//    options.SuppressModelStateInvalidFilter = true;
-//});
+// Modifying ASP.NET default messages
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState
+            .Where(m => m.Value?.Errors.Count > 0)
+            .SelectMany(m => m.Value!.Errors.Select(
+                e => $"'{m.Key.First().ToString().ToUpper() + m.Key.Substring(1)}'" +
+                $" {e.ErrorMessage.First().ToString().ToLower() + e.ErrorMessage.Substring(1)}"))
+            .ToList();
+
+        var apiResp = new ApiResponse(
+            false, 
+            "Error in data type validation. You can find the correct format in the documentation.",
+            errors);
+
+        return new JsonResult(apiResp)
+        {
+            StatusCode = StatusCodes.Status400BadRequest
+        };
+    };
+});
+
+// Use PascalCase in JesonResult
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
 
 // Serilog
 string filePath = builder.Configuration["FilePaths:LogsFilePath"]!;
