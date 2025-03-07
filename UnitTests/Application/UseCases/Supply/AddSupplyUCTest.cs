@@ -16,15 +16,15 @@ namespace UnitTests.Application.UseCases.Supply
         {
             // Arrange
             Mock<IAddRepo<SupplyEntity>> addSupplyRepo = new Mock<IAddRepo<SupplyEntity>>();
-            Mock<IGetByIdRepo<UoMEntity>> getByIdRepo = new Mock<IGetByIdRepo<UoMEntity>>();
+            Mock<IGetByIdRepo<UomEntity>> getByIdRepo = new Mock<IGetByIdRepo<UomEntity>>();
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             AddSupplyInput addSupplyInput = new AddSupplyInput();
             SupplyEntity supplyEntity = new SupplyEntity();
-            UoMEntity uomEntity = new UoMEntity();
+            UomEntity uomEntity = new UomEntity();
 
             mapper.Setup(m => m.Map<SupplyEntity>(addSupplyInput)).Returns(supplyEntity);
-            getByIdRepo.Setup(r => r.GetByIdAsync(addSupplyInput.UoMId)).ReturnsAsync(uomEntity);
+            getByIdRepo.Setup(r => r.GetByIdAsync(addSupplyInput.UomId)).ReturnsAsync(uomEntity);
             addSupplyRepo.Setup(r => r.AddAsync(supplyEntity)).ReturnsAsync(true);
 
             AddSupplyUseCase addSupplyUseCase = new AddSupplyUseCase(
@@ -44,13 +44,13 @@ namespace UnitTests.Application.UseCases.Supply
         {
             // Arrange
             Mock<IAddRepo<SupplyEntity>> addSupplyRepo = new Mock<IAddRepo<SupplyEntity>>();
-            Mock<IGetByIdRepo<UoMEntity>> getByIdRepo = new Mock<IGetByIdRepo<UoMEntity>>();
+            Mock<IGetByIdRepo<UomEntity>> getByIdRepo = new Mock<IGetByIdRepo<UomEntity>>();
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             AddSupplyInput addSupplyInput = new AddSupplyInput();
-            UoMEntity? uomEntity = null;
+            UomEntity? uomEntity = null;
 
-            getByIdRepo.Setup(r => r.GetByIdAsync(addSupplyInput.UoMId)).ReturnsAsync(uomEntity);
+            getByIdRepo.Setup(r => r.GetByIdAsync(addSupplyInput.UomId)).ReturnsAsync(uomEntity);
 
             AddSupplyUseCase addSupplyUseCase = new AddSupplyUseCase(
                 addSupplyRepo.Object, getByIdRepo.Object, mapper.Object);

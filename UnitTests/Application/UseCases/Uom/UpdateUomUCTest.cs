@@ -1,11 +1,11 @@
-﻿using Application.DTOs.Supply;
+﻿using Application.DTOs.Uom;
 using Application.Entities;
 using Application.Enums;
 using Application.Interfaces._01_Common;
-using Application.UseCases.Supply;
+using Application.UseCases.Uom;
 using Moq;
 
-namespace UnitTests.Application.UseCases.Supply
+namespace UnitTests.Application.UseCases.Uom
 {
     [TestClass]
     public class UpdateUomUCTest
@@ -14,10 +14,10 @@ namespace UnitTests.Application.UseCases.Supply
         public void UpdateUom_ShouldReturnUpdated()
         {
             // Arrange
-            Mock<IUpdateRepo<UoMEntity>> updateRepo = new Mock<IUpdateRepo<UoMEntity>>();
-            Mock<IGetByIdRepo<UoMEntity>> getByIdRepo = new Mock<IGetByIdRepo<UoMEntity>>();
+            Mock<IUpdateRepo<UomEntity>> updateRepo = new Mock<IUpdateRepo<UomEntity>>();
+            Mock<IGetByIdRepo<UomEntity>> getByIdRepo = new Mock<IGetByIdRepo<UomEntity>>();
 
-            UoMEntity uomEntity = new UoMEntity();
+            UomEntity uomEntity = new UomEntity();
             UpdateUomInput updateUomInput = new UpdateUomInput();
 
             getByIdRepo.Setup(r => r.GetByIdAsync(updateUomInput.Id)).ReturnsAsync(uomEntity);
@@ -38,10 +38,10 @@ namespace UnitTests.Application.UseCases.Supply
         public void UpdateUom_ShouldReturnNotFound()
         {
             // Arrange
-            Mock<IUpdateRepo<UoMEntity>> updateRepo = new Mock<IUpdateRepo<UoMEntity>>();
-            Mock<IGetByIdRepo<UoMEntity>> getByIdRepo = new Mock<IGetByIdRepo<UoMEntity>>();
+            Mock<IUpdateRepo<UomEntity>> updateRepo = new Mock<IUpdateRepo<UomEntity>>();
+            Mock<IGetByIdRepo<UomEntity>> getByIdRepo = new Mock<IGetByIdRepo<UomEntity>>();
 
-            UoMEntity? uomEntity = null;
+            UomEntity? uomEntity = null;
             UpdateUomInput updateUomInput = new UpdateUomInput();
             
             getByIdRepo.Setup(r => r.GetByIdAsync(updateUomInput.Id)).ReturnsAsync(uomEntity);

@@ -1,10 +1,10 @@
 ﻿using Application.Entities;
 using Application.Enums;
 using Application.Interfaces._01_Common;
-using Application.UseCases.Supply;
+using Application.UseCases.Uom;
 using Moq;
 
-namespace UnitTests.Application.UseCases.Supply
+namespace UnitTests.Application.UseCases.Uom
 {
     [TestClass]
     public class ToggleActiveUomUCTest
@@ -13,11 +13,11 @@ namespace UnitTests.Application.UseCases.Supply
         public void ToggleActiveUom_ShouldReturnUpdated()
         {
             // Arrange
-            Mock<IUpdateRepo<UoMEntity>> updateRepo = new Mock<IUpdateRepo<UoMEntity>>();
-            Mock<IGetByIdRepo<UoMEntity>> getByIdRepo = new Mock<IGetByIdRepo<UoMEntity>>();
+            Mock<IUpdateRepo<UomEntity>> updateRepo = new Mock<IUpdateRepo<UomEntity>>();
+            Mock<IGetByIdRepo<UomEntity>> getByIdRepo = new Mock<IGetByIdRepo<UomEntity>>();
 
             Guid entityId = Guid.NewGuid();
-            UoMEntity uomEntity = new UoMEntity();
+            UomEntity uomEntity = new UomEntity();
 
             getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(uomEntity);
             updateRepo.Setup(r => r.UpdateAsync(uomEntity)).ReturnsAsync(true);
@@ -38,11 +38,11 @@ namespace UnitTests.Application.UseCases.Supply
         public void ToggleActiveUom_ShouldReturnNotFound()
         {
             // Arrange
-            Mock<IUpdateRepo<UoMEntity>> updateRepo = new Mock<IUpdateRepo<UoMEntity>>();
-            Mock<IGetByIdRepo<UoMEntity>> getByIdRepo = new Mock<IGetByIdRepo<UoMEntity>>();
+            Mock<IUpdateRepo<UomEntity>> updateRepo = new Mock<IUpdateRepo<UomEntity>>();
+            Mock<IGetByIdRepo<UomEntity>> getByIdRepo = new Mock<IGetByIdRepo<UomEntity>>();
 
             Guid entityId = Guid.NewGuid();
-            UoMEntity? uomEntity = null;
+            UomEntity? uomEntity = null;
 
             getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(uomEntity);
 

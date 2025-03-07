@@ -1,12 +1,12 @@
-﻿using Application.DTOs.Supply;
+﻿using Application.DTOs.Uom;
 using Application.Entities;
 using Application.Enums;
 using Application.Interfaces._01_Common;
-using Application.UseCases.Supply;
+using Application.UseCases.Uom;
 using AutoMapper;
 using Moq;
 
-namespace UnitTests.Application.UseCases.Supply
+namespace UnitTests.Application.UseCases.Uom
 {
     [TestClass]
     public class AddUomUCTest
@@ -15,13 +15,13 @@ namespace UnitTests.Application.UseCases.Supply
         public void AddUom_ShouldReturnCreated()
         {
             // Arrange
-            Mock<IAddRepo<UoMEntity>> addUomRepo = new Mock<IAddRepo<UoMEntity>>();
+            Mock<IAddRepo<UomEntity>> addUomRepo = new Mock<IAddRepo<UomEntity>>();
             Mock<IMapper> mapper = new Mock<IMapper>();
 
             AddUomInput addUomInput = new AddUomInput();
-            UoMEntity uomEntity = new UoMEntity();
+            UomEntity uomEntity = new UomEntity();
 
-            mapper.Setup(m => m.Map<UoMEntity>(addUomInput)).Returns(uomEntity);
+            mapper.Setup(m => m.Map<UomEntity>(addUomInput)).Returns(uomEntity);
             addUomRepo.Setup(r => r.AddAsync(uomEntity)).ReturnsAsync(true);
 
             AddUomUseCase addUomUseCase = new AddUomUseCase(addUomRepo.Object, mapper.Object);

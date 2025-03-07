@@ -15,16 +15,19 @@ namespace UnitTests.Application.UseCases.Supply
         {
             // Arrange
             Mock<IUpdateRepo<SupplyEntity>> updateRepo = new Mock<IUpdateRepo<SupplyEntity>>();
-            Mock<IGetByIdRepo<SupplyEntity>> getByIdRepo = new Mock<IGetByIdRepo<SupplyEntity>>();
+            Mock<IGetByIdRepo<SupplyEntity>> getByIdSupplyRepo = new Mock<IGetByIdRepo<SupplyEntity>>();
+            Mock<IGetByIdRepo<UomEntity>> getByIdUomRepo = new Mock<IGetByIdRepo<UomEntity>>();
 
             SupplyEntity supplyEntity = new SupplyEntity();
+            UomEntity uomEntity = new UomEntity();
             UpdateSupplyInput updateSupplyInput = new UpdateSupplyInput();
 
-            getByIdRepo.Setup(r => r.GetByIdAsync(updateSupplyInput.Id)).ReturnsAsync(supplyEntity);
+            getByIdUomRepo.Setup(r => r.GetByIdAsync(updateSupplyInput.UomId)).ReturnsAsync(uomEntity);
+            getByIdSupplyRepo.Setup(r => r.GetByIdAsync(updateSupplyInput.Id)).ReturnsAsync(supplyEntity);
             updateRepo.Setup(r => r.UpdateAsync(supplyEntity)).ReturnsAsync(true);
 
             UpdateSupplyUseCase updateSupplyUseCase = new UpdateSupplyUseCase(
-                updateRepo.Object, getByIdRepo.Object);
+                updateRepo.Object, getByIdSupplyRepo.Object, getByIdUomRepo.Object);
 
             ResultState resultState = ResultState.Updated;
 
@@ -40,15 +43,18 @@ namespace UnitTests.Application.UseCases.Supply
         {
             // Arrange
             Mock<IUpdateRepo<SupplyEntity>> updateRepo = new Mock<IUpdateRepo<SupplyEntity>>();
-            Mock<IGetByIdRepo<SupplyEntity>> getByIdRepo = new Mock<IGetByIdRepo<SupplyEntity>>();
+            Mock<IGetByIdRepo<SupplyEntity>> getByIdSupplyRepo = new Mock<IGetByIdRepo<SupplyEntity>>();
+            Mock<IGetByIdRepo<UomEntity>> getByIdUomRepo = new Mock<IGetByIdRepo<UomEntity>>();
 
             SupplyEntity? supplyEntity = null;
+            UomEntity uomEntity = new UomEntity();
             UpdateSupplyInput updateSupplyInput = new UpdateSupplyInput();
 
-            getByIdRepo.Setup(r => r.GetByIdAsync(updateSupplyInput.Id)).ReturnsAsync(supplyEntity);
+            getByIdUomRepo.Setup(r => r.GetByIdAsync(updateSupplyInput.UomId)).ReturnsAsync(uomEntity);
+            getByIdSupplyRepo.Setup(r => r.GetByIdAsync(updateSupplyInput.Id)).ReturnsAsync(supplyEntity);
 
             UpdateSupplyUseCase updateSupplyUseCase = new UpdateSupplyUseCase(
-                updateRepo.Object, getByIdRepo.Object);
+                updateRepo.Object, getByIdSupplyRepo.Object, getByIdUomRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
 
