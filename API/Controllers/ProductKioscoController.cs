@@ -1,5 +1,7 @@
 ﻿using API.Response;
+using Application.DTOs.Kiosco;
 using Application.DTOs.ProductKiosco;
+using Application.UseCases.Kiosco;
 using Data.Repositories.ProductKiosco;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +34,20 @@ namespace API.Controllers
             var appResult = await productKioscoUseCases.AddProductKioscoUseCase.Execute(addProductKioscoInput);
             string url = $"";
             return ResponseConverter.Execute(appResult, url);
+        }
+
+        [HttpPut("update-price")]
+        public async Task<IActionResult> UpdateProductKioscoPrice(
+            [FromBody] UpdateProductKioscoPriceIuput updateProductKioscoPriceIuput,
+            IValidator<UpdateProductKioscoPriceIuput> validator,
+            ProductKioscoUseCases productKioscoUseCases)
+        {
+            var validResult = await validator.ValidateAsync(updateProductKioscoPriceIuput);
+            if (!validResult.IsValid)
+                throw new ValidationException(validResult.Errors);
+
+            var appResult = await productKioscoUseCases.UpdateProductKioscoPriceUseCase.Execute(updateProductKioscoPriceIuput);
+            return ResponseConverter.Execute(appResult);
         }
 
         [HttpDelete("{kioscoId}/{productId}/delete")]

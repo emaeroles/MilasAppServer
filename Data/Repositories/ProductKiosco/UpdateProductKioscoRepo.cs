@@ -6,24 +6,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.ProductKiosco
 {
-    public class DeleteProductKioscoRepo : IDeleteComposedRepo<ProductKioscoEntity>
+    public class UpdateProductKioscoRepo : IUpdateRepo<ProductKioscoEntity>
     {
         private readonly AppDbContext _dbcontext;
 
-        public DeleteProductKioscoRepo(AppDbContext dbContext)
+        public UpdateProductKioscoRepo(AppDbContext dbContext)
         {
             _dbcontext = dbContext;
         }
 
-        public async Task<bool> DeleteComposedAsync(Guid entityId, Guid byEntityId)
+        public async Task<bool> UpdateAsync(ProductKioscoEntity entity)
         {
             ProductsKioscoModel? productKioscoModel = await _dbcontext.ProductsKioscos
-                .FirstOrDefaultAsync(sp => sp.ProductId == entityId && sp.KioscoId == byEntityId);
+                .FirstOrDefaultAsync(pk => pk.ProductId == entity.ProductId && pk.KioscoId == entity.KioscoId);
 
             if (productKioscoModel == null)
-                throw new KeyNotFoundException($"No supply product found with Id {entityId} from product {byEntityId}.");
+                throw new KeyNotFoundException($"No supply found with Id {entity.Id}.");
 
-            _dbcontext.ProductsKioscos.Remove(productKioscoModel);
+            productKioscoModel.KioscoPrice = entity.KioscoSalePrice;
+            productKioscoModel.Stock = entity.Stock;
+
             int rows = await _dbcontext.SaveChangesAsync();
 
             if (rows == 0)

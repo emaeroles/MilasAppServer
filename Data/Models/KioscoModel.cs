@@ -27,7 +27,7 @@ public partial class KioscoModel
 
     public bool IsActive { get; set; }
 
-    public virtual ICollection<ProductsKioscoEntity> ProductsKioscos { get; set; } = new List<ProductsKioscoEntity>();
+    public virtual ICollection<ProductsKioscoModel> ProductsKioscos { get; set; } = new List<ProductsKioscoModel>();
 
     public virtual UserModel User { get; set; } = null!;
 

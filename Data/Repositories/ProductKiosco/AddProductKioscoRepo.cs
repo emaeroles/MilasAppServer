@@ -16,7 +16,7 @@ namespace Data.Repositories.ProductKiosco
 
         public async Task<bool> AddAsync(ProductKioscoEntity entity)
         {
-            ProductsKioscoEntity productKioscoModel = new ProductsKioscoEntity
+            ProductsKioscoModel productKioscoModel = new ProductsKioscoModel
             {
                 Id = entity.Id,
                 ProductId = entity.ProductId,

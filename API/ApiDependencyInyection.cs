@@ -38,6 +38,7 @@ namespace API
 
             // Product Kiosco Validation
             services.AddScoped<IValidator<AddProductKioscoInput>, AddProductKioscoValid>();
+            services.AddScoped<IValidator<UpdateProductKioscoPriceIuput>, UpdateProductKioscoPriceValid>();
 
             // Supply Validations
             services.AddScoped<IValidator<AddSupplyInput>, AddSupplyValid>();
