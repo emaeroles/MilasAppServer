@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Data.Models;
 
-public partial class ProductsKioscoModel
+public partial class ProductsKioscoEntity
 {
     public Guid Id { get; set; }
 

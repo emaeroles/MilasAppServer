@@ -55,7 +55,8 @@ namespace Data
         {
             services.AddScoped<IGetByIdComposedRepo<ProductKioscoEntity>, GetByIdProductKioscoRepo>();
             services.AddScoped<IAddRepo<ProductKioscoEntity>, AddProductKioscoRepo>();
-            
+            services.AddScoped<IDeleteComposedRepo<ProductKioscoEntity>, DeleteProductKioscoRepo>();
+
             return services;
         }
 

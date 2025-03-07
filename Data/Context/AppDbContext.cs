@@ -20,7 +20,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<ProductModel> Products { get; set; }
 
-    public virtual DbSet<ProductsKioscoModel> ProductsKioscos { get; set; }
+    public virtual DbSet<ProductsKioscoEntity> ProductsKioscos { get; set; }
 
     public virtual DbSet<SuppliesProductModel> SuppliesProducts { get; set; }
 
@@ -97,7 +97,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("sale_price");
         });
 
-        modelBuilder.Entity<ProductsKioscoModel>(entity =>
+        modelBuilder.Entity<ProductsKioscoEntity>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("products_kiosco_pkey");
 

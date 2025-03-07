@@ -64,6 +64,7 @@ namespace Application
             services.AddScoped<ProductKioscoUseCases>();
 
             services.AddScoped<AddProductKioscoUseCase>();
+            services.AddScoped<DeleteProductKioscoUseCase>();
 
             return services;
         }
