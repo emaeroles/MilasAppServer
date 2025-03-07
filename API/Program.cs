@@ -1,4 +1,5 @@
 using API;
+using API.Filters;
 using API.Middleware;
 using API.Response;
 using Application;
@@ -98,6 +99,8 @@ builder.Host.UseSerilog();
 // Swagger configuration
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SchemaFilter<RemoveNullableSchemaFilter>();
+
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MilasAPP", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
