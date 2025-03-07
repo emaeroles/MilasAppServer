@@ -36,8 +36,8 @@ namespace API.Controllers
 
         [HttpDelete("{productId}/{supplyId}/delete")]
         public async Task<IActionResult> DeleteSuppliesProducts(
-            Guid supplyId,
             Guid productId,
+            Guid supplyId,
             SupplyProductUseCases supplyProductUseCases)
         {
             var appResult = await supplyProductUseCases.DeleteSupplyProductUseCase.Execute(supplyId, productId);
