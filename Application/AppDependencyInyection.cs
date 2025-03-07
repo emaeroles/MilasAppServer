@@ -74,6 +74,7 @@ namespace Application
             services.AddScoped<SupplyProductUseCases>();
 
             services.AddScoped<GetAllSuppliesProductUseCase>();
+            services.AddScoped<GetProductCostUseCase>();
             services.AddScoped<AddSupplyProductUseCase>();
             services.AddScoped<DeleteSupplyProductUseCase>();
 

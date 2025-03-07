@@ -1,6 +1,7 @@
 ﻿using API.Response;
 using Application.DTOs.Product;
 using Application.UseCases.Product;
+using Application.UseCases.SupplyProduct;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,15 @@ namespace API.Controllers
             ProductUseCases productUseCases)
         {
             var appResult = await productUseCases.GetAllProductsUseCase.Execute(false);
+            return ResponseConverter.Execute(appResult);
+        }
+
+        [HttpGet("{id}/cost")]
+        public async Task<IActionResult> GetProductCost(
+            Guid productId,
+            ProductUseCases productUseCases)
+        {
+            var appResult = await productUseCases.GetProductCostUseCase.Execute(productId);
             return ResponseConverter.Execute(appResult);
         }
 
