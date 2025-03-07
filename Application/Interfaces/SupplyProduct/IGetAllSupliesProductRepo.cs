@@ -2,7 +2,7 @@
 
 namespace Application.Interfaces.SupplyProduct
 {
-    public interface IGetAllSupliesProductRepo
+    public interface IGetAllSuppliesProductRepo
     {
         public Task<IEnumerable<SupplyProductEntity>?> GetAllSupliesProductAsync(Guid productId);
     }

@@ -1,6 +1,5 @@
 ﻿using API.Response;
 using Application.DTOs.ProductKiosco;
-using Application.UseCases.SupplyProduct;
 using Data.Repositories.ProductKiosco;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +10,15 @@ namespace API.Controllers
     [ApiController]
     public class ProductKioscoController : ControllerBase
     {
+        [HttpGet("get-actives")]
+        public async Task<IActionResult> GetSuppliesProducts(
+            Guid kioscoId,
+            ProductKioscoUseCases productKioscoUseCases)
+        {
+            var appResult = await productKioscoUseCases.GetAllProductsKioscoUseCase.Execute(kioscoId);
+            return ResponseConverter.Execute(appResult);
+        }
+
         [HttpPost("add")]
         public async Task<IActionResult> AddSupplyProduct(
             [FromBody] AddProductKioscoInput addProductKioscoInput,

@@ -52,6 +52,7 @@ namespace Application
             services.AddScoped<ProductUseCases>();
 
             services.AddScoped<GetAllProductsUseCase>();
+            services.AddScoped<GetProductCostUseCase>();
             services.AddScoped<AddProductUseCase>();
             services.AddScoped<UpdateProductUseCase>();
             services.AddScoped<ToggleActiveProductUseCase>();
@@ -63,6 +64,7 @@ namespace Application
         {
             services.AddScoped<ProductKioscoUseCases>();
 
+            services.AddScoped<GetAllProductsKioscoUseCase>();
             services.AddScoped<AddProductKioscoUseCase>();
             services.AddScoped<DeleteProductKioscoUseCase>();
 
@@ -86,7 +88,6 @@ namespace Application
             services.AddScoped<SupplyProductUseCases>();
 
             services.AddScoped<GetAllSuppliesProductUseCase>();
-            services.AddScoped<GetProductCostUseCase>();
             services.AddScoped<AddSupplyProductUseCase>();
             services.AddScoped<DeleteSupplyProductUseCase>();
 

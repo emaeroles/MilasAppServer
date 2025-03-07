@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.SupplyProduct
 {
-    public class GetAllSuppliesProductRepo : IGetAllSupliesProductRepo
+    public class GetAllSuppliesProductRepo : IGetAllSuppliesProductRepo
     {
         private readonly AppDbContext _dbcontext;
 
@@ -16,7 +16,7 @@ namespace Data.Repositories.SupplyProduct
 
         public async Task<IEnumerable<SupplyProductEntity>?> GetAllSupliesProductAsync(Guid productId)
         {
-            IQueryable<SupplyProductEntity> queryproductSupply = _dbcontext.SuppliesProducts
+            IQueryable<SupplyProductEntity> querySuppliesProduct = _dbcontext.SuppliesProducts
                 .Where(sp => sp.ProductId == productId)
                 .Include(sp => sp.Supply)
                     .ThenInclude(s => s.Uom)
@@ -38,12 +38,12 @@ namespace Data.Repositories.SupplyProduct
                     Yeild = sp.Supply.Yeild,
                 });
 
-            IEnumerable<SupplyProductEntity> listSupplyproductEntity = await queryproductSupply.ToListAsync();
+            IEnumerable<SupplyProductEntity> listSupplyProductEntity = await querySuppliesProduct.ToListAsync();
 
-            if (!listSupplyproductEntity.Any())
+            if (!listSupplyProductEntity.Any())
                 return null;
 
-            return listSupplyproductEntity;
+            return listSupplyProductEntity;
         }
     }
 }

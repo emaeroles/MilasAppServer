@@ -8,9 +8,9 @@ namespace Application.UseCases.Product
 {
     public class GetProductCostUseCase
     {
-        private readonly IGetAllSupliesProductRepo _getAllSupliesProductRepo;
+        private readonly IGetAllSuppliesProductRepo _getAllSupliesProductRepo;
 
-        public GetProductCostUseCase(IGetAllSupliesProductRepo getAllSupliesProductRepo)
+        public GetProductCostUseCase(IGetAllSuppliesProductRepo getAllSupliesProductRepo)
         {
             _getAllSupliesProductRepo = getAllSupliesProductRepo;
         }

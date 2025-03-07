@@ -10,12 +10,12 @@ namespace Application.UseCases.SupplyProduct
 {
     public class GetAllSuppliesProductUseCase
     {
-        private readonly IGetAllSupliesProductRepo _getAllSupliesProductRepo;
+        private readonly IGetAllSuppliesProductRepo _getAllSupliesProductRepo;
         private readonly IGetByIdRepo<ProductEntity> _getByIdRepo;
         private readonly IMapper _mapper;
 
         public GetAllSuppliesProductUseCase(
-            IGetAllSupliesProductRepo getAllSupliesProductRepo,
+            IGetAllSuppliesProductRepo getAllSupliesProductRepo,
             IGetByIdRepo<ProductEntity> getByIdRepo,
             IMapper mapper)
         {

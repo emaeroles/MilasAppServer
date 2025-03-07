@@ -18,11 +18,23 @@ namespace Data.Repositories.SupplyProduct
         {
             IQueryable<SupplyProductEntity> querySupplyProduct = _dbcontext.SuppliesProducts
                 .Where(sp => sp.SupplyId == entityId && sp.ProductId == byEntityId)
+                .Include(sp => sp.Supply)
+                    .ThenInclude(s => s.Uom)
                 .Select(sp => new SupplyProductEntity
                 {
                     Id = sp.Id,
                     SupplyId = sp.SupplyId,
                     ProductId = sp.ProductId,
+                    Name = sp.Supply.Name,
+                    Quantity = sp.Supply.Quantity,
+                    Uom = new UomEntity()
+                    {
+                        Id = sp.Supply.Uom.Id,
+                        Unit = sp.Supply.Uom.Unit,
+                        IsActive = sp.Supply.Uom.IsActive
+                    },
+                    CostPrice = sp.Supply.CostPrice,
+                    Yeild = sp.Supply.Yeild,
                 });
 
             SupplyProductEntity? supplieProductEntity = await querySupplyProduct.FirstOrDefaultAsync();

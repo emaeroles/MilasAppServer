@@ -1,5 +1,6 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
+using Application.Interfaces.ProductKiosco;
 using Application.Interfaces.SupplyProduct;
 using Application.Interfaces.User;
 using Data.Context;
@@ -54,6 +55,7 @@ namespace Data
         private static IServiceCollection AddProductKioscoRepos(this IServiceCollection services)
         {
             services.AddScoped<IGetByIdComposedRepo<ProductKioscoEntity>, GetByIdProductKioscoRepo>();
+            services.AddScoped<IGetAllProductsKioscoRepo, GetAllProductsKioscoRepo>();
             services.AddScoped<IAddRepo<ProductKioscoEntity>, AddProductKioscoRepo>();
             services.AddScoped<IDeleteComposedRepo<ProductKioscoEntity>, DeleteProductKioscoRepo>();
 
@@ -73,7 +75,7 @@ namespace Data
         private static IServiceCollection AddSupplyProductsRepos(this IServiceCollection services)
         {
             services.AddScoped<IGetByIdComposedRepo<SupplyProductEntity>, GetByIdSupplyProductRepo>();
-            services.AddScoped<IGetAllSupliesProductRepo, GetAllSuppliesProductRepo>();
+            services.AddScoped<IGetAllSuppliesProductRepo, GetAllSuppliesProductRepo>();
             services.AddScoped<IAddRepo<SupplyProductEntity>, AddSupplyProductRepo>();
             services.AddScoped<IDeleteComposedRepo<SupplyProductEntity>, DeleteSupplyProductRepo>();
 
