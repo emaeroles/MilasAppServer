@@ -1,6 +1,8 @@
 ﻿using Application.DTOs.Kiosco;
 using Application.DTOs.Product;
 using Application.DTOs.Supply;
+using Application.DTOs.SupplyProduct;
+using Application.DTOs.Uom;
 using Application.DTOs.User;
 using Application.Entities;
 using AutoMapper;

@@ -1,4 +1,4 @@
-﻿namespace Application.DTOs.Supply
+﻿namespace Application.DTOs.Uom
 {
     public class AddUomInput
     {

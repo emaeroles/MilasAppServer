@@ -3,7 +3,7 @@ using Application.Interfaces._01_Common;
 using Data.Context;
 using Data.Models;
 
-namespace Data.Repositories.Supply
+namespace Data.Repositories.SupplyProduct
 {
     public class AddSupplyProductRepo : IAddRepo<SupplyProductEntity>
     {

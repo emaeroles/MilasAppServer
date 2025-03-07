@@ -1,9 +1,9 @@
 ﻿using Application.Entities;
-using Application.Interfaces.Supply;
+using Application.Interfaces.SupplyProduct;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories.Supply
+namespace Data.Repositories.SupplyProduct
 {
     public class GetAllSuppliesProductRepo : IGetAllSupliesProductRepo
     {

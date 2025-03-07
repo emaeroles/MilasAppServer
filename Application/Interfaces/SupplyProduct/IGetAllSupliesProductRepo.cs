@@ -1,6 +1,6 @@
 ﻿using Application.Entities;
 
-namespace Application.Interfaces.Supply
+namespace Application.Interfaces.SupplyProduct
 {
     public interface IGetAllSupliesProductRepo
     {

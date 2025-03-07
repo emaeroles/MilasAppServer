@@ -1,4 +1,4 @@
-﻿namespace Application.DTOs.Supply
+﻿namespace Application.DTOs.SupplyProduct
 {
     public class AddSupplyProductInput
     {

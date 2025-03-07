@@ -3,10 +3,10 @@ using Application.DTOs.Supply;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
-using Application.Interfaces.Supply;
+using Application.Interfaces.SupplyProduct;
 using AutoMapper;
 
-namespace Application.UseCases.Supply
+namespace Application.UseCases.SupplyProduct
 {
     public class GetAllSuppliesProductUseCase
     {

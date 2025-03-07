@@ -6,23 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/supplies")]
+    [Route("api/supply")]
     [ApiController]
     public class SuppliesController : ControllerBase
     {
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetActivesSupplies(
-            SupplyUseCases supliesUseCases)
+            SupplyUseCases supplyUseCases)
         {
-            var appResult = await supliesUseCases.GetAllSuppliesUseCase.Execute(true);
+            var appResult = await supplyUseCases.GetAllSuppliesUseCase.Execute(true);
             return ResponseConverter.Execute(appResult);
         }
 
         [HttpGet("get-inactives")]
         public async Task<IActionResult> GetInactivesSupplies(
-            SupplyUseCases supliesUseCases)
+            SupplyUseCases supplyUseCases)
         {
-            var appResult = await supliesUseCases.GetAllSuppliesUseCase.Execute(false);
+            var appResult = await supplyUseCases.GetAllSuppliesUseCase.Execute(false);
             return ResponseConverter.Execute(appResult);
         }
 
@@ -30,13 +30,13 @@ namespace API.Controllers
         public async Task<IActionResult> AddSupply(
             [FromBody] AddSupplyInput addSupplyInput,
             IValidator<AddSupplyInput> validator,
-            SupplyUseCases supliesUseCases)
+            SupplyUseCases supplyUseCases)
         {
             var validResult = await validator.ValidateAsync(addSupplyInput);
             if (!validResult.IsValid)
                 throw new ValidationException(validResult.Errors);
 
-            var appResult = await supliesUseCases.AddSupplyUseCase.Execute(addSupplyInput);
+            var appResult = await supplyUseCases.AddSupplyUseCase.Execute(addSupplyInput);
             string url = $"/api/supplies/get-actives";
             return ResponseConverter.Execute(appResult, url);
         }
@@ -45,115 +45,23 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateSupply(
             [FromBody] UpdateSupplyInput updateSupplyInput,
             IValidator<UpdateSupplyInput> validator,
-            SupplyUseCases supliesUseCases)
+            SupplyUseCases supplyUseCases)
         {
             var validResult = await validator.ValidateAsync(updateSupplyInput);
             if (!validResult.IsValid)
                 throw new ValidationException(validResult.Errors);
 
-            var appResult = await supliesUseCases.UpdateSupplyUseCase.Execute(updateSupplyInput);
+            var appResult = await supplyUseCases.UpdateSupplyUseCase.Execute(updateSupplyInput);
             return ResponseConverter.Execute(appResult);
         }
 
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveSupply(
             Guid id,
-            SupplyUseCases supliesUseCases)
+            SupplyUseCases supplyUseCases)
         {
-            var appResult = await supliesUseCases.ToggleActiveSupplyUseCase.Execute(id);
+            var appResult = await supplyUseCases.ToggleActiveSupplyUseCase.Execute(id);
             return ResponseConverter.Execute(appResult);
-        }
-
-        // ==========================================================================
-
-        [HttpGet("product/get-actives")]
-        public async Task<IActionResult> GetSuppliesProducts(
-            Guid productId,
-            SupplyUseCases supliesUseCases)
-        {
-            var appResult = await supliesUseCases.GetAllSuppliesProductUseCase.Execute(productId);
-            return ResponseConverter.Execute(appResult);
-        }
-
-        [HttpPost("product/add")]
-        public async Task<IActionResult> AddSupplyProduct(
-            [FromBody] AddSupplyProductInput addSupplyProductInput,
-            IValidator<AddSupplyProductInput> validator,
-            SupplyUseCases supliesUseCases)
-        {
-            var validResult = await validator.ValidateAsync(addSupplyProductInput);
-            if (!validResult.IsValid)
-                throw new ValidationException(validResult.Errors);
-
-            var appResult = await supliesUseCases.AddSupplyProductUseCase.Execute(addSupplyProductInput);
-            string url = $"/api/supplies/product/get-actives";
-            return ResponseConverter.Execute(appResult, url);
-        }
-
-        [HttpDelete("product/delete")]
-        public async Task<IActionResult> DeleteSuppliesProducts(
-            Guid supplyId,
-            Guid productId,
-            SupplyUseCases supliesUseCases)
-        {
-            var appResult = await supliesUseCases.DeleteSupplyProductUseCase.Execute(supplyId, productId);
-            return ResponseConverter.Execute(appResult);
-        }
-
-        // ==========================================================================
-
-        [HttpGet("uom/get-actives")]
-        public async Task<IActionResult> GetActivesUom(
-            SupplyUseCases supliesUseCases)
-        {
-            var appResult = await supliesUseCases.GetAllUomsUseCase.Execute(true);
-            return ResponseConverter.Execute(appResult);
-        }
-
-        [HttpGet("uom/get-inactives")]
-        public async Task<IActionResult> GetInactivesUom(
-            SupplyUseCases supliesUseCases)
-        {
-            var appResult = await supliesUseCases.GetAllUomsUseCase.Execute(false);
-            return ResponseConverter.Execute(appResult);
-        }
-
-        [HttpPost("uom/add")]
-        public async Task<IActionResult> AddUom(
-            [FromBody] AddUomInput addUomInput,
-            IValidator<AddUomInput> validator,
-            SupplyUseCases supliesUseCases)
-        {
-            var validResult = await validator.ValidateAsync(addUomInput);
-            if (!validResult.IsValid)
-                throw new ValidationException(validResult.Errors);
-
-            var appResult = await supliesUseCases.AddUomUseCase.Execute(addUomInput);
-            string url = $"/api/supplies/get-actives";
-            return ResponseConverter.Execute(appResult, url);
-        }
-
-        [HttpPut("uom/update")]
-        public async Task<IActionResult> UpdateUom(
-            [FromBody] UpdateUomInput updateUomInput,
-            IValidator<UpdateUomInput> validator,
-            SupplyUseCases supliesUseCases)
-        {
-            var validResult = await validator.ValidateAsync(updateUomInput);
-            if (!validResult.IsValid)
-                throw new ValidationException(validResult.Errors);
-
-            var appResult = await supliesUseCases.UpdateUomUseCase.Execute(updateUomInput);
-            return ResponseConverter.Execute(appResult);
-        }
-
-        [HttpPost("uom/{id}/toggle-active")]
-        public async Task<IActionResult> ToggleActiveUom(
-            Guid id,
-            SupplyUseCases supliesUseCases)
-        {
-            var appResult = await supliesUseCases.ToggleActiveUomUseCase.Execute(id);
-            return ResponseConverter.Execute(appResult);
-        }
+        }  
     }
 }

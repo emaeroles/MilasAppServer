@@ -1,7 +1,7 @@
-﻿using Application.DTOs.Supply;
+﻿using Application.DTOs.SupplyProduct;
 using FluentValidation;
 
-namespace API.Validators.Supply
+namespace API.Validators.SupplyProduct
 {
     public class AddSupplyProductValid : AbstractValidator<AddSupplyProductInput>
     {

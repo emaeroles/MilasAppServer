@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="Validators\ProductKiosco\" />
     <Folder Include="Validators\Visit\" />
   </ItemGroup>
 

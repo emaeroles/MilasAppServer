@@ -1,11 +1,13 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
-using Application.Interfaces.Supply;
+using Application.Interfaces.SupplyProduct;
 using Application.Interfaces.User;
 using Data.Context;
 using Data.Repositories.Kiosco;
 using Data.Repositories.Product;
 using Data.Repositories.Supply;
+using Data.Repositories.SupplyProduct;
+using Data.Repositories.Uom;
 using Data.Repositories.User;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,8 @@ namespace Data
             services.AddUserRepos();
             services.AddKioscoRepos();
             services.AddSupplyRepos();
+            services.AddSupplyProductsRepos();
+            services.AddUomRepos();
             services.AddProductRepos();
 
             return services;
@@ -53,11 +57,21 @@ namespace Data
             services.AddScoped<IAddRepo<SupplyEntity>, AddSupplyRepo>();
             services.AddScoped<IUpdateRepo<SupplyEntity>, UpdateSupplyRepo>();
 
+            return services;
+        }
+
+        private static IServiceCollection AddSupplyProductsRepos(this IServiceCollection services)
+        {
             services.AddScoped<IGetByIdComposedRepo<SupplyProductEntity>, GetByIdSupplyProductRepo>();
             services.AddScoped<IGetAllSupliesProductRepo, GetAllSuppliesProductRepo>();
             services.AddScoped<IAddRepo<SupplyProductEntity>, AddSupplyProductRepo>();
             services.AddScoped<IDeleteComposedRepo<SupplyProductEntity>, DeleteSupplyProductRepo>();
 
+            return services;
+        }
+
+        private static IServiceCollection AddUomRepos(this IServiceCollection services)
+        {
             services.AddScoped<IGetByIdRepo<UomEntity>, GetByIdUomRepo>();
             services.AddScoped<IGetAllByActiveRepo<UomEntity>, GetAllUomRepo>();
             services.AddScoped<IAddRepo<UomEntity>, AddUomRepo>();

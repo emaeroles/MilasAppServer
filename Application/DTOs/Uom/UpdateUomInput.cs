@@ -1,6 +1,6 @@
-﻿namespace Application.DTOs.Supply
+﻿namespace Application.DTOs.Uom
 {
-    public class GetUomOutput
+    public class UpdateUomInput
     {
         public Guid Id { get; set; }
         public string Unit { get; set; } = string.Empty;

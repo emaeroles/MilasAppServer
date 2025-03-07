@@ -3,7 +3,7 @@ using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
 
-namespace Application.UseCases.Supply
+namespace Application.UseCases.Uom
 {
     public class ToggleActiveUomUseCase
     {

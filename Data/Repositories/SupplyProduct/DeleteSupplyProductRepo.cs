@@ -4,7 +4,7 @@ using Data.Context;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories.Supply
+namespace Data.Repositories.SupplyProduct
 {
     public class DeleteSupplyProductRepo : IDeleteComposedRepo<SupplyProductEntity>
     {

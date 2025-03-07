@@ -1,10 +1,9 @@
 ﻿using Application.DTOs._01_Common;
-using Application.DTOs.Supply;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
 
-namespace Application.UseCases.Supply
+namespace Application.UseCases.SupplyProduct
 {
     public class DeleteSupplyProductUseCase
     {
@@ -25,14 +24,14 @@ namespace Application.UseCases.Supply
                 .GetByIdComposedAsync(supplyId, productId);
 
             if (supplyProductEntityExist == null)
-                return ResultFactory.CreateNotFound("The supply product does not exists");
+                return ResultFactory.CreateNotFound("The product supply does not exists");
 
             bool isDeleted = await _deleteComposedRepo.DeleteComposedAsync(supplyId, productId);
 
             if (!isDeleted)
-                return ResultFactory.CreateNotDeleted("The supply product was not deleted");
+                return ResultFactory.CreateNotDeleted("The product supply was not deleted");
 
-            return ResultFactory.CreateDeleted("The supply product was deleted");
+            return ResultFactory.CreateDeleted("The product supply was deleted");
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Application.DTOs.Supply;
+﻿using Application.DTOs.Uom;
 using FluentValidation;
 
-namespace API.Validators.Supply
+namespace API.Validators.Uom
 {
     public class UpdateUomValid : AbstractValidator<UpdateUomInput>
     {

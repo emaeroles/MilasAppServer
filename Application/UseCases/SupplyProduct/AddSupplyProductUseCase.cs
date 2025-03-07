@@ -1,11 +1,11 @@
 ﻿using Application.DTOs._01_Common;
-using Application.DTOs.Supply;
+using Application.DTOs.SupplyProduct;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
 using AutoMapper;
 
-namespace Application.UseCases.Supply
+namespace Application.UseCases.SupplyProduct
 {
     public class AddSupplyProductUseCase
     {
@@ -29,7 +29,7 @@ namespace Application.UseCases.Supply
                 .GetByIdComposedAsync(addSupplyProductInput.SupplyId, addSupplyProductInput.ProductId);
 
             if (supplyProductEntityExist != null)
-                return ResultFactory.CreateConflict("The supply product already exists");
+                return ResultFactory.CreateConflict("The product supply already exists");
 
             SupplyProductEntity supplyProductEntity = _mapper.Map<SupplyProductEntity>(addSupplyProductInput);
             supplyProductEntity.Id = Guid.NewGuid();
@@ -37,9 +37,9 @@ namespace Application.UseCases.Supply
             bool isCreated = await _addUomRepo.AddAsync(supplyProductEntity);
 
             if (!isCreated)
-                return ResultFactory.CreateNotCreated("The supply product was not created");
+                return ResultFactory.CreateNotCreated("The product supply was not created");
 
-            return ResultFactory.CreateCreated("The supply product was created", supplyProductEntity.Id);
+            return ResultFactory.CreateCreated("The product supply was created", supplyProductEntity.Id);
         }
     }
 }

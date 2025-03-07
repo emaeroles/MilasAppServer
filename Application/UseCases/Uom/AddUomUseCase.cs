@@ -1,11 +1,11 @@
 ﻿using Application.DTOs._01_Common;
-using Application.DTOs.Supply;
+using Application.DTOs.Uom;
 using Application.Entities;
 using Application.Factories;
 using Application.Interfaces._01_Common;
 using AutoMapper;
 
-namespace Application.UseCases.Supply
+namespace Application.UseCases.Uom
 {
     public class AddUomUseCase
     {

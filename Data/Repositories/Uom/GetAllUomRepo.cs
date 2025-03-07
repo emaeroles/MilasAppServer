@@ -3,7 +3,7 @@ using Application.Interfaces._01_Common;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories.Supply
+namespace Data.Repositories.Uom
 {
     public class GetAllUomRepo : IGetAllByActiveRepo<UomEntity>
     {
