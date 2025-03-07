@@ -2,10 +2,12 @@
 using Application.Entities;
 using Application.UseCases.Kiosco;
 using Application.UseCases.Product;
+using Application.UseCases.ProductKiosco;
 using Application.UseCases.Supply;
 using Application.UseCases.SupplyProduct;
 using Application.UseCases.Uom;
 using Application.UseCases.User;
+using Data.Repositories.ProductKiosco;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,25 +20,13 @@ namespace Application
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IPasswordHasher<UserEntity>, PasswordHasher<UserEntity>>();
 
-            services.AddUserUseCases();
             services.AddKioscoUseCases();
-            services.AddSuppliesUseCases();
+            services.AddProductsUseCases();
+            services.AddProductKioscoUseCases();
+            services.AddSupplyUseCases();
             services.AddSupplyProductUseCases();
             services.AddUomUseCases();
-            services.AddProductsUseCases();
-
-            return services;
-        }
-
-        private static IServiceCollection AddUserUseCases(this IServiceCollection services)
-        {
-            services.AddScoped<UserUseCases>();
-
-            services.AddScoped<GetAllUsersUseCase>();
-            services.AddScoped<AddUserUseCase>();
-            services.AddScoped<UpdateUserUseCase>();
-            services.AddScoped<ToggleActiveUserUseCase>();
-            services.AddScoped<AuthUserUseCase>();
+            services.AddUserUseCases();
 
             return services;
         }
@@ -57,7 +47,28 @@ namespace Application
             return services;
         }
 
-        private static IServiceCollection AddSuppliesUseCases(this IServiceCollection services)
+        private static IServiceCollection AddProductsUseCases(this IServiceCollection services)
+        {
+            services.AddScoped<ProductUseCases>();
+
+            services.AddScoped<GetAllProductsUseCase>();
+            services.AddScoped<AddProductUseCase>();
+            services.AddScoped<UpdateProductUseCase>();
+            services.AddScoped<ToggleActiveProductUseCase>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddProductKioscoUseCases(this IServiceCollection services)
+        {
+            services.AddScoped<ProductKioscoUseCases>();
+
+            services.AddScoped<AddProductKioscoUseCase>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddSupplyUseCases(this IServiceCollection services)
         {
             services.AddScoped<SupplyUseCases>();
 
@@ -93,16 +104,17 @@ namespace Application
             return services;
         }
 
-        private static IServiceCollection AddProductsUseCases(this IServiceCollection services)
+        private static IServiceCollection AddUserUseCases(this IServiceCollection services)
         {
-            services.AddScoped<ProductUseCases>();
+            services.AddScoped<UserUseCases>();
 
-            services.AddScoped<GetAllProductsUseCase>();
-            services.AddScoped<AddProductUseCase>();
-            services.AddScoped<UpdateProductUseCase>();
-            services.AddScoped<ToggleActiveProductUseCase>();
+            services.AddScoped<GetAllUsersUseCase>();
+            services.AddScoped<AddUserUseCase>();
+            services.AddScoped<UpdateUserUseCase>();
+            services.AddScoped<ToggleActiveUserUseCase>();
+            services.AddScoped<AuthUserUseCase>();
 
             return services;
-        }
+        } 
     }
 }

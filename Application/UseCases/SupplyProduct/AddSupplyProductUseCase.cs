@@ -9,20 +9,20 @@ namespace Application.UseCases.SupplyProduct
 {
     public class AddSupplyProductUseCase
     {
-        private readonly IAddRepo<SupplyProductEntity> _addUomRepo;
+        private readonly IAddRepo<SupplyProductEntity> _addSupplyProductRepo;
         private readonly IGetByIdComposedRepo<SupplyProductEntity> _getByIdComposedRepo;
         private readonly IGetByIdRepo<ProductEntity> _getByIdProductRepo;
         private readonly IGetByIdRepo<SupplyEntity> _getByIdSupplyRepo;
         private readonly IMapper _mapper;
 
         public AddSupplyProductUseCase(
-            IAddRepo<SupplyProductEntity> addUomRepo,
+            IAddRepo<SupplyProductEntity> addSupplyProductRepo,
             IGetByIdComposedRepo<SupplyProductEntity> getByIdComposedRepo,
             IGetByIdRepo<ProductEntity> getByIdProductRepo,
             IGetByIdRepo<SupplyEntity> getByIdSupplyRepo,
             IMapper mapper)
         {
-            _addUomRepo = addUomRepo;
+            _addSupplyProductRepo = addSupplyProductRepo;
             _getByIdComposedRepo = getByIdComposedRepo;
             _getByIdProductRepo = getByIdProductRepo;
             _getByIdSupplyRepo = getByIdSupplyRepo;
@@ -47,7 +47,7 @@ namespace Application.UseCases.SupplyProduct
             SupplyProductEntity supplyProductEntity = _mapper.Map<SupplyProductEntity>(addSupplyProductInput);
             supplyProductEntity.Id = Guid.NewGuid();
 
-            bool isCreated = await _addUomRepo.AddAsync(supplyProductEntity);
+            bool isCreated = await _addSupplyProductRepo.AddAsync(supplyProductEntity);
 
             if (!isCreated)
                 return ResultFactory.CreateNotCreated("The product supply was not created");

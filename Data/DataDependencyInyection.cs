@@ -5,6 +5,7 @@ using Application.Interfaces.User;
 using Data.Context;
 using Data.Repositories.Kiosco;
 using Data.Repositories.Product;
+using Data.Repositories.ProductKiosco;
 using Data.Repositories.Supply;
 using Data.Repositories.SupplyProduct;
 using Data.Repositories.Uom;
@@ -19,23 +20,13 @@ namespace Data
         {
             services.AddDbContext<AppDbContext>();
 
-            services.AddUserRepos();
             services.AddKioscoRepos();
+            services.AddProductRepos();
+            services.AddProductKioscoRepos();
             services.AddSupplyRepos();
             services.AddSupplyProductsRepos();
             services.AddUomRepos();
-            services.AddProductRepos();
-
-            return services;
-        }
-
-        private static IServiceCollection AddUserRepos(this IServiceCollection services)
-        {
-            services.AddScoped<IGetByIdRepo<UserEntity>, GetByIdUserRepo>();
-            services.AddScoped<IGetAllByActiveRepo<UserEntity>, GetAllUsersRepo>();
-            services.AddScoped<IGetByUsernameRepo, GetByUsernameRepo>();
-            services.AddScoped<IAddRepo<UserEntity>, AddUserRepo>();
-            services.AddScoped<IUpdateRepo<UserEntity>, UpdateUserRepo>();
+            services.AddUserRepos();
             
             return services;
         }
@@ -47,6 +38,24 @@ namespace Data
             services.AddScoped<IAddRepo<KioscoEntity>, AddKioscoRepo>();
             services.AddScoped<IUpdateRepo<KioscoEntity>, UpdateKioscoRepo>();
 
+            return services;
+        }
+
+        private static IServiceCollection AddProductRepos(this IServiceCollection services)
+        {
+            services.AddScoped<IGetByIdRepo<ProductEntity>, GetByIdProductRepo>();
+            services.AddScoped<IGetAllByActiveRepo<ProductEntity>, GetAllProductsRepo>();
+            services.AddScoped<IAddRepo<ProductEntity>, AddProductRepo>();
+            services.AddScoped<IUpdateRepo<ProductEntity>, UpdateProductRepo>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddProductKioscoRepos(this IServiceCollection services)
+        {
+            services.AddScoped<IGetByIdComposedRepo<ProductKioscoEntity>, GetByIdProductKioscoRepo>();
+            services.AddScoped<IAddRepo<ProductKioscoEntity>, AddProductKioscoRepo>();
+            
             return services;
         }
 
@@ -80,14 +89,15 @@ namespace Data
             return services;
         }
 
-        private static IServiceCollection AddProductRepos(this IServiceCollection services)
+        private static IServiceCollection AddUserRepos(this IServiceCollection services)
         {
-            services.AddScoped<IGetByIdRepo<ProductEntity>, GetByIdProductRepo>();
-            services.AddScoped<IGetAllByActiveRepo<ProductEntity>, GetAllProductsRepo>();
-            services.AddScoped<IAddRepo<ProductEntity>, AddProductRepo>();
-            services.AddScoped<IUpdateRepo<ProductEntity>, UpdateProductRepo>();
-
+            services.AddScoped<IGetByIdRepo<UserEntity>, GetByIdUserRepo>();
+            services.AddScoped<IGetAllByActiveRepo<UserEntity>, GetAllUsersRepo>();
+            services.AddScoped<IGetByUsernameRepo, GetByUsernameRepo>();
+            services.AddScoped<IAddRepo<UserEntity>, AddUserRepo>();
+            services.AddScoped<IUpdateRepo<UserEntity>, UpdateUserRepo>();
+            
             return services;
-        }
+        }  
     }
 }

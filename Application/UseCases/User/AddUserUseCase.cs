@@ -11,18 +11,18 @@ namespace Application.UseCases.User
 {
     public class AddUserUseCase
     {
-        private readonly IAddRepo<UserEntity> _addRepo;
+        private readonly IAddRepo<UserEntity> _addUserRepo;
         private readonly IGetByUsernameRepo _getByUsernameRepo;
         private readonly IPasswordHasher<UserEntity> _passwordHasher;
         private readonly IMapper _mapper;
 
         public AddUserUseCase(
-            IAddRepo<UserEntity> addRepo,
+            IAddRepo<UserEntity> addUserRepo,
             IGetByUsernameRepo getByUsernameRepo,
             IPasswordHasher<UserEntity> passwordHasher,
             IMapper mapper)
         {
-            _addRepo = addRepo;
+            _addUserRepo = addUserRepo;
             _getByUsernameRepo = getByUsernameRepo;
             _passwordHasher = passwordHasher;
             _mapper = mapper;
@@ -42,7 +42,7 @@ namespace Application.UseCases.User
             userEntity.Password = _passwordHasher.HashPassword(userEntity, addUserInput.Password);
             userEntity.IsActive = true;
             
-            bool isCreated = await _addRepo.AddAsync(userEntity);
+            bool isCreated = await _addUserRepo.AddAsync(userEntity);
 
             if(!isCreated)
                 return ResultFactory.CreateNotCreated("The user was not created");
