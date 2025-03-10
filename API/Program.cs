@@ -86,8 +86,13 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // Serilog
 string filePath = builder.Configuration["FilePaths:LogsFilePath"]!;
 
+if (!Directory.Exists(filePath))
+{
+    Directory.CreateDirectory(filePath);
+}
+
 Log.Logger = new LoggerConfiguration()
-                .WriteTo.File(filePath + @"\logs.txt",
+                .WriteTo.File(filePath + @"logs.txt",
                     outputTemplate: "{Timestamp:dd-MM-yyyy HH:mm:ss} [{Level:u3}]" +
                         "{NewLine}{NewLine}{Message:lj}{NewLine}{Exception}" +
                         "{NewLine}=================================================={NewLine}{NewLine}")
@@ -142,7 +147,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() 
+    || app.Environment.EnvironmentName == "Server"
+    || app.Environment.EnvironmentName == "ApiExe")
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -154,10 +161,11 @@ if (app.Environment.IsDevelopment())
 // CORS
 app.UseCors((config) =>
 {
-    config.WithOrigins(builder.Configuration["CorsSettings:AllowedOrigin"]!);
+    //config.WithOrigins(builder.Configuration["CorsSettings:AllowedOrigin"]!);
+    config.AllowAnyOrigin();
     config.AllowAnyHeader();
     config.AllowAnyMethod();
-    config.AllowCredentials();
+    //config.AllowCredentials();
 });
 
 app.UseHttpsRedirection();
