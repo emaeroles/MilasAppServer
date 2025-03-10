@@ -10,19 +10,21 @@ namespace API.Controllers
     [ApiController]
     public class KioscoController : ControllerBase
     {
-        [HttpGet("get-actives")]
+        [HttpGet("{userId}/get-actives")]
         public async Task<IActionResult> GetActivesKiosco(
+            Guid userId,
             KioscoUseCases kioscoUseCases)
         {
-            var appResult = await kioscoUseCases.GetAllKioscosUseCase.Execute(true);
+            var appResult = await kioscoUseCases.GetAllKioscosUseCase.Execute(true, userId);
             return ResponseConverter.Execute(appResult);
         }
 
-        [HttpGet("get-inactives")]
+        [HttpGet("{userId}/get-inactives")]
         public async Task<IActionResult> GetInactivesKiosco(
+            Guid userId,
             KioscoUseCases kioscoUseCases)
         {
-            var appResult = await kioscoUseCases.GetAllKioscosUseCase.Execute(false);
+            var appResult = await kioscoUseCases.GetAllKioscosUseCase.Execute(false, userId);
             return ResponseConverter.Execute(appResult);
         }
 
@@ -41,7 +43,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
-        [HttpPut("update")]
+        [HttpPatch("update")]
         public async Task<IActionResult> UpdateKiosco(
             [FromBody] UpdateKioscoInput updateKioscoInput,
             IValidator<UpdateKioscoInput> validator,
@@ -55,7 +57,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
-        [HttpPut("update-notes")]
+        [HttpPatch("update-notes")]
         public async Task<IActionResult> UpdateKioscoNotes(
             [FromBody] UpdateKioscoNotesInput updateKioscoNotesInput,
             IValidator<UpdateKioscoNotesInput> validator,
@@ -69,7 +71,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
-        [HttpPut("update-dubt")]
+        [HttpPatch("update-dubt")]
         public async Task<IActionResult> UpdateKioscoDubt(
             [FromBody] UpdateKioscoDubtInput updateKioscoDubtInput,
             IValidator<UpdateKioscoDubtInput> validator,
@@ -83,7 +85,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
-        [HttpPut("update-order")]
+        [HttpPatch("update-order")]
         public async Task<IActionResult> UpdateKioscoOrder(
             [FromBody] UpdateKioscoOrderInput updateKioscoOrderInput,
             IValidator<UpdateKioscoOrderInput> validator,
@@ -97,12 +99,12 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
-        [HttpPost("{id}/update-is-changes")]
-        public async Task<IActionResult> UpdateKioscoIsChanges(
+        [HttpPost("{id}/toggle-is-changes")]
+        public async Task<IActionResult> ToggleKioscoIsChanges(
             Guid id,
             KioscoUseCases kioscoUseCases)
         {
-            var appResult = await kioscoUseCases.UpdateKioscoIsChangesUseCase.Execute(id);
+            var appResult = await kioscoUseCases.ToggleKioscoIsChangesUseCase.Execute(id);
             return ResponseConverter.Execute(appResult);
         }
 

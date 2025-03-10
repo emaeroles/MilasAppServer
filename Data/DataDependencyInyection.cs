@@ -35,7 +35,7 @@ namespace Data
         private static IServiceCollection AddKioscoRepos(this IServiceCollection services)
         {
             services.AddScoped<IGetByIdRepo<KioscoEntity>, GetByIdKioscoRepo>();
-            services.AddScoped<IGetAllByActiveRepo<KioscoEntity>, GetAllKioscosRepo>();
+            services.AddScoped<IGetAllByActiveAndUserRepo, GetAllKioscosRepo>();
             services.AddScoped<IAddRepo<KioscoEntity>, AddKioscoRepo>();
             services.AddScoped<IUpdateRepo<KioscoEntity>, UpdateKioscoRepo>();
 

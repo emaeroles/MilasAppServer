@@ -11,7 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        [Authorize]
+        //[Authorize]
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetActivesUsers(
             UserUseCases userUseCases)

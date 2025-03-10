@@ -51,7 +51,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
-        [HttpPut("update")]
+        [HttpPatch("update")]
         public async Task<IActionResult> UpdateProduct(
            [FromBody] UpdateProductInput updateProductInput,
            IValidator<UpdateProductInput> validator,

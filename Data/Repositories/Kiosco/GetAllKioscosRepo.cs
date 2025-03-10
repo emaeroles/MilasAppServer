@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories.Kiosco
 {
-    public class GetAllKioscosRepo : IGetAllByActiveRepo<KioscoEntity>
+    public class GetAllKioscosRepo : IGetAllByActiveAndUserRepo
     {
         private readonly AppDbContext _dbcontext;
 
@@ -14,10 +14,10 @@ namespace Data.Repositories.Kiosco
             _dbcontext = dbContext;
         }
 
-        public async Task<IEnumerable<KioscoEntity>?> GetAllByActiveAsync(bool isActive)
+        public async Task<IEnumerable<KioscoEntity>?> GetAllByActiveAndUserAsync(bool isActive, Guid userId)
         {
             IQueryable<KioscoEntity> queryKiosco = _dbcontext.Kioscos
-                .Where(k => k.IsActive == isActive)
+                .Where(k => k.IsActive == isActive && k.UserId == userId)
                 .Select(k => new KioscoEntity
                 {
                     Id = k.Id,

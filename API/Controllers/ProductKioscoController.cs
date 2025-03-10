@@ -36,7 +36,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
-        [HttpPut("update-price")]
+        [HttpPatch("update-price")]
         public async Task<IActionResult> UpdateProductKioscoPrice(
             [FromBody] UpdateProductKioscoPriceIuput updateProductKioscoPriceIuput,
             IValidator<UpdateProductKioscoPriceIuput> validator,

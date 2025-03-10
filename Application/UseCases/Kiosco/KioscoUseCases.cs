@@ -7,6 +7,6 @@
         UpdateKioscoNotesUseCase UpdateKioscoNotesUseCase,
         UpdateKioscoDubtUseCase UpdateKioscoDubtUseCase,
         UpdateKioscoOrderUseCase UpdateKioscoOrderUseCase,
-        UpdateKioscoIsChangesUseCase UpdateKioscoIsChangesUseCase,
+        ToggleKioscoIsChangesUseCase ToggleKioscoIsChangesUseCase,
         ToggleActiveKioscoUseCase ToggleActiveKioscoUseCase);
 }

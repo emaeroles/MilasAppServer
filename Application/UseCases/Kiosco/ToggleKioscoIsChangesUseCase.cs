@@ -5,12 +5,12 @@ using Application.Interfaces._01_Common;
 
 namespace Application.UseCases.Kiosco
 {
-    public class UpdateKioscoIsChangesUseCase
+    public class ToggleKioscoIsChangesUseCase
     {
         private readonly IUpdateRepo<KioscoEntity> _updateRepo;
         private readonly IGetByIdRepo<KioscoEntity> _getByIdRepo;
 
-        public UpdateKioscoIsChangesUseCase(
+        public ToggleKioscoIsChangesUseCase(
             IUpdateRepo<KioscoEntity> updateRepo,
             IGetByIdRepo<KioscoEntity> getByIdRepo)
         {

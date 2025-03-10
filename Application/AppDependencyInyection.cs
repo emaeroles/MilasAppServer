@@ -41,7 +41,7 @@ namespace Application
             services.AddScoped<UpdateKioscoNotesUseCase>();
             services.AddScoped<UpdateKioscoDubtUseCase>();
             services.AddScoped<UpdateKioscoOrderUseCase>();
-            services.AddScoped<UpdateKioscoIsChangesUseCase>();
+            services.AddScoped<ToggleKioscoIsChangesUseCase>();
             services.AddScoped<ToggleActiveKioscoUseCase>();
 
             return services;

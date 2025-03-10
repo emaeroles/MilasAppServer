@@ -9,20 +9,21 @@ namespace Application.UseCases.Kiosco
 {
     public class GetAllKioscosUseCase
     {
-        private readonly IGetAllByActiveRepo<KioscoEntity> _getAllByActiveRepo;
+        private readonly IGetAllByActiveAndUserRepo _getAllByActiveAndUserRepo;
         private readonly IMapper _mapper;
 
         public GetAllKioscosUseCase(
-            IGetAllByActiveRepo<KioscoEntity> getAllByActiveRepo,
+            IGetAllByActiveAndUserRepo getAllByActiveAndUserRepo,
             IMapper mapper)
         {
-            _getAllByActiveRepo = getAllByActiveRepo;
+            _getAllByActiveAndUserRepo = getAllByActiveAndUserRepo;
             _mapper = mapper;
         }
 
-        public async Task<AppResult> Execute(bool isActive)
+        public async Task<AppResult> Execute(bool isActive, Guid userId)
         {
-            IEnumerable<KioscoEntity>? listKioscosEntity = await _getAllByActiveRepo.GetAllByActiveAsync(isActive);
+            IEnumerable<KioscoEntity>? listKioscosEntity = await _getAllByActiveAndUserRepo
+                .GetAllByActiveAndUserAsync(isActive, userId);
 
             if (listKioscosEntity == null)
                 return ResultFactory.CreateNotFound("There are no kioscos");

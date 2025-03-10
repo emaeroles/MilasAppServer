@@ -22,7 +22,7 @@ namespace UnitTests.Application.UseCases.Kiosco
             getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(kioscoEntity);
             updateRepo.Setup(r => r.UpdateAsync(It.IsAny<KioscoEntity>())).ReturnsAsync(true);
 
-            UpdateKioscoIsChangesUseCase updateKioscoIsChangesUseCase = new UpdateKioscoIsChangesUseCase(
+            ToggleKioscoIsChangesUseCase updateKioscoIsChangesUseCase = new ToggleKioscoIsChangesUseCase(
                 updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.Updated;
@@ -46,7 +46,7 @@ namespace UnitTests.Application.UseCases.Kiosco
 
             getByIdRepo.Setup(r => r.GetByIdAsync(entityId)).ReturnsAsync(kioscoEntity);
 
-            UpdateKioscoIsChangesUseCase updateKioscoIsChangesUseCase = new UpdateKioscoIsChangesUseCase(
+            ToggleKioscoIsChangesUseCase updateKioscoIsChangesUseCase = new ToggleKioscoIsChangesUseCase(
                 updateRepo.Object, getByIdRepo.Object);
 
             ResultState resultState = ResultState.NotFound;
