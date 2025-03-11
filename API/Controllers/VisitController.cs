@@ -1,5 +1,4 @@
 ﻿using API.Response;
-using API.Validators.Visit;
 using Application.DTOs.Visit;
 using Application.UseCases.Visit;
 using FluentValidation;
@@ -20,7 +19,7 @@ namespace API.Controllers
             var validator = new InlineValidator<string>();
             validator.RuleFor(x => x)
                 .Matches(@"^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$")
-                .WithMessage("'{PropertyName}' The date must be a string in the format yyyy-MM-dd.");
+                .WithMessage("The date must be a string in the format yyyy-MM-dd.");
             
             var validResult = await validator.ValidateAsync(dateString);
             if (!validResult.IsValid)
