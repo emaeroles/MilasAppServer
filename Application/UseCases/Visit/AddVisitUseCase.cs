@@ -40,8 +40,10 @@ namespace Application.UseCases.Visit
 
             IEnumerable<ProductKioscoEntity>? listProductKioscoEntitiesCheck = await _getAllProductsKioscoRepo
                 .GetAllProductsKioscoAsync(addVisitInput.KioscoId);
+
             if(listProductKioscoEntitiesCheck == null)
                 return ResultFactory.CreateNotFound("The kiosco has no products.");
+
             if (addVisitInput.VisitDetails.Count() != listProductKioscoEntitiesCheck.Count())
                 return ResultFactory.CreateConflict("Should send a detailed list with all the " +
                     "products from the kiosco");
@@ -49,18 +51,24 @@ namespace Application.UseCases.Visit
             List<ProductKioscoEntity> listProductKioscoEntities = new List<ProductKioscoEntity>();
             foreach (AddVisitDetailInput visitDetail in addVisitInput.VisitDetails)
             {
-                if(visitDetail.Has < visitDetail.Changes)
-                    return ResultFactory.CreateConflict($"The number of changes for the product with Id " +
-                        $"{visitDetail.ProductId} cannot be greater than what it has.");
-
                 ProductKioscoEntity? productKioscoEntity = await _getByIdProductKioscoRepo
                     .GetByIdComposedAsync(visitDetail.ProductId, addVisitInput.KioscoId);
+
                 if (productKioscoEntity == null)
                     return ResultFactory.CreateNotFound($"The product Id {visitDetail.ProductId} " +
                         $"by kiosco Id {addVisitInput.KioscoId} does not exist");
+
                 if (listProductKioscoEntities.Any(p => p.ProductId == productKioscoEntity.ProductId))
                     return ResultFactory.CreateConflict($"The product with Id {visitDetail.ProductId} " +
                         $"is duplicated.");
+
+                if(visitDetail.Has > productKioscoEntity.Stock)
+                    return ResultFactory.CreateConflict($"The quantity of products with Id " +
+                        $"{visitDetail.ProductId} that it has cannot exceed the stock.");
+
+                if (visitDetail.Has < visitDetail.Changes)
+                    return ResultFactory.CreateConflict($"The number of changes for the product with Id " +
+                        $"{visitDetail.ProductId} cannot be greater than what it has.");
 
                 listProductKioscoEntities.Add(productKioscoEntity);
             }
