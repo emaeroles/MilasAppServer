@@ -3,6 +3,7 @@ using Application.Interfaces._01_Common;
 using Application.Interfaces.ProductKiosco;
 using Application.Interfaces.SupplyProduct;
 using Application.Interfaces.User;
+using Application.Interfaces.Visit;
 using Data.Context;
 using Data.Repositories.Kiosco;
 using Data.Repositories.Product;
@@ -11,6 +12,7 @@ using Data.Repositories.Supply;
 using Data.Repositories.SupplyProduct;
 using Data.Repositories.Uom;
 using Data.Repositories.User;
+using Data.Repositories.Visit;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Data
@@ -28,7 +30,8 @@ namespace Data
             services.AddSupplyProductsRepos();
             services.AddUomRepos();
             services.AddUserRepos();
-            
+            services.AddVisitsRepos();
+
             return services;
         }
 
@@ -102,6 +105,13 @@ namespace Data
             services.AddScoped<IUpdateRepo<UserEntity>, UpdateUserRepo>();
             
             return services;
-        }  
+        }
+
+        private static IServiceCollection AddVisitsRepos(this IServiceCollection services)
+        {
+            services.AddScoped<IAddVisitAndUptadeStockRepo, AddVisitAndUptadeStockRepo>();
+
+            return services;
+        }
     }
 }

@@ -6,6 +6,7 @@ using API.Validators.Supply;
 using API.Validators.SupplyProduct;
 using API.Validators.Uom;
 using API.Validators.User;
+using API.Validators.Visit;
 using Application.DTOs.Auth;
 using Application.DTOs.Kiosco;
 using Application.DTOs.Product;
@@ -14,6 +15,7 @@ using Application.DTOs.Supply;
 using Application.DTOs.SupplyProduct;
 using Application.DTOs.Uom;
 using Application.DTOs.User;
+using Application.DTOs.Visit;
 using FluentValidation;
 
 namespace API
@@ -54,6 +56,9 @@ namespace API
             // User Validations
             services.AddScoped<IValidator<AddUserInput>, AddUserValid>();
             services.AddScoped<IValidator<UpdateUserInput>, UpdateUserValid>();
+
+            // Visit Validations
+            services.AddScoped<IValidator<AddVisitInput>, AddVisitValid>();
 
             return services;
         }

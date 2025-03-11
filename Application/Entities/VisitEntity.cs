@@ -5,6 +5,6 @@
         public Guid Id { get; set; }
         public KioscoEntity Kiosco { get; set; } = new KioscoEntity();
         public DateTime Date { get; set; } = new DateTime();
-        public VisitDetailEntity[] VisitDetails { get; set; } = [];
+        public List<VisitDetailEntity> VisitDetails { get; set; } = new List<VisitDetailEntity>();
     }
 }

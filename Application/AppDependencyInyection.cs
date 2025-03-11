@@ -7,6 +7,7 @@ using Application.UseCases.Supply;
 using Application.UseCases.SupplyProduct;
 using Application.UseCases.Uom;
 using Application.UseCases.User;
+using Application.UseCases.Visit;
 using Data.Repositories.ProductKiosco;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ namespace Application
             services.AddSupplyProductUseCases();
             services.AddUomUseCases();
             services.AddUserUseCases();
+            services.AddVisitUseCases();
 
             return services;
         }
@@ -118,6 +120,15 @@ namespace Application
             services.AddScoped<AuthUserUseCase>();
 
             return services;
-        } 
+        }
+
+        private static IServiceCollection AddVisitUseCases(this IServiceCollection services)
+        {
+            services.AddScoped<VisitUseCases>();
+
+            services.AddScoped<AddVisitUseCase>();
+
+            return services;
+        }
     }
 }

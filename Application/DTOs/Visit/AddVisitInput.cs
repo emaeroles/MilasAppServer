@@ -2,8 +2,7 @@
 {
     public class AddVisitInput
     {
-        public int KioscoId { get; set; }
-        public DateTime Date { get; set; } = new DateTime();
+        public Guid KioscoId { get; set; }
         public AddVisitDetailInput[] VisitDetails { get; set; } = [];
     }
 }

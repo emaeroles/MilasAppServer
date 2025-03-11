@@ -11,7 +11,6 @@
     <Folder Include="Interfaces\Product\" />
     <Folder Include="Interfaces\Supply\" />
     <Folder Include="Interfaces\Uom\" />
-    <Folder Include="UseCases\Visit\" />
   </ItemGroup>
 
   <ItemGroup>
