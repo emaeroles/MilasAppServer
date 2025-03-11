@@ -126,6 +126,7 @@ namespace Application
         {
             services.AddScoped<VisitUseCases>();
 
+            services.AddScoped<GetVisitsUseCase>();
             services.AddScoped<AddVisitUseCase>();
 
             return services;

@@ -109,6 +109,7 @@ namespace Data
 
         private static IServiceCollection AddVisitsRepos(this IServiceCollection services)
         {
+            services.AddScoped<IGetStartingDateVisitsRepo, GetStartingDateVisitsRepo>();
             services.AddScoped<IAddVisitAndUptadeStockRepo, AddVisitAndUptadeStockRepo>();
 
             return services;

@@ -5,6 +5,7 @@ using Application.DTOs.Supply;
 using Application.DTOs.SupplyProduct;
 using Application.DTOs.Uom;
 using Application.DTOs.User;
+using Application.DTOs.Visit;
 using Application.Entities;
 using AutoMapper;
 
@@ -24,7 +25,7 @@ namespace Application.Configs
             CreateMap<UpdateKioscoDubtInput, KioscoEntity>();
             CreateMap<UpdateKioscoOrderInput, KioscoEntity>();
 
-            // Products
+            // Product
             CreateMap<ProductEntity, GetProductOutput>();
             CreateMap<AddProductInput, ProductEntity>();
             CreateMap<UpdateProductInput, ProductEntity>();
@@ -34,7 +35,7 @@ namespace Application.Configs
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId));
             CreateMap<AddProductKioscoInput, ProductKioscoEntity>();
 
-            // Supplies
+            // Supply
             CreateMap<SupplyEntity, GetSupplyOutput>()
                 .ForMember(dest => dest.Uom, opt => opt.MapFrom(src => src.Uom.Unit));
             CreateMap<AddSupplyInput, SupplyEntity>()
@@ -53,10 +54,15 @@ namespace Application.Configs
             CreateMap<AddUomInput, UomEntity>();
             CreateMap<UpdateUomInput, UomEntity>();
 
-            // Users
+            // User
             CreateMap<UserEntity, GetUserOutput>();
             CreateMap<AddUserInput, UserEntity>();
             CreateMap<UpdateUserInput, UserEntity>();
+
+            // Visit
+            CreateMap<VisitEntity, GetVisitOutput>();
+            CreateMap<VisitDetailEntity, GetVisitDetailOutput>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
         }
     }
 }

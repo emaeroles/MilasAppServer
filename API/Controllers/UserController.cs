@@ -2,7 +2,6 @@
 using Application.DTOs.User;
 using Application.UseCases.User;
 using FluentValidation;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

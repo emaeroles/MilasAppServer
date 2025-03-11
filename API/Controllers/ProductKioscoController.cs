@@ -1,7 +1,5 @@
 ﻿using API.Response;
-using Application.DTOs.Kiosco;
 using Application.DTOs.ProductKiosco;
-using Application.UseCases.Kiosco;
 using Data.Repositories.ProductKiosco;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
