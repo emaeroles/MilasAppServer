@@ -7,11 +7,11 @@ namespace Data.Repositories.User
 {
     public class AddUserRepo : IAddRepo<UserEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public AddUserRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> AddAsync(UserEntity entity)
@@ -25,8 +25,8 @@ namespace Data.Repositories.User
                 IsActive = entity.IsActive,
             };
 
-            _dbcontext.Users.Add(userModel);
-            int rows = await _dbcontext.SaveChangesAsync();
+            _dbContext.Users.Add(userModel);
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

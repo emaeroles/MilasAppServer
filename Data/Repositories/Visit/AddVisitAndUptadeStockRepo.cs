@@ -8,18 +8,18 @@ namespace Data.Repositories.Visit
 {
     public class AddVisitAndUptadeStockRepo : IAddVisitAndUptadeStockRepo
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public AddVisitAndUptadeStockRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> AddAndUpdateAsync(
             VisitEntity visitEntity, 
             List<KioscoProductEntity> listProductKioscoEntity)
         {
-            using (var transaction = _dbcontext.Database.BeginTransaction())
+            using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
@@ -30,8 +30,8 @@ namespace Data.Repositories.Visit
                         Date = visitEntity.Date
                     };
 
-                    _dbcontext.Visits.Add(visitModel);
-                    await _dbcontext.SaveChangesAsync();
+                    _dbContext.Visits.Add(visitModel);
+                    await _dbContext.SaveChangesAsync();
 
                     int counter = 0;
                     foreach (VisitDetailEntity visitDetailEntity in visitEntity.VisitDetails)
@@ -48,10 +48,10 @@ namespace Data.Repositories.Visit
                             HistSalePrice = visitDetailEntity.HistSalePrice
                         };
 
-                        _dbcontext.VisitDetails.Add(visitDetailModel);
-                        await _dbcontext.SaveChangesAsync();
+                        _dbContext.VisitDetails.Add(visitDetailModel);
+                        await _dbContext.SaveChangesAsync();
 
-                        KioscoProductModel? productKioscoModel = await _dbcontext.KioscoProducts
+                        KioscoProductModel? productKioscoModel = await _dbContext.KioscoProducts
                             .FirstOrDefaultAsync(pk => 
                                 pk.ProductId == listProductKioscoEntity[counter].ProductId &&
                                 pk.KioscoId == listProductKioscoEntity[counter].KioscoId);
@@ -66,8 +66,8 @@ namespace Data.Repositories.Visit
 
                         productKioscoModel.Stock = listProductKioscoEntity[counter].Stock;
 
-                        _dbcontext.KioscoProducts.Update(productKioscoModel);
-                        await _dbcontext.SaveChangesAsync();
+                        _dbContext.KioscoProducts.Update(productKioscoModel);
+                        await _dbContext.SaveChangesAsync();
 
                         counter++;
                     }

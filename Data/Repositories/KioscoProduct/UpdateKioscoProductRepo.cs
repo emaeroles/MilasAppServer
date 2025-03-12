@@ -8,16 +8,16 @@ namespace Data.Repositories.KioscoProduct
 {
     public class UpdateKioscoProductRepo : IUpdateRepo<KioscoProductEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public UpdateKioscoProductRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> UpdateAsync(KioscoProductEntity entity)
         {
-            KioscoProductModel? productKioscoModel = await _dbcontext.KioscoProducts
+            KioscoProductModel? productKioscoModel = await _dbContext.KioscoProducts
                 .FirstOrDefaultAsync(pk => pk.ProductId == entity.ProductId && pk.KioscoId == entity.KioscoId);
 
             if (productKioscoModel == null)
@@ -26,7 +26,7 @@ namespace Data.Repositories.KioscoProduct
             productKioscoModel.KioscoPrice = entity.KioscoSalePrice;
             productKioscoModel.Stock = entity.Stock;
 
-            int rows = await _dbcontext.SaveChangesAsync();
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

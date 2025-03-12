@@ -8,16 +8,16 @@ namespace Data.Repositories.User
 {
     public class GetByUsernameRepo : IGetByUsernameRepo
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetByUsernameRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<UserEntity?> GetByUsernameAsync(string username)
         {
-            UserModel? userModel = await _dbcontext.Users
+            UserModel? userModel = await _dbContext.Users
                 .FirstOrDefaultAsync(u => u.Username == username);
 
             if (userModel == null)

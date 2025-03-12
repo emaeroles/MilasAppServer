@@ -8,16 +8,16 @@ namespace Data.Repositories.Supply
 {
     public class GetByIdSupplyRepo : IGetByIdRepo<SupplyEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetByIdSupplyRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<SupplyEntity?> GetByIdAsync(Guid entityId)
         {
-            SupplyModel? supplyModel = await _dbcontext.Supplies
+            SupplyModel? supplyModel = await _dbContext.Supplies
                 .Include(s => s.Uom)
                 .FirstOrDefaultAsync(s => s.Id == entityId);
 

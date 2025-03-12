@@ -7,11 +7,11 @@ namespace Data.Repositories.ProductSupply
 {
     public class AddProductSupplyRepo : IAddRepo<ProductSupplyEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public AddProductSupplyRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> AddAsync(ProductSupplyEntity entity)
@@ -22,8 +22,8 @@ namespace Data.Repositories.ProductSupply
                 { "SupplyId", entity.SupplyId }
             };
 
-            _dbcontext.Set<Dictionary<string, object>>("ProductSupply").Add(productSupply);
-            int rows = await _dbcontext.SaveChangesAsync();
+            _dbContext.Set<Dictionary<string, object>>("ProductSupply").Add(productSupply);
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

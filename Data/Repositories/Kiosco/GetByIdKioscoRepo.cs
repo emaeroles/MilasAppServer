@@ -7,16 +7,16 @@ namespace Data.Repositories.Kiosco
 {
     public class GetByIdKioscoRepo : IGetByIdRepo<KioscoEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetByIdKioscoRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<KioscoEntity?> GetByIdAsync(Guid entityId)
         {
-            KioscoModel? kioscoModel = await _dbcontext.Kioscos.FindAsync(entityId);
+            KioscoModel? kioscoModel = await _dbContext.Kioscos.FindAsync(entityId);
 
             if (kioscoModel == null)
                 return null;

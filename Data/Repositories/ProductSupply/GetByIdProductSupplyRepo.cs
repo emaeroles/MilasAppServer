@@ -7,16 +7,16 @@ namespace Data.Repositories.ProductSupply
 {
     public class GetByIdProductSupplyRepo : IGetByIdComposedRepo<ProductSupplyEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetByIdProductSupplyRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<ProductSupplyEntity?> GetByIdComposedAsync(Guid entityId, Guid byEntityId)
         {
-            IQueryable<ProductSupplyEntity> queryProductSupply = _dbcontext.Supplies
+            IQueryable<ProductSupplyEntity> queryProductSupply = _dbContext.Supplies
                 .Where(s => s.Id == entityId && s.Products.Any(p => p.Id == byEntityId))
                 .Include(s => s.Uom)
                 .Where(s => s.IsActive)

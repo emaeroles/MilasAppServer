@@ -7,16 +7,16 @@ namespace Data.Repositories.Uom
 {
     public class GetAllUomRepo : IGetAllByActiveRepo<UomEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetAllUomRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<UomEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            IQueryable<UomEntity> queryUom = _dbcontext.Uoms
+            IQueryable<UomEntity> queryUom = _dbContext.Uoms
                 .Where(um => um.IsActive == isActive)
                 .Select(um => new UomEntity
                 {

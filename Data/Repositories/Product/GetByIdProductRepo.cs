@@ -7,16 +7,16 @@ namespace Data.Repositories.Product
 {
     public class GetByIdProductRepo : IGetByIdRepo<ProductEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetByIdProductRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<ProductEntity?> GetByIdAsync(Guid entityId)
         {
-            ProductModel? productModel = await _dbcontext.Products.FindAsync(entityId);
+            ProductModel? productModel = await _dbContext.Products.FindAsync(entityId);
 
             if (productModel == null)
                 return null;

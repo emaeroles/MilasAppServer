@@ -7,11 +7,11 @@ namespace Data.Repositories.KioscoProduct
 {
     public class AddKioscoProductRepo : IAddRepo<KioscoProductEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public AddKioscoProductRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> AddAsync(KioscoProductEntity entity)
@@ -24,8 +24,8 @@ namespace Data.Repositories.KioscoProduct
                 Stock = entity.Stock,
             };
 
-            _dbcontext.KioscoProducts.Add(kioscoProductModel);
-            int rows = await _dbcontext.SaveChangesAsync();
+            _dbContext.KioscoProducts.Add(kioscoProductModel);
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

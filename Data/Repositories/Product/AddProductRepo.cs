@@ -7,11 +7,11 @@ namespace Data.Repositories.Product
 {
     public class AddProductRepo : IAddRepo<ProductEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public AddProductRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> AddAsync(ProductEntity entity)
@@ -26,8 +26,8 @@ namespace Data.Repositories.Product
                 IsActive = entity.IsActive,
             };
 
-            _dbcontext.Products.Add(productModel);
-            int rows = await _dbcontext.SaveChangesAsync();
+            _dbContext.Products.Add(productModel);
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

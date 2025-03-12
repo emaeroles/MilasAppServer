@@ -7,11 +7,11 @@ namespace Data.Repositories.Kiosco
 {
     public class AddKioscoRepo : IAddRepo<KioscoEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public AddKioscoRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> AddAsync(KioscoEntity entity)
@@ -31,8 +31,8 @@ namespace Data.Repositories.Kiosco
                 IsActive = entity.IsActive,
             };
 
-            _dbcontext.Kioscos.Add(kioscoModel);
-            int rows = await _dbcontext.SaveChangesAsync();
+            _dbContext.Kioscos.Add(kioscoModel);
+            int rows = await _dbContext.SaveChangesAsync();
 
             if(rows == 0)
                 return false;

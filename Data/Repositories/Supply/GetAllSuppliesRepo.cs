@@ -7,16 +7,16 @@ namespace Data.Repositories.Supply
 {
     public class GetAllSuppliesRepo : IGetAllByActiveRepo<SupplyEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetAllSuppliesRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<SupplyEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            IQueryable<SupplyEntity> querySupply = _dbcontext.Supplies
+            IQueryable<SupplyEntity> querySupply = _dbContext.Supplies
                 .Where(s => s.IsActive == isActive)
                 .Select(s => new SupplyEntity
                 {

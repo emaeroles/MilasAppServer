@@ -7,16 +7,16 @@ namespace Data.Repositories.Kiosco
 {
     public class UpdateKioscoRepo : IUpdateRepo<KioscoEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public UpdateKioscoRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> UpdateAsync(KioscoEntity entity)
         {
-            KioscoModel? kioscoModel = await _dbcontext.Kioscos.FindAsync(entity.Id);
+            KioscoModel? kioscoModel = await _dbContext.Kioscos.FindAsync(entity.Id);
 
             if (kioscoModel == null)
                 throw new KeyNotFoundException($"No kiosco found with Id {entity.Id}.");
@@ -32,7 +32,7 @@ namespace Data.Repositories.Kiosco
             kioscoModel.Order = entity.Order;
             kioscoModel.IsActive = entity.IsActive;
 
-            int rows = await _dbcontext.SaveChangesAsync();
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

@@ -7,16 +7,16 @@ namespace Data.Repositories.Product
 {
     public class GetAllProductsRepo : IGetAllByActiveRepo<ProductEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetAllProductsRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<ProductEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            IQueryable<ProductEntity> queryProduct = _dbcontext.Products
+            IQueryable<ProductEntity> queryProduct = _dbContext.Products
                 .Where(p => p.IsActive == isActive)
                 .Select(p => new ProductEntity
                 {

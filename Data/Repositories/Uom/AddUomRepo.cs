@@ -7,11 +7,11 @@ namespace Data.Repositories.Uom
 {
     public class AddUomRepo : IAddRepo<UomEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public AddUomRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> AddAsync(UomEntity entity)
@@ -23,8 +23,8 @@ namespace Data.Repositories.Uom
                 IsActive = entity.IsActive,
             };
 
-            _dbcontext.Uoms.Add(uomModel);
-            int rows = await _dbcontext.SaveChangesAsync();
+            _dbContext.Uoms.Add(uomModel);
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

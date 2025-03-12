@@ -8,16 +8,16 @@ namespace Data.Repositories.User
 {
     public class GetAllUsersRepo : IGetAllByActiveRepo<UserEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetAllUsersRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<UserEntity>?> GetAllByActiveAsync(bool isActive)
         {
-            IQueryable<UserEntity> queryUser = _dbcontext.Users
+            IQueryable<UserEntity> queryUser = _dbContext.Users
                 .Where(u => u.IsActive == isActive)
                 .Select(u => new UserEntity
                 {

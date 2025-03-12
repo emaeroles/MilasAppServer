@@ -7,16 +7,16 @@ namespace Data.Repositories.Supply
 {
     public class UpdateSupplyRepo : IUpdateRepo<SupplyEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public UpdateSupplyRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> UpdateAsync(SupplyEntity entity)
         {
-            SupplyModel? supplyModel = await _dbcontext.Supplies.FindAsync(entity.Id);
+            SupplyModel? supplyModel = await _dbContext.Supplies.FindAsync(entity.Id);
 
             if (supplyModel == null)
                 throw new KeyNotFoundException($"No supply found with Id {entity.Id}.");
@@ -28,7 +28,7 @@ namespace Data.Repositories.Supply
             supplyModel.Yeild = entity.Yeild;
             supplyModel.IsActive = entity.IsActive;
 
-            int rows = await _dbcontext.SaveChangesAsync();
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

@@ -7,15 +7,15 @@ namespace Data.Repositories.Visit
 {
     public class GetStartingDateVisitsRepo : IGetStartingDateVisitsRepo
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetStartingDateVisitsRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
         public async Task<IEnumerable<VisitEntity>?> GetStartingDateVisitsAsync(DateOnly date, int quantity)
         {
-            IQueryable<VisitEntity> queryVisit = _dbcontext.Visits
+            IQueryable<VisitEntity> queryVisit = _dbContext.Visits
                 .Where(v => DateOnly.FromDateTime(v.Date) <= date)
                 .Take(quantity)
                 .OrderBy(v => v.Date)

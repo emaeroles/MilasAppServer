@@ -7,16 +7,16 @@ namespace Data.Repositories.KioscoProduct
 {
     public class GetByIdKioscoProductRepo : IGetByIdComposedRepo<KioscoProductEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetByIdKioscoProductRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<KioscoProductEntity?> GetByIdComposedAsync(Guid entityId, Guid byEntityId)
         {
-            IQueryable<KioscoProductEntity> queryKioscoProduct = _dbcontext.KioscoProducts
+            IQueryable<KioscoProductEntity> queryKioscoProduct = _dbContext.KioscoProducts
                 .Where(pk => pk.ProductId == entityId && pk.KioscoId == byEntityId)
                 .Include(pk => pk.Product)
                 .Select(pk => new KioscoProductEntity

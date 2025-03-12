@@ -7,16 +7,16 @@ namespace Data.Repositories.KioscoProduct
 {
     public class GetAllKioscoProductsRepo : IGetAllKioscoProductsRepo
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetAllKioscoProductsRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<KioscoProductEntity>?> GetAllKioscoProductsAsync(Guid kioscoId)
         {
-            IQueryable<KioscoProductEntity> queryKioscoProducts = _dbcontext.KioscoProducts
+            IQueryable<KioscoProductEntity> queryKioscoProducts = _dbContext.KioscoProducts
                 .Where(pk => pk.KioscoId == kioscoId)
                 .Include(pk => pk.Product)
                 .Where(pk => pk.Product.IsActive)

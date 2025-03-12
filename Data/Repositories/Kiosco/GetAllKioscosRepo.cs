@@ -7,16 +7,16 @@ namespace Data.Repositories.Kiosco
 {
     public class GetAllKioscosRepo : IGetAllByActiveAndUserRepo
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetAllKioscosRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<KioscoEntity>?> GetAllByActiveAndUserAsync(bool isActive, Guid userId)
         {
-            IQueryable<KioscoEntity> queryKiosco = _dbcontext.Kioscos
+            IQueryable<KioscoEntity> queryKiosco = _dbContext.Kioscos
                 .Where(k => k.IsActive == isActive && k.UserId == userId)
                 .Select(k => new KioscoEntity
                 {

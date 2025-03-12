@@ -6,16 +6,16 @@ namespace Data.Repositories.Product
 {
     public class UpdateProductRepo : IUpdateRepo<ProductEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public UpdateProductRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> UpdateAsync(ProductEntity entity)
         {
-            var productModel = await _dbcontext.Products.FindAsync(entity.Id);
+            var productModel = await _dbContext.Products.FindAsync(entity.Id);
 
             if (productModel == null)
                 throw new KeyNotFoundException($"No product found with Id {entity.Id}.");
@@ -26,7 +26,7 @@ namespace Data.Repositories.Product
             productModel.SalePrice = entity.SalePrice;
             productModel.IsActive = entity.IsActive;
 
-            int rows = await _dbcontext.SaveChangesAsync();
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

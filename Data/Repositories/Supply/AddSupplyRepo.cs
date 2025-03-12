@@ -7,11 +7,11 @@ namespace Data.Repositories.Supply
 {
     public class AddSupplyRepo : IAddRepo<SupplyEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public AddSupplyRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> AddAsync(SupplyEntity entity)
@@ -27,8 +27,8 @@ namespace Data.Repositories.Supply
                 IsActive = entity.IsActive,
             };
 
-            _dbcontext.Supplies.Add(supplyModel);
-            int rows = await _dbcontext.SaveChangesAsync();
+            _dbContext.Supplies.Add(supplyModel);
+            int rows = await _dbContext.SaveChangesAsync();
 
             if (rows == 0)
                 return false;

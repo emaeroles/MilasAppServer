@@ -7,16 +7,16 @@ namespace Data.Repositories.Uom
 {
     public class GetByIdUomRepo : IGetByIdRepo<UomEntity>
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetByIdUomRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<UomEntity?> GetByIdAsync(Guid entityId)
         {
-            UomModel? uomModel = await _dbcontext.Uoms.FindAsync(entityId);
+            UomModel? uomModel = await _dbContext.Uoms.FindAsync(entityId);
 
             if (uomModel == null)
                 return null;

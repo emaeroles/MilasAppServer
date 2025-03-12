@@ -7,16 +7,16 @@ namespace Data.Repositories.ProductSupply
 {
     public class GetAllProductSuppliesRepo : IGetAllProductSuppliesRepo
     {
-        private readonly AppDbContext _dbcontext;
+        private readonly AppDbContext _dbContext;
 
         public GetAllProductSuppliesRepo(AppDbContext dbContext)
         {
-            _dbcontext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<ProductSupplyEntity>?> GetAllProductSuppliesAsync(Guid productId)
         {
-            IQueryable<ProductSupplyEntity> queryProductSupplies = _dbcontext.Supplies
+            IQueryable<ProductSupplyEntity> queryProductSupplies = _dbContext.Supplies
                 .Where(s => s.Products.Any(p => p.Id == productId))
                 .Include(s => s.Uom)
                 .Where(s => s.IsActive)
