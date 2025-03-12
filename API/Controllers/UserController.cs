@@ -2,6 +2,7 @@
 using Application.DTOs.User;
 using Application.UseCases.User;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,7 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        //[Authorize]
+        [Authorize]
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetActivesUsers(
             UserUseCases userUseCases)
@@ -19,6 +20,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpGet("get-inactives")]
         public async Task<IActionResult> GetInactivesUsers(
             UserUseCases userUseCases)
@@ -27,6 +29,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddUser(
             [FromBody] AddUserInput addUserInput,
@@ -42,6 +45,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
+        [Authorize]
         [HttpPut("update")]
         public async Task<IActionResult> UpdateUser(
             [FromBody] UpdateUserInput updateUserInput,
@@ -56,6 +60,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveUser(
             Guid id,

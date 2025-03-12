@@ -2,6 +2,7 @@
 using Application.DTOs.Uom;
 using Application.UseCases.Uom;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,6 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class UomController : ControllerBase
     {
+        [Authorize]
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetActivesUom(
             UomUseCases uomUseCases)
@@ -18,6 +20,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpGet("get-inactives")]
         public async Task<IActionResult> GetInactivesUom(
             UomUseCases uomUseCases)
@@ -26,6 +29,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddUom(
             [FromBody] AddUomInput addUomInput,
@@ -41,6 +45,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
+        [Authorize]
         [HttpPut("update")]
         public async Task<IActionResult> UpdateUom(
             [FromBody] UpdateUomInput updateUomInput,
@@ -55,6 +60,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveUom(
             Guid id,

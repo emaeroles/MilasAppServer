@@ -2,6 +2,7 @@
 using Application.DTOs.ProductSupply;
 using Application.UseCases.ProductSupply;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,6 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class ProductSupplyController : ControllerBase
     {
+        [Authorize]
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetProductSupplies(
             Guid productId,
@@ -19,6 +21,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddProductSupply(
             [FromBody] AddProductSupplyInput addProductSupplyInput,
@@ -34,6 +37,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
+        [Authorize]
         [HttpDelete("{productId}/{supplyId}/delete")]
         public async Task<IActionResult> DeleteProductSupply(
             Guid productId,

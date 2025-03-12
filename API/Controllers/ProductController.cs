@@ -2,6 +2,7 @@
 using Application.DTOs.Product;
 using Application.UseCases.Product;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,6 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        [Authorize]
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetActivesProduct(
             ProductUseCases productUseCases)
@@ -18,6 +20,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpGet("get-inactives")]
         public async Task<IActionResult> GetInactivesProduct(
             ProductUseCases productUseCases)
@@ -26,6 +29,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpGet("{id}/cost")]
         public async Task<IActionResult> GetProductCost(
             Guid productId,
@@ -35,6 +39,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddProduct(
             [FromBody] AddProductInput addProductInput,
@@ -50,6 +55,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
+        [Authorize]
         [HttpPatch("update")]
         public async Task<IActionResult> UpdateProduct(
            [FromBody] UpdateProductInput updateProductInput,
@@ -64,6 +70,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveProduct(
            Guid id,

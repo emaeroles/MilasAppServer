@@ -2,6 +2,7 @@
 using Application.DTOs.Kiosco;
 using Application.UseCases.Kiosco;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,6 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class KioscoController : ControllerBase
     {
+        [Authorize]
         [HttpGet("{userId}/get-actives")]
         public async Task<IActionResult> GetActivesKiosco(
             Guid userId,
@@ -19,6 +21,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpGet("{userId}/get-inactives")]
         public async Task<IActionResult> GetInactivesKiosco(
             Guid userId,
@@ -28,6 +31,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddKiosco(
             [FromBody] AddKioscoInput addKioscoInput,
@@ -43,6 +47,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
+        [Authorize]
         [HttpPatch("update")]
         public async Task<IActionResult> UpdateKiosco(
             [FromBody] UpdateKioscoInput updateKioscoInput,
@@ -57,6 +62,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPatch("update-notes")]
         public async Task<IActionResult> UpdateKioscoNotes(
             [FromBody] UpdateKioscoNotesInput updateKioscoNotesInput,
@@ -71,6 +77,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPatch("update-dubt")]
         public async Task<IActionResult> UpdateKioscoDubt(
             [FromBody] UpdateKioscoDubtInput updateKioscoDubtInput,
@@ -85,6 +92,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPatch("update-order")]
         public async Task<IActionResult> UpdateKioscoOrder(
             [FromBody] UpdateKioscoOrderInput updateKioscoOrderInput,
@@ -99,6 +107,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("{id}/toggle-is-changes")]
         public async Task<IActionResult> ToggleKioscoIsChanges(
             Guid id,
@@ -108,6 +117,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveKiosco(
             Guid id,

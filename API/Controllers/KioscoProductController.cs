@@ -2,6 +2,7 @@
 using Application.DTOs.KioscoProduct;
 using Data.Repositories.KioscoProduct;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,6 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class KioscoProductController : ControllerBase
     {
+        [Authorize]
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetKioscoProduct(
             Guid kioscoId,
@@ -19,6 +21,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddKioscoProduct(
             [FromBody] AddKioscoProductInput addKioscoProductInput,
@@ -34,6 +37,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
+        [Authorize]
         [HttpPatch("update-price")]
         public async Task<IActionResult> UpdateKioscoProductPrice(
             [FromBody] UpdateKioscoProductPriceIuput updateKioscoProductPriceIuput,
@@ -48,6 +52,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpDelete("{kioscoId}/{productId}/delete")]
         public async Task<IActionResult> DeleteKioscoProduct(
             Guid kioscoId,

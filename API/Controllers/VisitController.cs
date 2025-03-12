@@ -2,6 +2,7 @@
 using Application.DTOs.Visit;
 using Application.UseCases.Visit;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,6 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class VisitController : ControllerBase
     {
+        [Authorize]
         [HttpGet("get-last-ten")]
         public async Task<IActionResult> GetLastTenVisits(
             //url: [HttpGet("{dateString}/{quantity/get")]
@@ -37,6 +39,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddVisit(
             [FromBody] AddVisitInput addVisitInput,

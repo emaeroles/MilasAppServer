@@ -2,6 +2,7 @@
 using Application.DTOs.Supply;
 using Application.UseCases.Supply;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,6 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class SuppliesController : ControllerBase
     {
+        [Authorize]
         [HttpGet("get-actives")]
         public async Task<IActionResult> GetActivesSupplies(
             SupplyUseCases supplyUseCases)
@@ -18,6 +20,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpGet("get-inactives")]
         public async Task<IActionResult> GetInactivesSupplies(
             SupplyUseCases supplyUseCases)
@@ -26,6 +29,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddSupply(
             [FromBody] AddSupplyInput addSupplyInput,
@@ -41,6 +45,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult, url);
         }
 
+        [Authorize]
         [HttpPatch("update")]
         public async Task<IActionResult> UpdateSupply(
             [FromBody] UpdateSupplyInput updateSupplyInput,
@@ -55,6 +60,7 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
+        [Authorize]
         [HttpPost("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActiveSupply(
             Guid id,
