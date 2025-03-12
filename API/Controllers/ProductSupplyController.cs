@@ -30,7 +30,7 @@ namespace API.Controllers
                 throw new ValidationException(validResult.Errors);
 
             var appResult = await productSupplyUseCases.AddProductSupplyUseCase.Execute(addProductSupplyInput);
-            string url = $"/api/supplies/product/get-actives";
+            string url = $"/api/product-supply/get-actives";
             return ResponseConverter.Execute(appResult, url);
         }
 

@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/visit")]
     [ApiController]
     public class VisitController : ControllerBase
     {
-        [HttpGet("get")]
+        [HttpGet("get-last-ten")]
         public async Task<IActionResult> GetLastTenVisits(
-            //string dateString,
+            //url: [HttpGet("{dateString}/{quantity/get")]
+            //string dateString, 
             //int quantity,
             VisitUseCases visitUseCases)
         {
@@ -47,7 +48,7 @@ namespace API.Controllers
                 throw new ValidationException(validResult.Errors);
 
             var appResult = await visitUseCases.AddVisitUseCase.Execute(addVisitInput);
-            string url = "";
+            string url = "/api/visit/get-last-ten";
             return ResponseConverter.Execute(appResult, url);
         }
     }

@@ -20,7 +20,7 @@ namespace Application.Factories
             return new AppResult(message, null, ResultState.Conflict);
         }
 
-        public static AppResult CreateCreated(string message, object data)
+        public static AppResult CreateCreated(string message, object? data)
         {
             return new AppResult(message, data, ResultState.Created);
         }

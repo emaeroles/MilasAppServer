@@ -45,7 +45,6 @@ namespace Application.UseCases.KioscoProduct
                 return ResultFactory.CreateNotFound("The product does not exist");
 
             KioscoProductEntity kioscoProductEntity = _mapper.Map<KioscoProductEntity>(addKioscoProductInput);
-            kioscoProductEntity.Id = Guid.NewGuid();
             kioscoProductEntity.KioscoSalePrice = productEntity.CostPrice;
             kioscoProductEntity.Stock = 0;
 
@@ -54,7 +53,7 @@ namespace Application.UseCases.KioscoProduct
             if (!isCreated)
                 return ResultFactory.CreateNotCreated("The product kiosco was not created");
 
-            return ResultFactory.CreateCreated("The product kiosco was created", kioscoProductEntity.Id);
+            return ResultFactory.CreateCreated("The product kiosco was created", null);
         }
     }
 }

@@ -2,7 +2,6 @@
 {
     public class KioscoProductEntity
     {
-        public Guid Id { get; set; }
         public Guid ProductId { get; set; }
         public Guid KioscoId { get; set; }
         public string Name { get; set; } = string.Empty;

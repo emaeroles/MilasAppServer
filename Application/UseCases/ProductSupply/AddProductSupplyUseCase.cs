@@ -45,14 +45,13 @@ namespace Application.UseCases.ProductSupply
                 return ResultFactory.CreateNotFound("The supply does not exist");
 
             ProductSupplyEntity productsupplyEntity = _mapper.Map<ProductSupplyEntity>(addProductSupplyInput);
-            productsupplyEntity.Id = Guid.NewGuid();
 
             bool isCreated = await _addProductSupplyRepo.AddAsync(productsupplyEntity);
 
             if (!isCreated)
                 return ResultFactory.CreateNotCreated("The product supply was not created");
 
-            return ResultFactory.CreateCreated("The product supply was created", productsupplyEntity.Id);
+            return ResultFactory.CreateCreated("The product supply was created", null);
         }
     }
 }

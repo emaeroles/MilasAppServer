@@ -37,7 +37,7 @@ namespace API.Controllers
                 throw new ValidationException(validResult.Errors);
 
             var appResult = await uomUseCases.AddUomUseCase.Execute(addUomInput);
-            string url = $"/api/supplies/get-actives";
+            string url = $"/api/unit-of-measure/get-actives";
             return ResponseConverter.Execute(appResult, url);
         }
 
