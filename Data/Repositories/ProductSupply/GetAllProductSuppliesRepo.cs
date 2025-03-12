@@ -22,9 +22,8 @@ namespace Data.Repositories.ProductSupply
                 .Where(s => s.IsActive)
                 .Select(s => new ProductSupplyEntity
                 {
-                    Id = s.Id,
                     SupplyId = s.Id,
-                    ProductId = s.Id,
+                    ProductId = productId,
                     Name = s.Name,
                     Quantity = s.Quantity,
                     Uom = new UomEntity()

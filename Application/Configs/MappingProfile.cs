@@ -37,7 +37,7 @@ namespace Application.Configs
 
             // Supply
             CreateMap<SupplyEntity, GetSupplyOutput>()
-                .ForMember(dest => dest.Uom, opt => opt.MapFrom(src => src.Uom.Unit));
+                .ForMember(dest => dest.UomId, opt => opt.MapFrom(src => src.Uom.Id));
             CreateMap<AddSupplyInput, SupplyEntity>()
                 .ForPath(dest => dest.Uom.Id, opt => opt.MapFrom(src => src.UomId));
             CreateMap<UpdateSupplyInput, SupplyEntity>()
@@ -46,7 +46,7 @@ namespace Application.Configs
             // SupplyProduct
             CreateMap<ProductSupplyEntity, GetSupplyOutput>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.SupplyId))
-                .ForMember(dest => dest.Uom, opt => opt.MapFrom(src => src.Uom.Unit));
+                .ForMember(dest => dest.UomId, opt => opt.MapFrom(src => src.Uom.Id));
             CreateMap<AddProductSupplyInput, ProductSupplyEntity>();
 
             // Uom
