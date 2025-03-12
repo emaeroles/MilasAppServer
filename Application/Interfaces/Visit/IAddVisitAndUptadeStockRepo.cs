@@ -6,6 +6,6 @@ namespace Application.Interfaces.Visit
     {
         public Task<bool> AddAndUpdateAsync(
             VisitEntity visitEntity, 
-            List<ProductKioscoEntity> productKioscoEntity);
+            List<KioscoProductEntity> productKioscoEntity);
     }
 }

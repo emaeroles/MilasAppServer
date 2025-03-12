@@ -17,9 +17,9 @@ public partial class ProductModel
 
     public bool IsActive { get; set; }
 
-    public virtual ICollection<ProductsKioscoModel> ProductsKioscos { get; set; } = new List<ProductsKioscoModel>();
-
-    public virtual ICollection<SuppliesProductModel> SuppliesProducts { get; set; } = new List<SuppliesProductModel>();
+    public virtual ICollection<KioscoProductModel> KioscoProducts { get; set; } = new List<KioscoProductModel>();
 
     public virtual ICollection<VisitDetailModel> VisitDetails { get; set; } = new List<VisitDetailModel>();
+
+    public virtual ICollection<SupplyModel> Supplies { get; set; } = new List<SupplyModel>();
 }

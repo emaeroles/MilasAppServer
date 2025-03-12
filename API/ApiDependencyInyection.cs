@@ -1,18 +1,18 @@
 ﻿using API.Validators.Auth;
 using API.Validators.Kiosco;
+using API.Validators.KioscoProduct;
 using API.Validators.Product;
-using API.Validators.ProductKiosco;
+using API.Validators.ProductSupply;
 using API.Validators.Supply;
-using API.Validators.SupplyProduct;
 using API.Validators.Uom;
 using API.Validators.User;
 using API.Validators.Visit;
 using Application.DTOs.Auth;
 using Application.DTOs.Kiosco;
+using Application.DTOs.KioscoProduct;
 using Application.DTOs.Product;
-using Application.DTOs.ProductKiosco;
+using Application.DTOs.ProductSupply;
 using Application.DTOs.Supply;
-using Application.DTOs.SupplyProduct;
 using Application.DTOs.Uom;
 using Application.DTOs.User;
 using Application.DTOs.Visit;
@@ -39,15 +39,15 @@ namespace API
             services.AddScoped<IValidator<UpdateProductInput>, UpdateProductValid>();
 
             // Product Kiosco Validation
-            services.AddScoped<IValidator<AddProductKioscoInput>, AddProductKioscoValid>();
-            services.AddScoped<IValidator<UpdateProductKioscoPriceIuput>, UpdateProductKioscoPriceValid>();
+            services.AddScoped<IValidator<AddKioscoProductInput>, AddKioscoProductValid>();
+            services.AddScoped<IValidator<UpdateKioscoProductPriceIuput>, UpdateKioscoProductPriceValid>();
 
             // Supply Validations
             services.AddScoped<IValidator<AddSupplyInput>, AddSupplyValid>();
             services.AddScoped<IValidator<UpdateSupplyInput>, UpdateSupplyValid>();
 
             // Supply Product Validations
-            services.AddScoped<IValidator<AddSupplyProductInput>, AddSupplyProductValid>();
+            services.AddScoped<IValidator<AddProductSupplyInput>, AddProductSupplyValid>();
 
             // Uom Validations
             services.AddScoped<IValidator<AddUomInput>, AddUomValid>();

@@ -1,8 +1,8 @@
 ﻿using Application.DTOs.Kiosco;
+using Application.DTOs.KioscoProduct;
 using Application.DTOs.Product;
-using Application.DTOs.ProductKiosco;
+using Application.DTOs.ProductSupply;
 using Application.DTOs.Supply;
-using Application.DTOs.SupplyProduct;
 using Application.DTOs.Uom;
 using Application.DTOs.User;
 using Application.DTOs.Visit;
@@ -31,9 +31,9 @@ namespace Application.Configs
             CreateMap<UpdateProductInput, ProductEntity>();
 
             // ProductKiosco
-            CreateMap<ProductKioscoEntity, GetProductKioscoOutput>()
+            CreateMap<KioscoProductEntity, GetKioscoProductOutput>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId));
-            CreateMap<AddProductKioscoInput, ProductKioscoEntity>();
+            CreateMap<AddKioscoProductInput, KioscoProductEntity>();
 
             // Supply
             CreateMap<SupplyEntity, GetSupplyOutput>()
@@ -44,10 +44,10 @@ namespace Application.Configs
                 .ForPath(dest => dest.Uom.Id, opt => opt.MapFrom(src => src.UomId));
 
             // SupplyProduct
-            CreateMap<SupplyProductEntity, GetSupplyOutput>()
+            CreateMap<ProductSupplyEntity, GetSupplyOutput>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.SupplyId))
                 .ForMember(dest => dest.Uom, opt => opt.MapFrom(src => src.Uom.Unit));
-            CreateMap<AddSupplyProductInput, SupplyProductEntity>();
+            CreateMap<AddProductSupplyInput, ProductSupplyEntity>();
 
             // Uom
             CreateMap<UomEntity, GetUomOutput>();

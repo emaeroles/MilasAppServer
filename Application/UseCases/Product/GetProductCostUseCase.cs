@@ -2,23 +2,23 @@
 using Application.DTOs.Product;
 using Application.Entities;
 using Application.Factories;
-using Application.Interfaces.SupplyProduct;
+using Application.Interfaces.ProductSupply;
 
 namespace Application.UseCases.Product
 {
     public class GetProductCostUseCase
     {
-        private readonly IGetAllSuppliesProductRepo _getAllSupliesProductRepo;
+        private readonly IGetAllProductSuppliesRepo _getAllProductSuppliesRepo;
 
-        public GetProductCostUseCase(IGetAllSuppliesProductRepo getAllSupliesProductRepo)
+        public GetProductCostUseCase(IGetAllProductSuppliesRepo getAllProductSuppliesRepo)
         {
-            _getAllSupliesProductRepo = getAllSupliesProductRepo;
+            _getAllProductSuppliesRepo = getAllProductSuppliesRepo;
         }
 
         public async Task<AppResult> Execute(Guid productId)
         {
-            IEnumerable<SupplyProductEntity>? listSuppliesProductEntity =
-                await _getAllSupliesProductRepo.GetAllSupliesProductAsync(productId);
+            IEnumerable<ProductSupplyEntity>? listSuppliesProductEntity =
+                await _getAllProductSuppliesRepo.GetAllProductSuppliesAsync(productId);
 
             if (listSuppliesProductEntity == null)
                 return ResultFactory.CreateNotFound("There are no supplies");

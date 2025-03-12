@@ -18,11 +18,9 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<KioscoModel> Kioscos { get; set; }
 
+    public virtual DbSet<KioscoProductModel> KioscoProducts { get; set; }
+
     public virtual DbSet<ProductModel> Products { get; set; }
-
-    public virtual DbSet<ProductsKioscoModel> ProductsKioscos { get; set; }
-
-    public virtual DbSet<SuppliesProductModel> SuppliesProducts { get; set; }
 
     public virtual DbSet<SupplyModel> Supplies { get; set; }
 
@@ -41,11 +39,12 @@ public partial class AppDbContext : DbContext
     {
         modelBuilder.Entity<KioscoModel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("kioscos_pkey");
+            entity.HasKey(e => e.Id).HasName("kioscos_id-pkey");
 
             entity.ToTable("kioscos");
 
             entity.Property(e => e.Id)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.Address)
                 .HasMaxLength(100)
@@ -54,7 +53,6 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("money")
                 .HasColumnName("dubt");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.IsEnableChanges).HasColumnName("is_enable_changes");
             entity.Property(e => e.Manager)
                 .HasMaxLength(50)
@@ -69,20 +67,46 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(30)
                 .HasColumnName("phone");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Kioscos)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("user_kioscos_user-id_fkey");
+                .HasConstraintName("user-kioscos-user_id-fkey");
+        });
+
+        modelBuilder.Entity<KioscoProductModel>(entity =>
+        {
+            entity.HasKey(e => new { e.KioscoId, e.ProductId }).HasName("kiosco_id-product_id-pkey");
+
+            entity.ToTable("kiosco_products");
+
+            entity.Property(e => e.KioscoId).HasColumnName("kiosco_id");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.KioscoPrice)
+                .HasColumnType("money")
+                .HasColumnName("kiosco_price");
+            entity.Property(e => e.Stock).HasColumnName("stock");
+
+            entity.HasOne(d => d.Kiosco).WithMany(p => p.KioscoProducts)
+                .HasForeignKey(d => d.KioscoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("kioscos-kiosco_products-kiosco_id-fkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.KioscoProducts)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("products-kiosco_products-product_id-fkey");
         });
 
         modelBuilder.Entity<ProductModel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("products_pkey");
+            entity.HasKey(e => e.Id).HasName("products_id-pkey");
 
             entity.ToTable("products");
 
             entity.Property(e => e.Id)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.CostPrice)
                 .HasColumnType("money")
@@ -95,63 +119,35 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.SalePrice)
                 .HasColumnType("money")
                 .HasColumnName("sale_price");
-        });
 
-        modelBuilder.Entity<ProductsKioscoModel>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("products_kiosco_pkey");
-
-            entity.ToTable("products_kiosco");
-
-            entity.Property(e => e.Id)
-                .HasColumnName("id");
-            entity.Property(e => e.KioscoId).HasColumnName("kiosco_id");
-            entity.Property(e => e.KioscoPrice)
-                .HasColumnType("money")
-                .HasColumnName("kiosco_price");
-            entity.Property(e => e.ProductId).HasColumnName("product_id");
-            entity.Property(e => e.Stock).HasColumnName("stock");
-
-            entity.HasOne(d => d.Kiosco).WithMany(p => p.ProductsKioscos)
-                .HasForeignKey(d => d.KioscoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("kioscos_products-kiosco_kiosco-id_fkey");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.ProductsKioscos)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("products_products-kiosco_product-id_fkey");
-        });
-
-        modelBuilder.Entity<SuppliesProductModel>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("supplies_product_pkey");
-
-            entity.ToTable("supplies_product");
-
-            entity.Property(e => e.Id)
-                .HasColumnName("id");
-            entity.Property(e => e.ProductId).HasColumnName("product_id");
-            entity.Property(e => e.SupplyId).HasColumnName("supply_id");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.SuppliesProducts)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("products_supplies-product_product-id_fkey");
-
-            entity.HasOne(d => d.Supply).WithMany(p => p.SuppliesProducts)
-                .HasForeignKey(d => d.SupplyId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("supplies_supplies-product_supply-id_fkey");
+            entity.HasMany(d => d.Supplies).WithMany(p => p.Products)
+                .UsingEntity<Dictionary<string, object>>(
+                    "ProductSupply",
+                    r => r.HasOne<SupplyModel>().WithMany()
+                        .HasForeignKey("SupplyId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("supplies-product_supplies-supply_id-fkey"),
+                    l => l.HasOne<ProductModel>().WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("products-product_supplies-product_id-fkey"),
+                    j =>
+                    {
+                        j.HasKey("ProductId", "SupplyId").HasName("product_id-supply_id-pkey");
+                        j.ToTable("product_supplies");
+                        j.IndexerProperty<Guid>("ProductId").HasColumnName("product_id");
+                        j.IndexerProperty<Guid>("SupplyId").HasColumnName("supply_id");
+                    });
         });
 
         modelBuilder.Entity<SupplyModel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("supplies_pkey");
+            entity.HasKey(e => e.Id).HasName("supplies_id-pkey");
 
             entity.ToTable("supplies");
 
             entity.Property(e => e.Id)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.CostPrice)
                 .HasColumnType("money")
@@ -167,16 +163,17 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Uom).WithMany(p => p.Supplies)
                 .HasForeignKey(d => d.UomId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("uoms_supplies-uom-id_fkey");
+                .HasConstraintName("uoms-supplies-uom_id-fkey");
         });
 
         modelBuilder.Entity<UomModel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("uoms_pkey");
+            entity.HasKey(e => e.Id).HasName("uoms_id-pkey");
 
             entity.ToTable("uoms");
 
             entity.Property(e => e.Id)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
             entity.Property(e => e.Unit)
@@ -186,11 +183,12 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<UserModel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("user_pkey");
+            entity.HasKey(e => e.Id).HasName("user_id-pkey");
 
             entity.ToTable("user");
 
             entity.Property(e => e.Id)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
@@ -206,11 +204,12 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<VisitModel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("visits_pkey");
+            entity.HasKey(e => e.Id).HasName("visits_id-pkey");
 
             entity.ToTable("visits");
 
             entity.Property(e => e.Id)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.Date)
                 .HasColumnType("timestamp without time zone")
@@ -220,16 +219,17 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Kiosco).WithMany(p => p.Visits)
                 .HasForeignKey(d => d.KioscoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("kioscos_visits_kiosco-id_fkey");
+                .HasConstraintName("kioscos-visits-kiosco_id-fkey");
         });
 
         modelBuilder.Entity<VisitDetailModel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("visit_details_pkey");
+            entity.HasKey(e => e.Id).HasName("visit_details_id-pkey");
 
             entity.ToTable("visit_details");
 
             entity.Property(e => e.Id)
+                .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.Changes).HasColumnName("changes");
             entity.Property(e => e.Has).HasColumnName("has");
@@ -244,12 +244,12 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.VisitDetails)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("products_visit-details_product-id_fkey");
+                .HasConstraintName("products-visit_details-product_id-fkey");
 
             entity.HasOne(d => d.Visit).WithMany(p => p.VisitDetails)
                 .HasForeignKey(d => d.VisitId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("visits_visit-details_visit-id_fkey");
+                .HasConstraintName("visits-visit_details-visit_id-fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\UseCases\ProductKiosco\" />
-    <Folder Include="Application\UseCases\SupplyProduct\" />
+    <Folder Include="Application\UseCases\KioscoProduct\" />
+    <Folder Include="Application\UseCases\ProductSupply\" />
     <Folder Include="Application\UseCases\Visit\" />
   </ItemGroup>
 

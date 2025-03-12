@@ -19,7 +19,7 @@ public partial class SupplyModel
 
     public bool IsActive { get; set; }
 
-    public virtual ICollection<SuppliesProductModel> SuppliesProducts { get; set; } = new List<SuppliesProductModel>();
-
     public virtual UomModel Uom { get; set; } = null!;
+
+    public virtual ICollection<ProductModel> Products { get; set; } = new List<ProductModel>();
 }

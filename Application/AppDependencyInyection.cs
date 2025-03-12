@@ -1,14 +1,14 @@
 ﻿using Application.Configs;
 using Application.Entities;
 using Application.UseCases.Kiosco;
+using Application.UseCases.KioscoProduct;
 using Application.UseCases.Product;
-using Application.UseCases.ProductKiosco;
+using Application.UseCases.ProductSupply;
 using Application.UseCases.Supply;
-using Application.UseCases.SupplyProduct;
 using Application.UseCases.Uom;
 using Application.UseCases.User;
 using Application.UseCases.Visit;
-using Data.Repositories.ProductKiosco;
+using Data.Repositories.KioscoProduct;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,9 +23,9 @@ namespace Application
 
             services.AddKioscoUseCases();
             services.AddProductsUseCases();
-            services.AddProductKioscoUseCases();
+            services.AddKioscoProductUseCases();
             services.AddSupplyUseCases();
-            services.AddSupplyProductUseCases();
+            services.AddProductSupplyUseCases();
             services.AddUomUseCases();
             services.AddUserUseCases();
             services.AddVisitUseCases();
@@ -62,14 +62,14 @@ namespace Application
             return services;
         }
 
-        private static IServiceCollection AddProductKioscoUseCases(this IServiceCollection services)
+        private static IServiceCollection AddKioscoProductUseCases(this IServiceCollection services)
         {
-            services.AddScoped<ProductKioscoUseCases>();
+            services.AddScoped<KioscoProductUseCases>();
 
-            services.AddScoped<GetAllProductsKioscoUseCase>();
-            services.AddScoped<AddProductKioscoUseCase>();
-            services.AddScoped<UpdateProductKioscoPriceUseCase>();
-            services.AddScoped<DeleteProductKioscoUseCase>();
+            services.AddScoped<GetAllKioscoProductsUseCase>();
+            services.AddScoped<AddKioscoProductUseCase>();
+            services.AddScoped<UpdateKioscoProductPriceUseCase>();
+            services.AddScoped<DeleteKioscoProductUseCase>();
 
             return services;
         }
@@ -86,13 +86,13 @@ namespace Application
             return services;
         }
 
-        private static IServiceCollection AddSupplyProductUseCases(this IServiceCollection services)
+        private static IServiceCollection AddProductSupplyUseCases(this IServiceCollection services)
         {
-            services.AddScoped<SupplyProductUseCases>();
+            services.AddScoped<ProductSupplyUseCases>();
 
-            services.AddScoped<GetAllSuppliesProductUseCase>();
-            services.AddScoped<AddSupplyProductUseCase>();
-            services.AddScoped<DeleteSupplyProductUseCase>();
+            services.AddScoped<GetAllProductSuppliesUseCase>();
+            services.AddScoped<AddProductSupplyUseCase>();
+            services.AddScoped<DeleteProductSupplyUseCase>();
 
             return services;
         }

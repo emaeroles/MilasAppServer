@@ -1,15 +1,15 @@
 ﻿using Application.Entities;
 using Application.Interfaces._01_Common;
-using Application.Interfaces.ProductKiosco;
-using Application.Interfaces.SupplyProduct;
+using Application.Interfaces.KioscoProduct;
+using Application.Interfaces.ProductSupply;
 using Application.Interfaces.User;
 using Application.Interfaces.Visit;
 using Data.Context;
 using Data.Repositories.Kiosco;
+using Data.Repositories.KioscoProduct;
 using Data.Repositories.Product;
-using Data.Repositories.ProductKiosco;
+using Data.Repositories.ProductSupply;
 using Data.Repositories.Supply;
-using Data.Repositories.SupplyProduct;
 using Data.Repositories.Uom;
 using Data.Repositories.User;
 using Data.Repositories.Visit;
@@ -25,9 +25,9 @@ namespace Data
 
             services.AddKioscoRepos();
             services.AddProductRepos();
-            services.AddProductKioscoRepos();
+            services.AddKioscoProductRepos();
             services.AddSupplyRepos();
-            services.AddSupplyProductsRepos();
+            services.AddProductSupplyRepos();
             services.AddUomRepos();
             services.AddUserRepos();
             services.AddVisitsRepos();
@@ -55,13 +55,13 @@ namespace Data
             return services;
         }
 
-        private static IServiceCollection AddProductKioscoRepos(this IServiceCollection services)
+        private static IServiceCollection AddKioscoProductRepos(this IServiceCollection services)
         {
-            services.AddScoped<IGetByIdComposedRepo<ProductKioscoEntity>, GetByIdProductKioscoRepo>();
-            services.AddScoped<IGetAllProductsKioscoRepo, GetAllProductsKioscoRepo>();
-            services.AddScoped<IAddRepo<ProductKioscoEntity>, AddProductKioscoRepo>();
-            services.AddScoped<IUpdateRepo<ProductKioscoEntity>, UpdateProductKioscoRepo>();
-            services.AddScoped<IDeleteComposedRepo<ProductKioscoEntity>, DeleteProductKioscoRepo>();
+            services.AddScoped<IGetByIdComposedRepo<KioscoProductEntity>, GetByIdKioscoProductRepo>();
+            services.AddScoped<IGetAllKioscoProductsRepo, GetAllKioscoProductsRepo>();
+            services.AddScoped<IAddRepo<KioscoProductEntity>, AddKioscoProductRepo>();
+            services.AddScoped<IUpdateRepo<KioscoProductEntity>, UpdateKioscoProductRepo>();
+            services.AddScoped<IDeleteComposedRepo<KioscoProductEntity>, DeleteKioscoProductRepo>();
 
             return services;
         }
@@ -76,12 +76,12 @@ namespace Data
             return services;
         }
 
-        private static IServiceCollection AddSupplyProductsRepos(this IServiceCollection services)
+        private static IServiceCollection AddProductSupplyRepos(this IServiceCollection services)
         {
-            services.AddScoped<IGetByIdComposedRepo<SupplyProductEntity>, GetByIdSupplyProductRepo>();
-            services.AddScoped<IGetAllSuppliesProductRepo, GetAllSuppliesProductRepo>();
-            services.AddScoped<IAddRepo<SupplyProductEntity>, AddSupplyProductRepo>();
-            services.AddScoped<IDeleteComposedRepo<SupplyProductEntity>, DeleteSupplyProductRepo>();
+            services.AddScoped<IGetByIdComposedRepo<ProductSupplyEntity>, GetByIdProductSupplyRepo>();
+            services.AddScoped<IGetAllProductSuppliesRepo, GetAllProductSuppliesRepo>();
+            services.AddScoped<IAddRepo<ProductSupplyEntity>, AddProductSupplyRepo>();
+            services.AddScoped<IDeleteComposedRepo<ProductSupplyEntity>, DeleteProductSupplyRepo>();
 
             return services;
         }

@@ -17,7 +17,7 @@ namespace Data.Repositories.Visit
 
         public async Task<bool> AddAndUpdateAsync(
             VisitEntity visitEntity, 
-            List<ProductKioscoEntity> listProductKioscoEntity)
+            List<KioscoProductEntity> listProductKioscoEntity)
         {
             using (var transaction = _dbcontext.Database.BeginTransaction())
             {
@@ -51,7 +51,7 @@ namespace Data.Repositories.Visit
                         _dbcontext.VisitDetails.Add(visitDetailModel);
                         await _dbcontext.SaveChangesAsync();
 
-                        ProductsKioscoModel? productKioscoModel = await _dbcontext.ProductsKioscos
+                        KioscoProductModel? productKioscoModel = await _dbcontext.KioscoProducts
                             .FirstOrDefaultAsync(pk => 
                                 pk.ProductId == listProductKioscoEntity[counter].ProductId &&
                                 pk.KioscoId == listProductKioscoEntity[counter].KioscoId);
@@ -66,7 +66,7 @@ namespace Data.Repositories.Visit
 
                         productKioscoModel.Stock = listProductKioscoEntity[counter].Stock;
 
-                        _dbcontext.ProductsKioscos.Update(productKioscoModel);
+                        _dbcontext.KioscoProducts.Update(productKioscoModel);
                         await _dbcontext.SaveChangesAsync();
 
                         counter++;
