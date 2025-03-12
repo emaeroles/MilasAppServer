@@ -40,7 +40,7 @@ namespace API.Controllers
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(), ClaimValueTypes.String)
                     }),
                     Expires = DateTime.UtcNow.AddMonths(int.Parse(_configuration["JwtSettings:TokenExpiryInMonths"]!)),
-                    // TODO: manejo correcto de Issuer y Audience
+                    // TODO: ver manejo correcto de Issuer y Audience
                     Issuer = _configuration["JwtSettings:Issuer"],
                     Audience = _configuration["JwtSettings:Audience"],
                     SigningCredentials = new SigningCredentials(

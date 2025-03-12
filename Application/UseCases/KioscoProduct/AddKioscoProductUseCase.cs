@@ -45,7 +45,7 @@ namespace Application.UseCases.KioscoProduct
                 return ResultFactory.CreateNotFound("The product does not exist");
 
             KioscoProductEntity kioscoProductEntity = _mapper.Map<KioscoProductEntity>(addKioscoProductInput);
-            kioscoProductEntity.KioscoSalePrice = productEntity.CostPrice;
+            kioscoProductEntity.KioscoSalePrice = productEntity.SalePrice;
             kioscoProductEntity.Stock = 0;
 
             bool isCreated = await _addKioscoProductRepo.AddAsync(kioscoProductEntity);
