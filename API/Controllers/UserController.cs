@@ -29,7 +29,6 @@ namespace API.Controllers
             return ResponseConverter.Execute(appResult);
         }
 
-        [Authorize]
         [HttpPost("add")]
         public async Task<IActionResult> AddUser(
             [FromBody] AddUserInput addUserInput,
