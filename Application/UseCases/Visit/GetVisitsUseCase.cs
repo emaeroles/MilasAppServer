@@ -20,13 +20,13 @@ namespace Application.UseCases.Visit
             _mapper = mapper;
         }
 
-        public async Task<AppResult> Execute(DateOnly date, int quantity)
+        public async Task<AppResult> Execute(Guid kioscoId, DateOnly date, int quantity)
         {
             if(quantity > 10)
                 return ResultFactory.CreateConflict("The quantity of visits should be less than 10");
 
             IEnumerable<VisitEntity>? listVisitsEntity = await _getStartingDateVisitsRepo
-                .GetStartingDateVisitsAsync(date, quantity);
+                .GetStartingDateVisitsAsync(kioscoId, date, quantity);
 
             if (listVisitsEntity == null)
                 return ResultFactory.CreateNotFound("There are no visits");

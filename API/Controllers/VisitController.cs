@@ -17,6 +17,7 @@ namespace API.Controllers
             //url: [HttpGet("{dateString}/{quantity/get")]
             //string dateString, 
             //int quantity,
+            Guid kioscoId,
             VisitUseCases visitUseCases)
         {
             //var validator = new InlineValidator<string>();
@@ -35,7 +36,7 @@ namespace API.Controllers
 
             int quantity = 10;
 
-            var appResult = await visitUseCases.GetVisitsUseCase.Execute(dateOnly, quantity);
+            var appResult = await visitUseCases.GetVisitsUseCase.Execute(kioscoId, dateOnly, quantity);
             return ResponseConverter.Execute(appResult);
         }
 

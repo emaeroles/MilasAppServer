@@ -13,10 +13,10 @@ namespace Data.Repositories.Visit
         {
             _dbContext = dbContext;
         }
-        public async Task<IEnumerable<VisitEntity>?> GetStartingDateVisitsAsync(DateOnly date, int quantity)
+        public async Task<IEnumerable<VisitEntity>?> GetStartingDateVisitsAsync(Guid kioscoId, DateOnly date, int quantity)
         {
             IQueryable<VisitEntity> queryVisit = _dbContext.Visits
-                .Where(v => DateOnly.FromDateTime(v.Date) <= date)
+                .Where(v => DateOnly.FromDateTime(v.Date) <= date && kioscoId == v.KioscoId)
                 .Take(quantity)
                 .OrderBy(v => v.Date)
                 .Select(v => new VisitEntity
