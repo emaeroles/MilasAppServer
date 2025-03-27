@@ -38,13 +38,13 @@ namespace Application.UseCases.Visit
             visitEntity.Kiosco = kioscoEntity;
             visitEntity.Date = DateTime.Now;
 
-            IEnumerable<KioscoProductEntity>? listKioscoProductEntitiesCheck = await _getAllKioscoProductsRepo
+            IEnumerable<KioscoProductEntity>? listKioscoProductEntitiesExist = await _getAllKioscoProductsRepo
                 .GetAllKioscoProductsAsync(addVisitInput.KioscoId);
 
-            if(listKioscoProductEntitiesCheck == null)
+            if(listKioscoProductEntitiesExist == null)
                 return ResultFactory.CreateNotFound("The kiosco has no products.");
 
-            if (addVisitInput.VisitDetails.Count() != listKioscoProductEntitiesCheck.Count())
+            if (addVisitInput.VisitDetails.Count() != listKioscoProductEntitiesExist.Count())
                 return ResultFactory.CreateConflict("Should send a detailed list with all the " +
                     "products from the kiosco");
 
