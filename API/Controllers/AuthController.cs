@@ -50,7 +50,8 @@ namespace API.Controllers
 
                 AuthOutput authOutput = new AuthOutput();
                 authOutput.Token = tokenHandler.WriteToken(token);
-                
+                authOutput.User = appResult.Data!;
+
                 return Ok(new ApiResponse(true, appResult.Message, authOutput));
             }
             return Unauthorized(new ApiResponse(false, appResult.Message, null));

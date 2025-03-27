@@ -50,9 +50,9 @@ namespace Application.Factories
             return new AppResult(message, null, ResultState.NotDeleted);
         }
 
-        public static AppResult CreateAuthorized(string message)
+        public static AppResult CreateAuthorized(string message, object data)
         {
-            return new AppResult(message, null, ResultState.Authorized);
+            return new AppResult(message, data, ResultState.Authorized);
         }
 
         public static AppResult CreateUnauthorized(string message)
