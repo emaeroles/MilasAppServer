@@ -1,7 +1,6 @@
 ﻿using API.Response;
 using FluentValidation;
 using Serilog;
-using System.Net;
 using System.Text.Json;
 
 namespace API.Middleware
@@ -34,11 +33,11 @@ namespace API.Middleware
         {
             var response = context.Response;
             response.ContentType = "application/json";
-            response.StatusCode = (int)HttpStatusCode.BadRequest;
+            response.StatusCode = StatusCodes.Status400BadRequest;
 
             var errors = ex.Errors.Select(e => e.ErrorMessage);
             var apiResp = JsonSerializer.Serialize(new ApiResponse(
-                false,
+                StatusCodes.Status400BadRequest,
                 "Errors in data format validation.",
                 errors));
 
@@ -52,10 +51,10 @@ namespace API.Middleware
 
             var response = context.Response;
             response.ContentType = "application/json";
-            response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            response.StatusCode = StatusCodes.Status500InternalServerError;
 
             var apiResp = JsonSerializer.Serialize(new ApiResponse(
-                false,
+                StatusCodes.Status500InternalServerError,
                 "A server error has occurred. Please contact the developer.",
                 null));
 

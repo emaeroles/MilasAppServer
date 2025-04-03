@@ -83,7 +83,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
             .ToList();
 
         var apiResp = new ApiResponse(
-            false, 
+            StatusCodes.Status400BadRequest, 
             "Error in data type validation. You can find the correct format in the documentation.",
             errors);
 

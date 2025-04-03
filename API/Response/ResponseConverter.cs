@@ -15,20 +15,20 @@ namespace API.Response
                 case ResultState.Updated:
                 case ResultState.Deleted:
                     return new OkObjectResult(
-                        new ApiResponse(true, appResp.Message, appResp.Data));
+                        new ApiResponse(StatusCodes.Status200OK, appResp.Message, appResp.Data));
 
                 case ResultState.Created:
                     return new CreatedResult(
                         url,
-                        new ApiResponse(true, appResp.Message, appResp.Data));
+                        new ApiResponse(StatusCodes.Status201Created, appResp.Message, appResp.Data));
 
                 case ResultState.NotFound:
                     return new NotFoundObjectResult(
-                        new ApiResponse(false, appResp.Message, null));
+                        new ApiResponse(StatusCodes.Status404NotFound, appResp.Message, null));
 
                 case ResultState.Conflict:
                     return new ConflictObjectResult(
-                        new ApiResponse(false, appResp.Message, null));
+                        new ApiResponse(StatusCodes.Status409Conflict, appResp.Message, null));
 
                 case ResultState.NotCreated:
                 case ResultState.NotUpdated:
@@ -36,18 +36,19 @@ namespace API.Response
                     Log.Error($"Something went wrong... {appResp.Message}");
                     Log.CloseAndFlush();
                     return new ObjectResult(
-                        new ApiResponse(false, appResp.Message, null))
+                        new ApiResponse(StatusCodes.Status500InternalServerError, appResp.Message, null))
                     {
-                        StatusCode = 500
+                        StatusCode = StatusCodes.Status500InternalServerError
                     };
 
                 default:
                     Log.Error($"Something went wrong... {appResp.Message}");
                     Log.CloseAndFlush();
                     return new ObjectResult(
-                        new ApiResponse(false, "Internal Server Error from ResultFactory", null))
+                        new ApiResponse(StatusCodes.Status500InternalServerError, 
+                            "Internal Server Error from ResultFactory", null))
                     {
-                        StatusCode = 500
+                        StatusCode = StatusCodes.Status500InternalServerError
                     };
             }
         }

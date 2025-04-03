@@ -57,9 +57,9 @@ namespace API.Controllers
                     Expires = DateTime.UtcNow.AddMonths(int.Parse(_configuration["JwtSettings:TokenExpiryInMonths"]!))
                 });
 
-                return Ok(new ApiResponse(true, appResult.Message, appResult.Data));
+                return Ok(new ApiResponse(StatusCodes.Status200OK, appResult.Message, appResult.Data));
             }
-            return Unauthorized(new ApiResponse(false, appResult.Message, null));
+            return Unauthorized(new ApiResponse(StatusCodes.Status401Unauthorized, appResult.Message, null));
         }
     }
 }

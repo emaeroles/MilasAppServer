@@ -2,13 +2,13 @@
 {
     public class ApiResponse
     {
-        public bool IsSuccess { get; set; }
+        public int Status { get; set; }
         public string Message { get; set; } = string.Empty;
         public object? Data { get; set; } = null;
 
-        public ApiResponse(bool isSucced, string message, object? data)
+        public ApiResponse(int status, string message, object? data)
         {
-            IsSuccess = isSucced;
+            Status = status;
             Message = message;
             Data = data;
         }
