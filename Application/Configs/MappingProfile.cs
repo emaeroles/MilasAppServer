@@ -31,8 +31,7 @@ namespace Application.Configs
             CreateMap<UpdateProductInput, ProductEntity>();
 
             // ProductKiosco
-            CreateMap<KioscoProductEntity, GetKioscoProductOutput>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId));
+            CreateMap<KioscoProductEntity, GetKioscoProductOutput>();
             CreateMap<AddKioscoProductInput, KioscoProductEntity>();
 
             // Supply
