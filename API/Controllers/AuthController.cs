@@ -40,19 +40,24 @@ namespace API.Controllers
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(), ClaimValueTypes.String)
                     }),
                     Expires = DateTime.UtcNow.AddMonths(int.Parse(_configuration["JwtSettings:TokenExpiryInMonths"]!)),
-                    // TODO: ver manejo correcto de Issuer y Audience
                     Issuer = _configuration["JwtSettings:Issuer"],
                     Audience = _configuration["JwtSettings:Audience"],
                     SigningCredentials = new SigningCredentials(
                         new SymmetricSecurityKey(bytekey), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var token = tokenHandler.CreateToken(tokenDescription);
+                var tokenString = tokenHandler.WriteToken(token);
 
-                AuthOutput authOutput = new AuthOutput();
-                authOutput.Token = tokenHandler.WriteToken(token);
-                authOutput.User = appResult.Data!;
+                Response.Cookies.Append("token", tokenString, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Path = "/",
+                    Expires = DateTime.UtcNow.AddMonths(int.Parse(_configuration["JwtSettings:TokenExpiryInMonths"]!))
+                });
 
-                return Ok(new ApiResponse(true, appResult.Message, authOutput));
+                return Ok(new ApiResponse(true, appResult.Message, appResult.Data));
             }
             return Unauthorized(new ApiResponse(false, appResult.Message, null));
         }

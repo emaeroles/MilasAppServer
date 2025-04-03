@@ -5,6 +5,7 @@ using API.Response;
 using Application;
 using Data;
 using Data.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -35,9 +36,24 @@ builder.Services
 // JWT
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt =>
 {
-    var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]!));
+    opt.RequireHttpsMetadata = true;
 
-    opt.RequireHttpsMetadata = false;
+    opt.Events = new JwtBearerEvents
+    {
+       OnMessageReceived = context =>
+       {
+           if (string.IsNullOrEmpty(context.Token))
+           {
+               var cookie = context.Request.Cookies["token"];
+               if (!string.IsNullOrEmpty(cookie))
+               {
+                   context.Token = cookie;
+               }
+           }
+           return Task.CompletedTask;
+       }
+    };
+
     opt.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateLifetime = true,
@@ -49,7 +65,8 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(opt =>
         ValidAudience = builder.Configuration["JwtSettings:Audience"],
 
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = signingKey
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]!))
     };
 });
 
@@ -159,20 +176,21 @@ if (app.Environment.IsDevelopment()
 }
 
 // CORS
-app.UseCors((config) =>
-{
-    //config.WithOrigins(builder.Configuration["CorsSettings:AllowedOrigin"]!);
-    config.AllowAnyOrigin();
-    config.AllowAnyHeader();
-    config.AllowAnyMethod();
-    //config.AllowCredentials();
-});
+//app.UseCors((config) =>
+//{
+//    config.WithOrigins(builder.Configuration["CorsSettings:AllowedOrigin"]!);
+//    //config.AllowAnyOrigin();
+//    config.AllowAnyHeader();
+//    config.AllowAnyMethod();
+//    config.AllowCredentials();
+//});
 
 app.UseHttpsRedirection();
 
 // Middleeare
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
