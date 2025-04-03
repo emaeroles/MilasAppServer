@@ -60,12 +60,12 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPost("{id}/toggle-active")]
+        [HttpPost("{userId}/toggle-active")]
         public async Task<IActionResult> ToggleActiveUser(
-            Guid id,
+            Guid userId,
             UserUseCases userUseCases)
         {
-            var appResult = await userUseCases.ToggleActiveUserUseCase.Execute(id);
+            var appResult = await userUseCases.ToggleActiveUserUseCase.Execute(userId);
             return ResponseConverter.Execute(appResult);
         }
     }

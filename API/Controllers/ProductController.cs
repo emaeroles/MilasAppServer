@@ -30,7 +30,7 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpGet("{id}/cost")]
+        [HttpGet("{productId}/cost")]
         public async Task<IActionResult> GetProductCost(
             Guid productId,
             ProductUseCases productUseCases)
@@ -71,12 +71,12 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPost("{id}/toggle-active")]
+        [HttpPost("{productId}/toggle-active")]
         public async Task<IActionResult> ToggleActiveProduct(
-           Guid id,
+           Guid productId,
            ProductUseCases productUseCases)
         {
-            var appResult = await productUseCases.ToggleActiveProductUseCase.Execute(id);
+            var appResult = await productUseCases.ToggleActiveProductUseCase.Execute(productId);
             return ResponseConverter.Execute(appResult);
         }
     }

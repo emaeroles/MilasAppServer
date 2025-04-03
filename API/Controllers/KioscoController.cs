@@ -108,22 +108,22 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPost("{id}/toggle-is-changes")]
+        [HttpPost("{kioscoId}/toggle-is-changes")]
         public async Task<IActionResult> ToggleKioscoIsChanges(
-            Guid id,
+            Guid kioscoId,
             KioscoUseCases kioscoUseCases)
         {
-            var appResult = await kioscoUseCases.ToggleKioscoIsChangesUseCase.Execute(id);
+            var appResult = await kioscoUseCases.ToggleKioscoIsChangesUseCase.Execute(kioscoId);
             return ResponseConverter.Execute(appResult);
         }
 
         [Authorize]
-        [HttpPost("{id}/toggle-active")]
+        [HttpPost("{kioscoId}/toggle-active")]
         public async Task<IActionResult> ToggleActiveKiosco(
-            Guid id,
+            Guid kioscoId,
             KioscoUseCases kioscoUseCases)
         {
-            var appResult = await kioscoUseCases.ToggleActiveKioscoUseCase.Execute(id);
+            var appResult = await kioscoUseCases.ToggleActiveKioscoUseCase.Execute(kioscoId);
             return ResponseConverter.Execute(appResult);
         }
     }
