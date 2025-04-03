@@ -37,7 +37,7 @@ namespace Application.UseCases.KioscoProduct
                 return ResultFactory.CreateNotFound("There are no products");
 
             IEnumerable<GetKioscoProductOutput> listGetKioscoProductOutput = listKioscoProductsEntity
-                .Select(supplyEntity => _mapper.Map<GetKioscoProductOutput>(supplyEntity));
+                .Select(kioscoProductEntity => _mapper.Map<GetKioscoProductOutput>(kioscoProductEntity));
 
             return ResultFactory.CreateData("Products", listGetKioscoProductOutput);
         }
