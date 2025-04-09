@@ -94,10 +94,11 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     };
 });
 
-// Use PascalCase in JesonResult
+// Use CamelCase in JesonResult
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.PropertyNamingPolicy = 
+        System.Text.Json.JsonNamingPolicy.CamelCase;
 });
 
 // Serilog
